@@ -1,4 +1,6 @@
 .employee {
+  display: flex;
+  flex-direction: column;
   border-radius: 1rem;
   padding: 2rem;
   background-color: var(--background);
@@ -6,6 +8,10 @@
 }
 
 .employee__title {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  font-weight: bold;
   height: auto;
   padding-bottom: 1.2rem;
   width: 100%;
@@ -16,14 +22,29 @@
 }
 
 .employee__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   height: auto;
   width: 100%;
   flex-grow: 1;
   box-sizing: border-box;
   font-size: 1.2rem;
 
-  * {
+  .employee__row {
+    display: flex;
+    flex-direction: row;
     gap: 0.5rem;
+  }
+
+  .employee__column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .employee__label {
+    font-weight: bold;
   }
 
   .employee__details-input {

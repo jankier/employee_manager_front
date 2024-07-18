@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Employee } from '../../types';
+import { Employee } from '../../models/employee.model';
 import { NgForOf, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class EmployeeComponent {
   employee: Employee = {
-    id: 1,
+    id: '1',
     name: 'John',
     surname: 'Doe',
     employment_date: '2020-02-10',

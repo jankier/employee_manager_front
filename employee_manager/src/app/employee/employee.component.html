@@ -1,14 +1,14 @@
-<section class="employee column">
-  <div class="employee__title row gap-1 bold">
+<section class="employee">
+  <div class="employee__title">
     <p>{{ employee.name | uppercase }} {{ employee.surname | uppercase }}</p>
   </div>
-  <div class="employee__details column gap-05">
-    <div class="row">
-      <span class="bold">Id</span>
-      <span>#{{ employee.id }}</span>
+  <div class="employee__details">
+    <div class="employee__row">
+      <span class="employee__label">Id</span>
+      <span>{{ employee.id }}</span>
     </div>
-    <div class="column">
-      <label class="bold" for="name">Name</label>
+    <div class="employee__column">
+      <label class="employee__label" for="name">Name</label>
       <input
         class="employee__details-input"
         id="name"
@@ -16,8 +16,8 @@
         placeholder="name"
       />
     </div>
-    <div class="column">
-      <label class="bold" for="surname">Surname</label>
+    <div class="employee__column">
+      <label class="employee__label" for="surname">Surname</label>
       <input
         class="employee__details-input"
         id="surname"
@@ -25,8 +25,8 @@
         placeholder="surname"
       />
     </div>
-    <div class="column">
-      <label class="bold" for="date">Date of employment</label>
+    <div class="employee__column">
+      <label class="employee__label" for="date">Date of employment</label>
       <input
         type="date"
         class="employee__details-input"
@@ -35,16 +35,16 @@
         [(ngModel)]="employee.employment_date"
       />
     </div>
-    <div class="row">
-      <span class="bold">Skills</span>
+    <div class="employee__row">
+      <span class="employee__label">Skills</span>
       <span *ngFor="let skill of employee.skills">{{ skill }},</span>
     </div>
-    <div class="row">
-      <span class="bold">Projects</span>
+    <div class="employee__row">
+      <span class="employee__label">Projects</span>
       <span *ngFor="let project of employee.projects"> {{ project }}, </span>
     </div>
-    <div class="column">
-      <label class="bold" for="manager">Manager</label>
+    <div class="employee__column">
+      <label class="employee__label" for="manager">Manager</label>
       <input
         class="employee__details-input"
         id="manager"

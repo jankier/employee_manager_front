@@ -15,7 +15,7 @@ html,
 body,
 app-root {
   height: 100%;
-  font-weight: 400;
+  font-weight: normal;
   color: var(--text);
   font-family: Poppins, sans-serif;
   background-color: var(--background);
@@ -29,30 +29,4 @@ app-root {
   --primary: #5da267;
   --secondary: #a3d1a9;
   --accent: #7dc788;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.gap-05 {
-  gap: 0.5rem;
-}
-
-.gap-1 {
-  gap: 1rem;
-}
-
-.gap-2 {
-  gap: 2rem;
-}
-
-.bold {
-  font-weight: 700;
 }
