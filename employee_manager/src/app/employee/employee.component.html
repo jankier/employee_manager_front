@@ -1,56 +1,86 @@
-<section class="employee">
-  <div class="employee__title">
-    <p>{{ employee.name | uppercase }} {{ employee.surname | uppercase }}</p>
+<section class="employee__component">
+  <div class="employees">
+    <div class="employees__title">
+      <p>EMPLOYEES</p>
+    </div>
+    <ul class="employees__list">
+      @for (employee of employees; track employee) {
+        <li class="employees__list-element">
+          <button
+            class="employees__list-button"
+            type="button"
+            (click)="onSelect(employee)"
+            [class.selected]="employee === selectedEmployee"
+          >
+            <span>{{ employee.name }} {{ employee.surname }}</span>
+          </button>
+        </li>
+      }
+    </ul>
   </div>
-  <div class="employee__details">
-    <div class="employee__row">
-      <span class="employee__label">Id</span>
-      <span>{{ employee.id }}</span>
+  @if (selectedEmployee) {
+    <div class="employee">
+      <div class="employee__title">
+        <p>
+          {{ selectedEmployee.name | uppercase }}
+          {{ selectedEmployee.surname | uppercase }}
+        </p>
+      </div>
+      <div class="employee__details">
+        <div class="employee__row">
+          <span class="employee__label">Id</span>
+          <span>{{ selectedEmployee.id }}</span>
+        </div>
+        <div class="employee__column">
+          <label class="employee__label" for="name">Name</label>
+          <input
+            class="employee__details-input"
+            id="name"
+            [(ngModel)]="selectedEmployee.name"
+            placeholder="name"
+          />
+        </div>
+        <div class="employee__column">
+          <label class="employee__label" for="surname">Surname</label>
+          <input
+            class="employee__details-input"
+            id="surname"
+            [(ngModel)]="selectedEmployee.surname"
+            placeholder="surname"
+          />
+        </div>
+        <div class="employee__column">
+          <label class="employee__label" for="date">Date of employment</label>
+          <input
+            type="date"
+            class="employee__details-input"
+            id="date"
+            [value]="selectedEmployee.employment_date"
+            [(ngModel)]="selectedEmployee.employment_date"
+          />
+        </div>
+        <div class="employee__row">
+          <span class="employee__label">Skills</span>
+          @for (skill of selectedEmployee.skills; track skill) {
+            <span>{{ skill }} | </span>
+          }
+        </div>
+        <div class="employee__row">
+          <span class="employee__label">Projects</span>
+          @for (project of selectedEmployee.projects; track project) {
+            <span> {{ project }} | </span>
+          }
+        </div>
+        <div class="employee__column">
+          <label class="employee__label" for="manager">Manager</label>
+          <input
+            class="employee__details-input"
+            id="manager"
+            [(ngModel)]="selectedEmployee.manager"
+            placeholder="manager"
+          />
+        </div>
+      </div>
     </div>
-    <div class="employee__column">
-      <label class="employee__label" for="name">Name</label>
-      <input
-        class="employee__details-input"
-        id="name"
-        [(ngModel)]="employee.name"
-        placeholder="name"
-      />
-    </div>
-    <div class="employee__column">
-      <label class="employee__label" for="surname">Surname</label>
-      <input
-        class="employee__details-input"
-        id="surname"
-        [(ngModel)]="employee.surname"
-        placeholder="surname"
-      />
-    </div>
-    <div class="employee__column">
-      <label class="employee__label" for="date">Date of employment</label>
-      <input
-        type="date"
-        class="employee__details-input"
-        id="date"
-        [valueAsDate]="employee.employment_date"
-        [(ngModel)]="employee.employment_date"
-      />
-    </div>
-    <div class="employee__row">
-      <span class="employee__label">Skills</span>
-      <span *ngFor="let skill of employee.skills">{{ skill }},</span>
-    </div>
-    <div class="employee__row">
-      <span class="employee__label">Projects</span>
-      <span *ngFor="let project of employee.projects"> {{ project }}, </span>
-    </div>
-    <div class="employee__column">
-      <label class="employee__label" for="manager">Manager</label>
-      <input
-        class="employee__details-input"
-        id="manager"
-        [(ngModel)]="employee.manager"
-        placeholder="manager"
-      />
-    </div>
-  </div>
+  }
 </section>
