@@ -31,7 +31,8 @@ app-root {
   --accent: #7dc788;
 }
 
-app-employee {
+app-employee,
+app-project-page {
   display: flex;
   flex-grow: 1;
 }

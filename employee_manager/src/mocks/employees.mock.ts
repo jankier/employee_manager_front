@@ -18,7 +18,7 @@ export const EMPLOYEES: Employee[] = [
     surname: 'Smith',
     employment_date: '2021-03-08',
     skills: [Skills.FIGMA, Skills.REACT, Skills.NODE],
-    projects: [Projects.ALIRORBANK, Projects.PZU],
+    projects: [Projects.ALIORBANK, Projects.PZU],
     manager: 'Marry Poppins',
   },
   {
@@ -27,7 +27,7 @@ export const EMPLOYEES: Employee[] = [
     surname: 'White',
     employment_date: '2024-01-11',
     skills: [Skills.DOCKER, Skills.JAVA, Skills.SPRINGBOOT],
-    projects: [Projects.SANTANDER, Projects.ALIRORBANK],
+    projects: [Projects.SANTANDER, Projects.ALIORBANK],
     manager: 'Marry Poppins',
   },
   {
@@ -63,7 +63,7 @@ export const EMPLOYEES: Employee[] = [
     surname: 'Sanchez',
     employment_date: '2021-04-15',
     skills: [Skills.MYSQL, Skills.JAVA, Skills.SPRINGBOOT],
-    projects: [Projects.ALIRORBANK, Projects.ORLEN],
+    projects: [Projects.ALIORBANK, Projects.ORLEN],
     manager: 'Jerry Smith',
   },
   {

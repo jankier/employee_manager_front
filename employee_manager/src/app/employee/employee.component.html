@@ -62,13 +62,13 @@
         <div class="employee__row">
           <span class="employee__label">Skills</span>
           @for (skill of selectedEmployee.skills; track skill) {
-            <span>{{ skill }} | </span>
+            <app-skill [skill]="skill"></app-skill>
           }
         </div>
         <div class="employee__row">
           <span class="employee__label">Projects</span>
           @for (project of selectedEmployee.projects; track project) {
-            <span> {{ project }} | </span>
+            <app-project [project]="project"></app-project>
           }
         </div>
         <div class="employee__column">

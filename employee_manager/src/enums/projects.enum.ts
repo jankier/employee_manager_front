@@ -1,7 +1,7 @@
 export enum Projects {
   PZU = 'PZU',
   ORLEN = 'Orlen',
-  ALIRORBANK = 'Aliorbank',
+  ALIORBANK = 'Aliorbank',
   SANTANDER = 'Santander bank',
   LOT = 'LOT',
   PGNIG = 'PGNiG',
