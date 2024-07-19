@@ -9,7 +9,7 @@
     flex-direction: column;
     flex-basis: 50%;
 
-    .employees__title {
+    &__title {
       display: flex;
       flex-direction: row;
       font-weight: bold;
@@ -21,37 +21,37 @@
       justify-content: center;
     }
 
-    .employees__list {
+    &__list {
       display: flex;
       flex-direction: column;
       list-style-type: none;
       padding: 0;
       gap: 0.5rem;
+    }
 
-      .employees__list-element {
-        display: flex;
-        justify-content: center;
-      }
+    &__list-element {
+      display: flex;
+      justify-content: center;
+    }
 
-      .employees__list-button {
-        font-size: 1rem;
-        border-radius: 0.3rem;
-        outline: none;
-        width: 10rem;
-        padding: 0.4rem;
-        cursor: pointer;
-        border-style: none;
-        background-color: var(--primary);
-        transition: background-color 0.2s ease-in;
-      }
+    &__list-button {
+      font-size: 1rem;
+      border-radius: 0.3rem;
+      outline: none;
+      width: 10rem;
+      padding: 0.4rem;
+      cursor: pointer;
+      border-style: none;
+      background-color: var(--primary);
+      transition: background-color 0.2s ease-in;
+    }
 
-      .employees__list-button:hover {
-        background-color: var(--secondary);
-      }
+    &__list-button:hover {
+      background-color: var(--secondary);
+    }
 
-      .employees__list-button.selected {
-        background-color: var(--secondary);
-      }
+    &__list-button.selected {
+      background-color: var(--secondary);
     }
   }
 
@@ -60,11 +60,12 @@
     flex-direction: column;
     border-radius: 1rem;
     padding: 2rem;
-    min-width: 18.2rem;
+    min-width: 19.2rem;
+    max-width: 24rem;
     background-color: var(--background);
     box-shadow: 6px 6px 24px 0 rgba(66, 68, 90, 1);
 
-    .employee__title {
+    &__title {
       display: flex;
       flex-direction: row;
       gap: 1rem;
@@ -77,7 +78,7 @@
       justify-content: center;
     }
 
-    .employee__details {
+    &__details {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -86,37 +87,40 @@
       flex-grow: 1;
       box-sizing: border-box;
       font-size: 1rem;
+    }
 
-      .employee__row {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-      }
+    &__row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
 
-      .employee__column {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+    &__column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
 
-      .employee__label {
-        font-weight: bold;
-      }
+    &__label {
+      font-weight: bold;
+    }
 
-      .employee__details-input {
-        border-width: 1px;
-        border-radius: 0.3rem;
-        font-size: 1rem;
-        outline: none;
-        background-color: var(--background);
-        border-color: var(--text);
-        padding: 0.4rem;
-        transition: background-color 0.2s ease-in;
-      }
+    &__details-input {
+      border-width: 1px;
+      border-radius: 0.3rem;
+      font-size: 1rem;
+      outline: none;
+      font-family: Poppins, sans-serif;
+      background-color: var(--background);
+      border-color: var(--text);
+      padding: 0.4rem;
+      transition: background-color 0.2s ease-in;
+    }
 
-      .employee__details-input:focus {
-        background-color: var(--secondary);
-      }
+    &__details-input:focus {
+      background-color: var(--secondary);
     }
   }
 }

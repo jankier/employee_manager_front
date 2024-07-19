@@ -1,4 +1,6 @@
 import { Employee } from '../models/employee.model';
+import { Skills } from '../enums/employees.enums';
+import { Projects } from '../enums/employees.enums';
 
 export const EMPLOYEES: Employee[] = [
   {
@@ -6,8 +8,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'John',
     surname: 'Doe',
     employment_date: '2020-02-10',
-    skills: ['TypeScript', 'Java', 'Angular'],
-    projects: ['PZU', 'Orlen'],
+    skills: [Skills.TYPESCRIPT, Skills.JAVA, Skills.ANGULAR],
+    projects: [Projects.PZU, Projects.ORLEN],
     manager: 'Jerry Smith',
   },
   {
@@ -15,8 +17,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Will',
     surname: 'Smith',
     employment_date: '2021-03-08',
-    skills: ['Figma', 'React.js', 'Node.js'],
-    projects: ['Aliorbank', 'PZU'],
+    skills: [Skills.FIGMA, Skills.REACT, Skills.NODE],
+    projects: [Projects.ALIRORBANK, Projects.PZU],
     manager: 'Marry Poppins',
   },
   {
@@ -24,8 +26,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Angela',
     surname: 'White',
     employment_date: '2024-01-11',
-    skills: ['Docker', 'Java', 'Springboot'],
-    projects: ['Santander bank', 'Aliorbank'],
+    skills: [Skills.DOCKER, Skills.JAVA, Skills.SPRINGBOOT],
+    projects: [Projects.SANTANDER, Projects.ALIRORBANK],
     manager: 'Marry Poppins',
   },
   {
@@ -33,8 +35,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Derek',
     surname: 'Blackwood',
     employment_date: '2018-10-26',
-    skills: ['TypeScript', 'React.js', 'Angular'],
-    projects: ['Orlen', 'Santander bank'],
+    skills: [Skills.TYPESCRIPT, Skills.REACT, Skills.ANGULAR],
+    projects: [Projects.ORLEN, Projects.SANTANDER],
     manager: 'Jerry Smith',
   },
   {
@@ -42,8 +44,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Nathan',
     surname: 'Hawthorne',
     employment_date: '2019-06-17',
-    skills: ['TypeScript', 'HTML', 'CSS'],
-    projects: ['LOT', 'PGNiG'],
+    skills: [Skills.TYPESCRIPT, Skills.HTML, Skills.CSS],
+    projects: [Projects.LOT, Projects.PGNIG],
     manager: 'Jerry Smith',
   },
   {
@@ -51,8 +53,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Sophia',
     surname: 'Reynolds',
     employment_date: '2022-09-29',
-    skills: ['PHP', 'Laravel', 'Symfony'],
-    projects: ['LOT', 'PGNiG'],
+    skills: [Skills.PHP, Skills.LARAVEL, Skills.SYMFONY],
+    projects: [Projects.LOT, Projects.PGNIG],
     manager: 'Jerry Smith',
   },
   {
@@ -60,8 +62,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Maxwell',
     surname: 'Sanchez',
     employment_date: '2021-04-15',
-    skills: ['MySQL', 'Java', 'Spring boot'],
-    projects: ['Aliorbank', 'Orlen'],
+    skills: [Skills.MYSQL, Skills.JAVA, Skills.SPRINGBOOT],
+    projects: [Projects.ALIRORBANK, Projects.ORLEN],
     manager: 'Jerry Smith',
   },
   {
@@ -69,8 +71,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Ava',
     surname: 'Harper',
     employment_date: '2023-11-12',
-    skills: ['TypeScript', 'Java', 'AWS'],
-    projects: ['Santander bank', 'PGNiG'],
+    skills: [Skills.TYPESCRIPT, Skills.JAVA, Skills.AWS],
+    projects: [Projects.SANTANDER, Projects.PGNIG],
     manager: 'Marry Poppins',
   },
   {
@@ -78,8 +80,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'Robert',
     surname: 'Hardy',
     employment_date: '2020-03-17',
-    skills: ['REST', 'MySQL', 'Java'],
-    projects: ['LOT', 'Orlen'],
+    skills: [Skills.REST, Skills.MYSQL, Skills.JAVA],
+    projects: [Projects.LOT, Projects.ORLEN],
     manager: 'Marry Poppins',
   },
   {
@@ -87,8 +89,8 @@ export const EMPLOYEES: Employee[] = [
     name: 'James',
     surname: 'Newman',
     employment_date: '2019-07-14',
-    skills: ['TypeScript', 'Angular', 'Bootstrap'],
-    projects: ['LOT', 'PZU'],
+    skills: [Skills.TYPESCRIPT, Skills.ANGULAR, Skills.BOOTSTRAP],
+    projects: [Projects.LOT, Projects.PZU],
     manager: 'Jerry Smith',
   },
 ];
