@@ -1,6 +1,6 @@
 import { Employee } from '../models/employee.model';
-import { Skills } from '../enums/employees.enums';
-import { Projects } from '../enums/employees.enums';
+import { Skills } from '../enums/skills.enum';
+import { Projects } from '../enums/projects.enum';
 
 export const EMPLOYEES: Employee[] = [
   {
