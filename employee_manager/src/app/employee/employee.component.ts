@@ -17,7 +17,7 @@ export class EmployeeComponent {
   employees: Employee[] = EMPLOYEES;
   selectedEmployee?: Employee;
 
-  public onSelect(employee: Employee): void {
+  onSelect(employee: Employee): void {
     this.selectedEmployee = employee;
   }
 }

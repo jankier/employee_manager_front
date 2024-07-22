@@ -9,26 +9,26 @@
   &__elements {
     display: flex;
     flex-direction: column;
-    border-radius: 1rem;
+    border-radius: $border-radius1;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    min-width: 19.2rem;
-    max-width: 24rem;
+    padding: $padding2;
+    min-width: $min-width20;
+    max-width: $max-width24;
     background-color: var(--background);
-    box-shadow: 0.375rem 0.375rem 1.5rem 0 rgba(66, 68, 90, 1);
+    box-shadow: $shadow;
   }
 
   &__title {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: $gap1;
     font-weight: bold;
     height: auto;
-    padding-bottom: 1.2rem;
+    padding-bottom: $padding1_2;
     flex-grow: 1;
     box-sizing: border-box;
-    font-size: 1.5rem;
+    font-size: $font-size1_5;
     justify-content: center;
   }
 
@@ -40,7 +40,7 @@
     width: 100%;
     flex-grow: 1;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: $font-size1;
     text-align: justify;
   }
 }

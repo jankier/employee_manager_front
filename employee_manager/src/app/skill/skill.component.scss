@@ -1,7 +1,9 @@
+@import "../../variables/variables";
+
 .skill {
   display: flex;
-  border: 0.0625rem solid;
-  border-radius: 1rem;
-  padding: 0.4rem;
+  border: $border-style;
+  border-radius: $border-radius1;
+  padding: $padding04;
   user-select: none;
 }
