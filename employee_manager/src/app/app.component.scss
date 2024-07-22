@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  padding: 1rem 1rem;
+  font-size: 2rem;
+  font-family: Poppins, sans-serif;
+  font-weight: bold;
+  align-items: center;
+  background-color: var(--primary);
+
+  .header__logo-text {
+    color: var(--secondary);
+  }
+
+  .header__logo {
+    height: 3rem;
+    width: auto;
+  }
+}
+
+.wrapper {
+  display: flex;
+  height: auto;
+  width: 100%;
+  flex-grow: 1;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--primary);
+}

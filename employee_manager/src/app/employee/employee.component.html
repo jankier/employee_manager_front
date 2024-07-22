@@ -1,0 +1,56 @@
+<section class="employee">
+  <div class="employee__title">
+    <p>{{ employee.name | uppercase }} {{ employee.surname | uppercase }}</p>
+  </div>
+  <div class="employee__details">
+    <div class="employee__row">
+      <span class="employee__label">Id</span>
+      <span>{{ employee.id }}</span>
+    </div>
+    <div class="employee__column">
+      <label class="employee__label" for="name">Name</label>
+      <input
+        class="employee__details-input"
+        id="name"
+        [(ngModel)]="employee.name"
+        placeholder="name"
+      />
+    </div>
+    <div class="employee__column">
+      <label class="employee__label" for="surname">Surname</label>
+      <input
+        class="employee__details-input"
+        id="surname"
+        [(ngModel)]="employee.surname"
+        placeholder="surname"
+      />
+    </div>
+    <div class="employee__column">
+      <label class="employee__label" for="date">Date of employment</label>
+      <input
+        type="date"
+        class="employee__details-input"
+        id="date"
+        [valueAsDate]="employee.employment_date"
+        [(ngModel)]="employee.employment_date"
+      />
+    </div>
+    <div class="employee__row">
+      <span class="employee__label">Skills</span>
+      <span *ngFor="let skill of employee.skills">{{ skill }},</span>
+    </div>
+    <div class="employee__row">
+      <span class="employee__label">Projects</span>
+      <span *ngFor="let project of employee.projects"> {{ project }}, </span>
+    </div>
+    <div class="employee__column">
+      <label class="employee__label" for="manager">Manager</label>
+      <input
+        class="employee__details-input"
+        id="manager"
+        [(ngModel)]="employee.manager"
+        placeholder="manager"
+      />
+    </div>
+  </div>
+</section>

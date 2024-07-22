@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap");
+
+html,
+body,
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+app-root {
+  height: 100%;
+  font-weight: normal;
+  color: var(--text);
+  font-family: Poppins, sans-serif;
+  background-color: var(--background);
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  --text: #101511;
+  --background: #f5f8f5;
+  --primary: #5da267;
+  --secondary: #a3d1a9;
+  --accent: #7dc788;
+}
