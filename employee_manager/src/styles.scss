@@ -30,3 +30,9 @@ app-root {
   --secondary: #a3d1a9;
   --accent: #7dc788;
 }
+
+app-employee,
+app-project-page {
+  display: flex;
+  flex-grow: 1;
+}

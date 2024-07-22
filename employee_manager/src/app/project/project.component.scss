@@ -1,0 +1,12 @@
+@import "../../variables/variables";
+
+$border-radius05: 0.5rem;
+
+.project {
+  display: flex;
+  border: $border-style;
+  border-radius: $border-radius05;
+  padding: $padding04;
+  user-select: none;
+  cursor: pointer;
+}

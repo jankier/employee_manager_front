@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { Employee } from '../../models/employee.model';
-import { NgForOf, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SkillComponent } from '../skill/skill.component';
+import { ProjectComponent } from '../project/project.component';
+import { EMPLOYEES } from '../../mocks/employees.mock';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [UpperCasePipe, FormsModule, NgForOf],
+  imports: [UpperCasePipe, FormsModule, SkillComponent, ProjectComponent],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent {
-  employee: Employee = {
-    id: '1',
-    name: 'John',
-    surname: 'Doe',
-    employment_date: '2020-02-10',
-    skills: ['TypeScript', 'Java', 'Angular'],
-    projects: ['Todo app', 'Weather app'],
-    manager: 'Jerry Smith',
-  };
+  employees: Employee[] = EMPLOYEES;
+  selectedEmployee?: Employee;
+
+  onSelect(employee: Employee): void {
+    this.selectedEmployee = employee;
+  }
 }
