@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -10,4 +10,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class ProjectComponent {
   @Input() project!: string;
+
+  @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();
+
+  onSelected(value: string) {
+    this.selectedProject.emit(value);
+  }
 }

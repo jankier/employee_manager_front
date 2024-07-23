@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-skill',
@@ -8,5 +8,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './skill.component.scss',
 })
 export class SkillComponent {
-  @Input() skill: string = '';
+  @Input() skill?: string = '';
+
+  @Output() selectedSkill: EventEmitter<string> = new EventEmitter<string>();
+
+  onSelected(value: string) {
+    this.selectedSkill.emit(value);
+  }
 }

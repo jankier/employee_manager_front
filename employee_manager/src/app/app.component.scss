@@ -1,7 +1,11 @@
+$gap2: 2rem;
+
 .app-wrapper {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background-color: var(--background);
+  overflow: hidden;
 
   &__header {
     display: flex;
@@ -29,6 +33,7 @@
     width: 100%;
     flex-grow: 1;
     box-sizing: border-box;
+    overflow: auto;
   }
 
   &__footer {

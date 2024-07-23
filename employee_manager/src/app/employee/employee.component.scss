@@ -1,65 +1,12 @@
-@import "../../variables/variables";
-
-$padding05: 0.5rem;
-$border-radius03: 0.3rem;
-$width10: 10rem;
+@import '../../variables/variables';
 
 .employee__component {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   align-items: center;
-
-  .employees {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 50%;
-
-    &__title {
-      display: flex;
-      flex-direction: row;
-      font-weight: bold;
-      height: auto;
-      padding-bottom: $padding05;
-      flex-grow: 1;
-      box-sizing: border-box;
-      font-size: $font-size1_5;
-      justify-content: center;
-    }
-
-    &__list {
-      display: flex;
-      flex-direction: column;
-      list-style-type: none;
-      padding: 0;
-      gap: $gap05;
-    }
-
-    &__list-element {
-      display: flex;
-      justify-content: center;
-    }
-
-    &__list-button {
-      font-size: $font-size1;
-      border-radius: $border-radius03;
-      outline: none;
-      width: $width10;
-      padding: $padding04;
-      cursor: pointer;
-      border-style: none;
-      background-color: var(--primary);
-      transition: background-color 0.2s ease-in;
-    }
-
-    &__list-button:hover {
-      background-color: var(--secondary);
-    }
-
-    &__list-button.selected {
-      background-color: var(--secondary);
-    }
-  }
+  margin-top: 10rem;
+  margin-bottom: 2rem;
 
   .employee {
     display: flex;
@@ -91,6 +38,7 @@ $width10: 10rem;
       height: auto;
       width: 100%;
       flex-grow: 1;
+      padding-bottom: $padding05;
       box-sizing: border-box;
       font-size: $font-size1;
     }
@@ -114,7 +62,7 @@ $width10: 10rem;
     }
 
     &__details-input {
-      border-width: $border-style;
+      border: $border-style;
       border-radius: $border-radius03;
       font-size: $font-size1;
       outline: none;
@@ -127,6 +75,25 @@ $width10: 10rem;
 
     &__details-input:focus {
       background-color: var(--secondary);
+    }
+
+    &__button {
+      background-color: var(--background);
+      cursor: pointer;
+      font-size: $font-size1;
+      padding: $padding04;
+      outline: none;
+      border: $border-style;
+      border-radius: $border-radius03;
+      transition: background-color 0.2s ease-in;
+    }
+
+    &__button:hover {
+      background-color: var(--secondary);
+    }
+
+    &__error-message {
+      color: orange;
     }
   }
 }
