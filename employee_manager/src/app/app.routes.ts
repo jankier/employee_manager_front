@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { EmployeeComponent } from './employee/employee.component';
 import { ProjectPageComponent } from './project-page/project-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const routes: Routes = [
-  { path: '', component: EmployeeComponent },
+  { path: '', component: HomePageComponent },
   { path: 'project/:project', component: ProjectPageComponent },
 ];

@@ -1,0 +1,59 @@
+@import '../../variables/variables';
+
+.home__component {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
+
+  .home {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+
+    &__title {
+      display: flex;
+      flex-direction: row;
+      font-weight: bold;
+      height: auto;
+      padding-bottom: $padding05;
+      flex-grow: 1;
+      box-sizing: border-box;
+      font-size: $font-size1_5;
+      justify-content: center;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      padding: 0;
+      gap: $gap05;
+    }
+
+    &__list-element {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__list-button {
+      font-size: $font-size1;
+      border-radius: $border-radius03;
+      outline: none;
+      width: $width10;
+      padding: $padding04;
+      cursor: pointer;
+      border-style: none;
+      background-color: var(--primary);
+      transition: background-color 0.2s ease-in;
+    }
+
+    &__list-button:hover {
+      background-color: var(--secondary);
+    }
+
+    &__list-button.selected {
+      background-color: var(--secondary);
+    }
+  }
+}

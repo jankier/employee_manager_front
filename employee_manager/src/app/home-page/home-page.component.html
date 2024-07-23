@@ -1,0 +1,19 @@
+<section class="home__component">
+  <div class="home">
+    <div class="home__title">
+      <p>EMPLOYEES</p>
+    </div>
+    <ul class="home__list">
+      @for (employee of employees; track employee) {
+        <li class="home__list-element">
+          <button class="home__list-button" type="button" (click)="onSelect(employee)" [class.selected]="employee.id === selectedEmployee?.id">
+            <span>{{ employee.name }} {{ employee.surname }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+  @if (selectedEmployee) {
+    <app-employee [employee]="selectedEmployee" (updatedEmployee)="onUpdateEmployee($event)"></app-employee>
+  }
+</section>
