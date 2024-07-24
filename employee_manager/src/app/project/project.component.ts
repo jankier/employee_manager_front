@@ -13,7 +13,7 @@ export class ProjectComponent {
 
   @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();
 
-  onSelected(value: string) {
+  onSelected(value: string): void {
     this.selectedProject.emit(value);
   }
 }

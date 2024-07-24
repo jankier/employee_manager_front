@@ -12,7 +12,7 @@ export class SkillComponent {
 
   @Output() selectedSkill: EventEmitter<string> = new EventEmitter<string>();
 
-  onSelected(value: string) {
+  onSelected(value: string): void {
     this.selectedSkill.emit(value);
   }
 }

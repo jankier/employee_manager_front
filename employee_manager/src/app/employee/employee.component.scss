@@ -5,16 +5,14 @@
   flex-direction: row;
   flex-grow: 1;
   align-items: center;
-  margin-top: 10rem;
-  margin-bottom: 2rem;
+  margin-bottom: $m2;
 
   .employee {
     display: flex;
     flex-direction: column;
     border-radius: $border-radius1;
     padding: $padding2;
-    min-width: $min-width20;
-    max-width: $max-width24;
+    width: $max-width24;
     background-color: var(--background);
     box-shadow: $shadow;
 
@@ -70,7 +68,7 @@
       background-color: var(--background);
       border-color: var(--text);
       padding: $padding04;
-      transition: background-color 0.2s ease-in;
+      transition: background-color $time ease-in;
     }
 
     &__details-input:focus {
@@ -85,7 +83,7 @@
       outline: none;
       border: $border-style;
       border-radius: $border-radius03;
-      transition: background-color 0.2s ease-in;
+      transition: background-color $time ease-in;
     }
 
     &__button:hover {

@@ -48,9 +48,6 @@
         @for (skill of employeeForm.controls.skills.value; track skill) {
           <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
         }
-        @if (employeeForm.controls.skills.hasError('minlength')) {
-          <span class="employee__error-message">At least one skill must be selected!</span>
-        }
       </div>
       <div class="employee__row">
         <span class="employee__label">Projects</span>

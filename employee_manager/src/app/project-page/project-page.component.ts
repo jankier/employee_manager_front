@@ -11,7 +11,7 @@ import { PROJECTS } from '../../mocks/project.mock';
   styleUrl: './project-page.component.scss',
 })
 export class ProjectPageComponent {
-  private activatedRoute = inject(ActivatedRoute);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   project = this.activatedRoute.snapshot.params['project'];
 
   projects: ProjectsData[] = PROJECTS;

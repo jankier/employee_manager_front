@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  align-items: center;
+  align-items: start;
+  margin-top: $m2;
 
   .home {
     display: flex;
@@ -45,7 +46,7 @@
       cursor: pointer;
       border-style: none;
       background-color: var(--primary);
-      transition: background-color 0.2s ease-in;
+      transition: background-color $time ease-in;
     }
 
     &__list-button:hover {

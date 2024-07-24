@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Skills } from '../../enums/skills.enum';
-import { Projects } from '../../enums/projects.enum';
 
 @Component({
   selector: 'app-dropdown',
@@ -10,7 +8,7 @@ import { Projects } from '../../enums/projects.enum';
   styleUrl: './dropdown.component.scss',
 })
 export class DropdownComponent {
-  @Input() listElements?: Skills[] | Projects[];
+  @Input() listElements?: string[];
 
   @Output() selectedElement: EventEmitter<string> = new EventEmitter<string>();
 

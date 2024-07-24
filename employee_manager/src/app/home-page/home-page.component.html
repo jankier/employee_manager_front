@@ -11,6 +11,9 @@
           </button>
         </li>
       }
+      <li class="home__list-element">
+        <button class="home__list-button" (click)="onAdd()" [class.selected]="selectedEmployee?.id === this.calculateNewId()">+</button>
+      </li>
     </ul>
   </div>
   @if (selectedEmployee) {

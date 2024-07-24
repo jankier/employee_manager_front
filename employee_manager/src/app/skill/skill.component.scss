@@ -18,7 +18,7 @@
     cursor: pointer;
     outline: none;
     background-color: var(--background);
-    transition: background-color 0.2s ease-in;
+    transition: background-color $time ease-in;
   }
 
   &__button:hover {

@@ -1,4 +1,9 @@
+@import '../variables/variables';
+
 $gap2: 2rem;
+$height3: 3rem;
+$font-size2: 2rem;
+$padding1: 1rem;
 
 .app-wrapper {
   display: flex;
@@ -9,8 +14,8 @@ $gap2: 2rem;
 
   &__header {
     display: flex;
-    padding: 1rem 1rem;
-    font-size: 2rem;
+    padding: $padding1 $padding1;
+    font-size: $font-size2;
     font-family: Poppins, sans-serif;
     font-weight: bold;
     align-items: center;
@@ -22,7 +27,7 @@ $gap2: 2rem;
     }
 
     .header__logo {
-      height: 3rem;
+      height: $height3;
       width: auto;
     }
   }
@@ -40,7 +45,7 @@ $gap2: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: $padding05;
     background-color: var(--primary);
   }
 }

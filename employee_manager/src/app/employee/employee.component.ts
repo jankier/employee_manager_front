@@ -5,7 +5,7 @@ import { UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SkillComponent } from '../skill/skill.component';
 import { ProjectComponent } from '../project/project.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { DropdownComponent } from '../reusable/dropdown/dropdown.component';
 import { Skills } from '../../enums/skills.enum';
 import { Projects } from '../../enums/projects.enum';
 
@@ -27,12 +27,23 @@ interface EmployeeForm {
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent {
-  skillList: Skills[] = Object.values(Skills);
-  projectList: Projects[] = Object.values(Projects);
+  private allSkills: string[] = Object.values(Skills);
+  skillList: string[] = this.allSkills;
+  private allProjects: string[] = Object.values(Projects);
+  projectList: string[] = Object.values(Projects);
+
+  private checkSkillsList(): void {
+    this.skillList = this.allSkills.filter((skill: string) => !this.employeeForm.controls.skills.value?.includes(skill));
+  }
+
+  private checkProjectsList(): void {
+    this.projectList = this.allProjects.filter((skill: string) => !this.employeeForm.controls.projects.value?.includes(skill));
+  }
 
   @Input() set employee(value: Employee) {
     this.employeeForm.patchValue({ ...value, skills: [...value.skills], projects: [...value.projects] });
-    console.log(value);
+    this.checkSkillsList();
+    this.checkProjectsList();
   }
 
   @Output() updatedEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
@@ -52,8 +63,8 @@ export class EmployeeComponent {
   }
 
   onSubmit(): void {
-    console.log(this.employeeForm.getRawValue() as Employee);
     this.updatedEmployee.emit(this.employeeForm.getRawValue() as Employee);
+    this.employeeForm.markAsUntouched();
   }
 
   get skills() {
@@ -61,14 +72,14 @@ export class EmployeeComponent {
   }
 
   addSkill($event: string): void {
-    if (!this.skills.value?.includes($event)) {
-      this.skills.value?.push($event);
-    }
+    this.skills.value?.push($event);
+    this.checkSkillsList();
   }
 
   deleteSkill($event: string): void {
-    const itemIndex: number = this.skills.value!.findIndex((skill: string): boolean => skill == $event);
+    const itemIndex: number = this.skills.value!.findIndex((skill: string): boolean => skill === $event);
     this.skills.value?.splice(itemIndex, 1);
+    this.checkSkillsList();
   }
 
   get projects() {
@@ -76,13 +87,13 @@ export class EmployeeComponent {
   }
 
   addProject($event: string): void {
-    if (!this.projects.value?.includes($event)) {
-      this.projects.value?.push($event);
-    }
+    this.projects.value?.push($event);
+    this.checkProjectsList();
   }
 
   deleteProject($event: string): void {
-    const itemIndex: number = this.projects.value!.findIndex((skill: string): boolean => skill == $event);
+    const itemIndex: number = this.projects.value!.findIndex((skill: string): boolean => skill === $event);
     this.projects.value?.splice(itemIndex, 1);
+    this.checkProjectsList();
   }
 }
