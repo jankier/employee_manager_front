@@ -12,6 +12,7 @@ import { EmployeeComponent } from '../employee/employee.component';
 })
 export class HomePageComponent {
   employees: Employee[] = EMPLOYEES;
+  filteredEmployees: Employee[] = this.employees;
   selectedEmployee?: Employee;
 
   calculateNewId(): string {
@@ -46,5 +47,16 @@ export class HomePageComponent {
   deleteEmployee(employee: Employee): void {
     const itemIndex: number = this.employees.indexOf(employee);
     this.employees.splice(itemIndex, 1);
+  }
+
+  filterEmployees(value: string): void {
+    if (!value) {
+      this.filteredEmployees = this.employees;
+      return;
+    }
+    this.filteredEmployees = this.employees.filter(
+      (employee: Employee) =>
+        employee?.name.toLowerCase().includes(value.toLowerCase()) || employee?.surname.toLowerCase().includes(value.toLowerCase())
+    );
   }
 }
