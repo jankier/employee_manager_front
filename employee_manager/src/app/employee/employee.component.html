@@ -13,7 +13,7 @@
       </div>
       <div class="employee__column">
         <label class="employee__label">Name</label>
-        <input class="employee__details-input" [formControl]="employeeForm.controls.name" placeholder="name" maxlength="20" />
+        <input class="employee__details-input" [formControl]="employeeForm.controls.name" placeholder="Name" maxlength="20" />
         @if (employeeForm.controls.name.hasError('required') && !employeeForm.controls.name.untouched) {
           <span class="employee__error-message">Name is required!</span>
         } @else if (employeeForm.controls.name.hasError('minlength')) {
@@ -24,7 +24,7 @@
       </div>
       <div class="employee__column">
         <label class="employee__label">Surname</label>
-        <input class="employee__details-input" [formControl]="employeeForm.controls.surname" placeholder="surname" maxlength="20" />
+        <input class="employee__details-input" [formControl]="employeeForm.controls.surname" placeholder="Surname" maxlength="20" />
         @if (employeeForm.controls.surname.hasError('required') && !employeeForm.controls.surname.untouched) {
           <span class="employee__error-message">Surname is required!</span>
         } @else if (employeeForm.controls.surname.hasError('minlength')) {
@@ -58,7 +58,7 @@
       </div>
       <div class="employee__column">
         <label class="employee__label">Manager</label>
-        <input class="employee__details-input" [formControl]="employeeForm.controls.manager" placeholder="manager" maxlength="40" />
+        <input class="employee__details-input" [formControl]="employeeForm.controls.manager" placeholder="Manager" maxlength="40" />
         @if (employeeForm.controls.manager.hasError('required') && !employeeForm.controls.manager.untouched) {
           <span class="employee__error-message">Manager is required!</span>
         } @else if (employeeForm.controls.manager.hasError('minlength')) {

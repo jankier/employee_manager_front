@@ -42,4 +42,9 @@ export class HomePageComponent {
       manager: '',
     };
   }
+
+  deleteEmployee(employee: Employee): void {
+    const itemIndex: number = this.employees.indexOf(employee);
+    this.employees.splice(itemIndex, 1);
+  }
 }

@@ -1,7 +1,6 @@
 @import '../../../variables/variables';
 
 $width5: 5rem;
-$default-color: #75758a;
 
 .dropdown {
   border: $border-style;
@@ -15,6 +14,6 @@ $default-color: #75758a;
   cursor: pointer;
 
   &__default {
-    color: $default-color;
+    color: $disabled-color;
   }
 }

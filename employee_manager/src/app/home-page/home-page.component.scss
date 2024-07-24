@@ -1,5 +1,8 @@
 @import '../../variables/variables';
 
+$width1_2: 1.2rem;
+$m-1_7: -1.7rem;
+
 .home__component {
   display: flex;
   flex-direction: row;
@@ -35,9 +38,13 @@
     &__list-element {
       display: flex;
       justify-content: center;
+      gap: $gap05;
     }
 
     &__list-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: $font-size1;
       border-radius: $border-radius03;
       outline: none;
@@ -55,6 +62,52 @@
 
     &__list-button.selected {
       background-color: var(--secondary);
+    }
+
+    &__list-add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: $border-radius03;
+      outline: none;
+      width: 5rem;
+      padding: $padding04;
+      cursor: pointer;
+      border-style: none;
+      background-color: var(--primary);
+      transition: background-color $time ease-in;
+      margin-left: $m-1_7;
+    }
+
+    &__list-add:hover {
+      background-color: var(--secondary);
+    }
+
+    &__list-add.selected {
+      background-color: var(--secondary);
+    }
+
+    &__add-icon {
+      width: $width1_2;
+      color: var(--text);
+    }
+
+    &__list-delete {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &__delete-icon {
+      width: $width1_2;
+      height: auto;
+      color: var(--text);
+      transition: color $time ease-in;
+    }
+
+    &__delete-icon:hover {
+      color: $disabled-color;
     }
   }
 }

@@ -15,6 +15,7 @@
     width: $max-width24;
     background-color: var(--background);
     box-shadow: $shadow;
+    align-items: center;
 
     &__title {
       display: flex;
@@ -75,19 +76,32 @@
       background-color: var(--secondary);
     }
 
-    &__button {
-      background-color: var(--background);
+    &__button:enabled {
       cursor: pointer;
       font-size: $font-size1;
       padding: $padding04;
       outline: none;
-      border: $border-style;
+      border: none;
+      width: 25%;
       border-radius: $border-radius03;
+      background-color: var(--primary);
       transition: background-color $time ease-in;
     }
 
-    &__button:hover {
+    &__button:enabled:hover {
       background-color: var(--secondary);
+    }
+
+    &__button:disabled {
+      cursor: pointer;
+      font-size: $font-size1;
+      padding: $padding04;
+      outline: none;
+      border: none;
+      width: 25%;
+      border-radius: $border-radius03;
+      background-color: var(--secondary);
+      transition: background-color $time ease-in;
     }
 
     &__error-message {
