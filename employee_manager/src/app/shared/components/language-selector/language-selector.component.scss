@@ -14,7 +14,7 @@ $border-radius-custom-bottom: 0 0 0.3rem 0.3rem;
     display: flex;
     background-color: var(--background);
     color: var(--text);
-    padding: 0.5rem;
+    padding: $padding-small;
     width: $width-custom;
     height: auto;
     border-radius: 50%;
@@ -53,7 +53,7 @@ $border-radius-custom-bottom: 0 0 0.3rem 0.3rem;
       box-sizing: border-box;
       width: 100%;
       height: 100%;
-      background-color: var(--accent);
+      background-color: var(--background);
 
       &:first-of-type.unselected {
         border-radius: $border-radius-custom-top;
@@ -72,10 +72,7 @@ $border-radius-custom-bottom: 0 0 0.3rem 0.3rem;
       }
 
       &.selected {
-        background-color: var(--background);
-      }
-
-      &.unselected {
+        background-color: var(--accent);
         color: var(--background);
       }
     }

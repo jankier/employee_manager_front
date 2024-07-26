@@ -1,12 +1,12 @@
 <section class="project-page">
   <div class="project-page__elements">
     @for (singleProject of projects; track singleProject) {
-      @if (singleProject.name === project) {
+      @if (singleProject === project) {
         <div class="project-page__title">
           <p>{{ project }}</p>
         </div>
         <div class="project-page__details">
-          <p>{{ 'project.description.' + singleProject.description | translate }}</p>
+          <p>{{ 'project.' + (singleProject | lowercase) | translate }}</p>
         </div>
       }
     }
