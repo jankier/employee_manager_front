@@ -1,10 +1,15 @@
 <section class="list">
   <div class="list__content">
     <div class="list__title">
-      <p>EMPLOYEES</p>
+      <p>{{ 'list.employees' | translate | uppercase }}</p>
     </div>
     <div class="list__search-add">
-      <input class="list__search" type="text" placeholder="Search" #filter (input)="filterEmployees(filter.value)" />
+      <input
+        class="list__search"
+        type="text"
+        placeholder="{{ 'input.placeholder.search' | translate }}"
+        #filter
+        (input)="filterEmployees(filter.value)" />
       <button class="list__add" type="button" (click)="onAdd()" [class.selected]="selectedEmployee?.id === this.calculateNewId()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="list__add-icon">
           <path

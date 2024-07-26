@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { EMPLOYEES } from '../../../mocks/employees.mock';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [EmployeeComponent],
+  imports: [EmployeeComponent, TranslateModule, UpperCasePipe],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })

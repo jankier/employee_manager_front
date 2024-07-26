@@ -1,5 +1,5 @@
 <select class="dropdown" #element (change)="onSelected(element.value)">
-  <option class="dropdown__default">Select</option>
+  <option class="dropdown__default">{{ 'dropdown.option' | translate }}</option>
   @for (element of listElements; track element) {
     <option class="dropdown__option">{{ element }}</option>
   }

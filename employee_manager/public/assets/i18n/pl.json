@@ -1,0 +1,51 @@
+{
+  "list": {
+    "employees": "Pracownicy"
+  },
+  "employee": {
+    "id": "Id",
+    "name": "Imię",
+    "surname": "Nazwisko",
+    "employmentDate": "Data zatrudnienia",
+    "skills": "Umiejętności",
+    "projects": "Projekty",
+    "manager": "Menadżer"
+  },
+  "project": {
+    "pzu": "Grupa PZU jest jedną z największych instytucji finansowych w Polsce i Europie Środkowo-Wschodniej. Grupą kieruje Powszechny Zakład Ubezpieczeń S.A. (PZU) – spółka notowana na Giełdzie Papierów Wartościowych w Warszawie.",
+    "orlen": "Polska międzynarodowa firma rafineryjna, sprzedawca detaliczny benzyny i sprzedawca gazu ziemnego z siedzibą w Płocku.",
+    "aliorbank": "Alior Bank SA jest bankiem uniwersalnym, który oferuje szereg usług finansowych zarówno klientom indywidualnym, jak i biznesowym. Główne działania banku polegają na łączeniu tradycyjnych zasad bankowych z innowacyjnymi rozwiązaniami, przyczyniając się tym samym do rozwoju polskiego sektora bankowego.",
+    "santander": "Banco Santander jest wiodącym bankiem komercyjnym, założonym w 1857 r. i mającym siedzibę w Hiszpanii. Ma znaczącą obecność na 10 głównych rynkach w regionach Europy, Ameryki Północnej i Ameryki Południowej i jest jednym z największych banków na świecie pod względem kapitalizacji rynkowej.",
+    "lot": "LOT Polskie Linie Lotnicze to nowoczesna linia lotnicza łącząca Nową Europę ze światem. Zapewnia prawie 9 milionom pasażerów rocznie najkrótsze i najwygodniejsze opcje podróży do ponad 100 destynacji na całym świecie przez Warszawę, konkurencyjny hub oferujący szybkie połączenia.",
+    "pgnig": "Podstawową działalnością PGNiG jest wydobycie i sprzedaż gazu ziemnego i ropy naftowej. Zarówno w kraju, jak i za granicą zajmujemy się badaniami geofizycznymi i geologicznymi, poszukiwaniem i wydobyciem węglowodorów, a także przygotowywaniem produktów do sprzedaży."
+  },
+  "dropdown": {
+    "option": "Wybierz"
+  },
+  "button": {
+    "save": "Zapisz"
+  },
+  "input": {
+    "placeholder": {
+      "search": "Wyszukaj",
+      "name": "Imię",
+      "surname": "Nazwisko"
+    }
+  },
+  "error": {
+    "name": {
+      "required": "Imię jest wymagane!",
+      "minLength": "Imię zbyt krótkie!",
+      "maxLength": "Imię zbyt długie!"
+    },
+    "surname": {
+      "required": "Nazwisko jest wymagane!",
+      "minLength": "Nazwisko zbyt krótkie!",
+      "maxLength": "Nazwisko zbyt długie!"
+    },
+    "employmentDate": {
+      "required": "Data jest wymagana!",
+      "pattern": "Niepoprawny format daty!"
+    }
+  }
+}

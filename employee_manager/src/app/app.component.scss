@@ -14,20 +14,31 @@ $padding-custom: 1rem;
   &__header {
     display: flex;
     padding: $padding-custom $padding-custom;
-    font-size: $font-size-custom;
-    font-family: Poppins, sans-serif;
-    font-weight: bold;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--primary);
-    cursor: pointer;
-
-    .header__logo-text {
-      color: var(--secondary);
-    }
 
     .header__logo {
-      height: $height-custom;
-      width: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+      gap: $gap-small;
+
+      &-text {
+        font-size: $font-size-custom;
+        font-family: Poppins, sans-serif;
+        font-weight: bold;
+
+        &-black {
+          color: var(--secondary);
+        }
+      }
+
+      &-icon {
+        height: $height-custom;
+        width: auto;
+      }
     }
   }
 
