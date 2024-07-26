@@ -14,10 +14,7 @@
         <span class="header__logo-text-black">SLY</span>
       </div>
     </div>
-    <app-language-selector
-      [translateService]="translate"
-      [languages]="translate.store.langs"
-      [currentLang]="translate.store.currentLang"></app-language-selector>
+    <app-language-selector [languages]="translate.store.langs" [currentLang]="translate.store.currentLang"></app-language-selector>
   </header>
   <div class="app-wrapper__wrapper">
     <router-outlet></router-outlet>

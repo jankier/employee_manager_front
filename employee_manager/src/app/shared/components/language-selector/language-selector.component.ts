@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgClass, UpperCasePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-language-selector',
@@ -12,12 +13,13 @@ export class LanguageSelectorComponent {
   menuStatus = false;
 
   @Input() languages: string[] = [];
-  @Input() currentLang!: string;
-  @Input() translateService!: any;
+  @Input({ required: true }) currentLang!: string;
+
+  constructor(public translate: TranslateService) {}
 
   switchLang(language: string): void {
     this.currentLang = language;
-    this.translateService.use(language);
+    this.translate.use(language);
     this.menuStatus = !this.menuStatus;
     this.checkCurrentLang(this.currentLang);
   }

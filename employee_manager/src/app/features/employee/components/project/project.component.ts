@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './project.component.scss',
 })
 export class ProjectComponent {
-  @Input() project!: string;
+  @Input({ required: true }) project!: string;
 
   @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();
 

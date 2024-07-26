@@ -23,7 +23,7 @@ export class EmployeeComponent implements OnInit {
   private allProjects: string[] = Object.values(Projects);
   projectList: string[] = this.allProjects;
 
-  @Input() allManagers!: string[];
+  @Input({ required: true }) allManagers!: string[];
   managersList: string[] = this.allManagers;
 
   ngOnInit(): void {

@@ -14,7 +14,6 @@ export class AppComponent {
   constructor(public translate: TranslateService) {
     translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
-    console.log(typeof translate);
 
     const browserLang: string | undefined = translate.getBrowserLang();
     translate.use(browserLang?.match(/en|pl/) ? browserLang : 'en');
