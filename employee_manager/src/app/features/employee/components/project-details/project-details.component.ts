@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectsData } from '../../models/projects.model';
-import { PROJECTS } from '../../mocks/project.mock';
+import { ProjectsData } from '../../../../../models/projects.model';
+import { PROJECTS } from '../../../../../mocks/project.mock';
 
 @Component({
   selector: 'app-project-page',
   standalone: true,
   imports: [],
-  templateUrl: './project-page.component.html',
-  styleUrl: './project-page.component.scss',
+  templateUrl: './project-details.component.html',
+  styleUrl: './project-details.component.scss',
 })
-export class ProjectPageComponent {
+export class ProjectDetailsComponent {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   project = this.activatedRoute.snapshot.params['project'];
 

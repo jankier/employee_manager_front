@@ -12,7 +12,7 @@ export class DropdownComponent {
 
   @Output() selectedElement: EventEmitter<string> = new EventEmitter<string>();
 
-  onSelected(value: string) {
+  onSelected(value: string): void {
     this.selectedElement.emit(value);
   }
 }

@@ -1,26 +1,32 @@
 import { Component } from '@angular/core';
-import { EMPLOYEES } from '../../mocks/employees.mock';
-import { Employee } from '../../models/employee.model';
+import { EMPLOYEES } from '../../../mocks/employees.mock';
+import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
   imports: [EmployeeComponent],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.scss',
+  templateUrl: './list.component.html',
+  styleUrl: './list.component.scss',
 })
-export class HomePageComponent {
+export class ListComponent {
   employees: Employee[] = EMPLOYEES;
   filteredEmployees: Employee[] = this.employees;
   selectedEmployee?: Employee;
-
-  calculateNewId(): string {
-    return (Number(this.employees[this.employees.length - 1].id) + 1).toString();
-  }
+  managers: string[] = [];
 
   onSelect(employee: Employee): void {
     this.selectedEmployee = employee;
+    this.getNames();
+  }
+
+  getNames(): string[] {
+    this.managers = [];
+    this.employees.forEach((employee: Employee): void => {
+      this.managers.push(employee.name + ' ' + employee.surname);
+    });
+    return this.managers;
   }
 
   onUpdateEmployee($event: Employee): void {
@@ -29,6 +35,8 @@ export class HomePageComponent {
       this.employees.push($event);
     }
     this.employees[itemIndex] = $event;
+    console.log(this.employees);
+    this.getNames();
   }
 
   onAdd(): void {
@@ -37,16 +45,21 @@ export class HomePageComponent {
       id: newId,
       name: '',
       surname: '',
-      employment_date: '',
+      employmentDate: '',
       skills: [],
       projects: [],
-      manager: '',
+      manager: ' ',
     };
+  }
+
+  calculateNewId(): string {
+    return (Number(this.employees[this.employees.length - 1].id) + 1).toString();
   }
 
   deleteEmployee(employee: Employee): void {
     const itemIndex: number = this.employees.indexOf(employee);
     this.employees.splice(itemIndex, 1);
+    this.getNames();
   }
 
   filterEmployees(value: string): void {

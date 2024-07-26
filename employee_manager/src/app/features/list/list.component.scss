@@ -1,0 +1,137 @@
+@import '../../../variables/variables';
+
+$width-custom: 1.2rem;
+$m-custom: 4.6rem;
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: start;
+  margin-top: $m-large;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    align-items: center;
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    height: auto;
+    padding-bottom: $padding-small;
+    flex-grow: 1;
+    box-sizing: border-box;
+    font-size: $font-size-medium;
+    justify-content: center;
+  }
+
+  &__search-add {
+    display: flex;
+    flex-direction: row;
+    gap: $gap-small;
+    margin-left: $m-custom;
+  }
+
+  &__search {
+    border: $border-style-default;
+    border-radius: $border-radius-small;
+    font-size: $font-size-default;
+    outline: none;
+    font-family: Poppins, sans-serif;
+    background-color: var(--background);
+    border-color: var(--text);
+    padding: $padding-x-small;
+    width: $width-default;
+    transition: background-color $transition-time-default ease-in;
+
+    &:focus {
+      background-color: var(--secondary);
+    }
+  }
+
+  &__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius-small;
+    outline: none;
+    width: $width-small;
+    padding: $padding-x-small;
+    cursor: pointer;
+    border-style: none;
+    background-color: var(--primary);
+    transition: background-color $transition-time-default ease-in;
+
+    &:hover {
+      background-color: var(--secondary);
+    }
+
+    &.selected {
+      background-color: var(--secondary);
+    }
+  }
+
+  &__add-icon {
+    width: $width-custom;
+    color: var(--text);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    gap: $gap-small;
+  }
+
+  &__list-element {
+    display: flex;
+    justify-content: center;
+    gap: $gap-small;
+  }
+
+  &__list-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $font-size-default;
+    border-radius: $border-radius-small;
+    outline: none;
+    width: $width-default;
+    padding: $padding-x-small;
+    cursor: pointer;
+    border-style: none;
+    background-color: var(--primary);
+    transition: background-color $transition-time-default ease-in;
+
+    &:hover {
+      background-color: var(--secondary);
+    }
+
+    &.selected {
+      background-color: var(--secondary);
+    }
+  }
+
+  &__list-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__delete-icon {
+    width: $width-custom;
+    height: auto;
+    color: var(--text);
+    transition: color $transition-time-default ease-in;
+
+    &:hover {
+      color: $disabled-color;
+    }
+  }
+}

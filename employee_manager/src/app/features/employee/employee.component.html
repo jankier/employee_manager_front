@@ -1,0 +1,73 @@
+<section class="employee">
+  <div class="employee__content" [formGroup]="employeeForm">
+    <div class="employee__title">
+      <p>
+        {{ nameControl.value | uppercase }}
+        {{ surnameControl.value | uppercase }}
+      </p>
+    </div>
+    <div class="employee__details">
+      <div class="employee__row">
+        <span class="employee__label">Id</span>
+        <span>{{ idControl.value }}</span>
+      </div>
+      <div class="employee__column">
+        <label class="employee__label">Name</label>
+        <input class="employee__details-input" [formControl]="nameControl" placeholder="Name" maxlength="20" />
+        @if (nameControl.hasError('required') && !nameControl.untouched) {
+          <span class="employee__error-message">Name is required!</span>
+        } @else if (nameControl.hasError('minlength')) {
+          <span class="employee__error-message">Name too short!</span>
+        } @else if (nameControl.hasError('maxlength')) {
+          <span class="employee__error-message">Name too long!</span>
+        }
+      </div>
+      <div class="employee__column">
+        <label class="employee__label">Surname</label>
+        <input class="employee__details-input" [formControl]="surnameControl" placeholder="Surname" maxlength="20" />
+        @if (surnameControl.hasError('required') && !surnameControl.untouched) {
+          <span class="employee__error-message">Surname is required!</span>
+        } @else if (surnameControl.hasError('minlength')) {
+          <span class="employee__error-message">Surname too short!</span>
+        } @else if (surnameControl.hasError('maxlength')) {
+          <span class="employee__error-message">Surname too long!</span>
+        }
+      </div>
+      <div class="employee__column">
+        <label class="employee__label">Date of employment</label>
+        <input type="date" class="employee__details-input" [formControl]="employmentDateControl" />
+        @if (employmentDateControl.hasError('required') && !employmentDateControl.untouched) {
+          <span class="employee__error-message">Date is required!</span>
+        } @else if (employmentDateControl.hasError('pattern')) {
+          <span class="employee__error-message">Incorrect date format!</span>
+        }
+      </div>
+      <div class="employee__row">
+        <span class="employee__label">Skills</span>
+        <app-dropdown [listElements]="skillList" (selectedElement)="addSkill($event)"></app-dropdown>
+        @for (skill of skillsControl.value; track skill) {
+          <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
+        }
+      </div>
+      <div class="employee__row">
+        <span class="employee__label">Projects</span>
+        <app-dropdown [listElements]="projectList" (selectedElement)="addProject($event)"></app-dropdown>
+        @for (project of projectsControl.value; track project) {
+          <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
+        }
+      </div>
+      @if (managerControl.value !== '') {
+        <div class="employee__column">
+          <label class="employee__label">Manager</label>
+          <select class="employee__dropdown" [formControl]="managerControl" #manager (change)="onSelectedManager(manager.value)">
+            <option class="dropdown__option">{{ managerControl.value }}</option>
+            @for (manager of managersList; track manager) {
+              <option class="dropdown__option">{{ manager }}</option>
+            }
+          </select>
+        </div>
+      }
+    </div>
+    <button type="submit" class="employee__button" (click)="onSubmit()" [disabled]="employeeForm.invalid">Save</button>
+  </div>
+</section>
