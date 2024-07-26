@@ -8,11 +8,12 @@ import { ProjectComponent } from './components/project/project.component';
 import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
 import { Skills } from '../../../enums/skills.enum';
 import { Projects } from '../../../enums/projects.enum';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [UpperCasePipe, FormsModule, SkillComponent, ProjectComponent, ReactiveFormsModule, DropdownComponent],
+  imports: [UpperCasePipe, FormsModule, SkillComponent, ProjectComponent, ReactiveFormsModule, DropdownComponent, TranslateModule],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })

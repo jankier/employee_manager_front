@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss',
 })

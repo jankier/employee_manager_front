@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsData } from '../../../../../models/projects.model';
 import { PROJECTS } from '../../../../../mocks/project.mock';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-project-page',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
 })
