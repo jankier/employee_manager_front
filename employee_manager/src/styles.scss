@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap');
 
 html,
 body,
@@ -32,7 +32,24 @@ app-root {
 }
 
 app-employee,
-app-project-page {
+app-project-page,
+app-home-page {
   display: flex;
   flex-grow: 1;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f8f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5da267;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7dc788;
 }

@@ -1,12 +1,20 @@
+@import '../variables/variables';
+
+$height-custom: 3rem;
+$font-size-custom: 2rem;
+$padding-custom: 1rem;
+
 .app-wrapper {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background-color: var(--background);
+  overflow: hidden;
 
   &__header {
     display: flex;
-    padding: 1rem 1rem;
-    font-size: 2rem;
+    padding: $padding-custom $padding-custom;
+    font-size: $font-size-custom;
     font-family: Poppins, sans-serif;
     font-weight: bold;
     align-items: center;
@@ -18,7 +26,7 @@
     }
 
     .header__logo {
-      height: 3rem;
+      height: $height-custom;
       width: auto;
     }
   }
@@ -29,13 +37,14 @@
     width: 100%;
     flex-grow: 1;
     box-sizing: border-box;
+    overflow: auto;
   }
 
   &__footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: $padding-small;
     background-color: var(--primary);
   }
 }
