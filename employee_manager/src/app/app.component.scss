@@ -3,6 +3,7 @@
 $height-custom: 3rem;
 $font-size-custom: 2rem;
 $padding-custom: 1rem;
+$m-custom: 1rem;
 
 .app-wrapper {
   display: flex;
@@ -44,11 +45,19 @@ $padding-custom: 1rem;
 
   &__wrapper {
     display: flex;
+    flex-direction: column;
     height: auto;
     width: 100%;
     flex-grow: 1;
     box-sizing: border-box;
     overflow: auto;
+
+    &-message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: $m-custom;
+    }
   }
 
   &__footer {

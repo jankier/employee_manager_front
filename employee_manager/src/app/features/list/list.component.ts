@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
-import { EMPLOYEES } from '../../../mocks/employees.mock';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UpperCasePipe } from '@angular/common';
+import { EmployeesService } from './services/employees.service';
+import { take } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-home-page',
@@ -12,32 +15,53 @@ import { UpperCasePipe } from '@angular/common';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
-export class ListComponent {
-  employees: Employee[] = EMPLOYEES;
-  filteredEmployees: Employee[] = this.employees;
+export class ListComponent implements OnInit {
+  employees: Employee[] = [];
+  filteredEmployees: Employee[] = [];
   selectedEmployee?: Employee;
   managers: string[] = [];
+  destroyRef: DestroyRef = inject(DestroyRef);
+
+  constructor(
+    private employeesService: EmployeesService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.getEmployees();
+  }
+
+  getEmployees(): void {
+    this.employeesService
+      .getEmployees()
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data: Employee[]): void => {
+          this.employees = data;
+          console.log(data);
+        },
+        error: (err): void => {
+          console.log(err);
+        },
+        complete: (): void => {
+          this.filteredEmployees = this.employees;
+        },
+      });
+  }
 
   onSelect(employee: Employee): void {
     this.selectedEmployee = employee;
+    this.messageService.add(`select ${this.selectedEmployee.id}`);
     this.getNames();
   }
 
-  getNames(): string[] {
-    this.managers = [];
-    this.employees.forEach((employee: Employee): void => {
-      this.managers.push(employee.name + ' ' + employee.surname);
-    });
-    return this.managers;
-  }
-
-  onUpdateEmployee($event: Employee): void {
-    const itemIndex: number = this.employees.findIndex((employee: Employee): boolean => employee.id == $event.id);
+  onUpdateEmployee(updatedEmployee: Employee): void {
+    const itemIndex: number = this.employees.findIndex((employee: Employee): boolean => employee.id == updatedEmployee.id);
     if (itemIndex < 0) {
-      this.employees.push($event);
+      this.employees.push(updatedEmployee);
     }
-    this.employees[itemIndex] = $event;
-    console.log(this.employees);
+    this.employees[itemIndex] = updatedEmployee;
+    this.messageService.add(`update ${updatedEmployee.id}`);
     this.getNames();
   }
 
@@ -52,6 +76,7 @@ export class ListComponent {
       projects: [],
       manager: ' ',
     };
+    this.messageService.add(`add ${newId}`);
   }
 
   calculateNewId(): string {
@@ -61,7 +86,16 @@ export class ListComponent {
   deleteEmployee(employee: Employee): void {
     const itemIndex: number = this.employees.indexOf(employee);
     this.employees.splice(itemIndex, 1);
+    this.messageService.add(`delete ${employee.id}`);
     this.getNames();
+  }
+
+  getNames(): string[] {
+    this.managers = [];
+    this.employees.forEach((employee: Employee): void => {
+      this.managers.push(employee.name + ' ' + employee.surname);
+    });
+    return this.managers;
   }
 
   filterEmployees(value: string): void {
