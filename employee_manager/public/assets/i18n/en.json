@@ -25,7 +25,8 @@
       "fetch": "EmployeesService: Fetched employees",
       "select": "ListComponent: Selected employee of id=",
       "add": "ListComponent: Added employee of id=",
-      "delete": "ListComponent: Deleted employee of id="
+      "delete": "ListComponent: Deleted employee of id=",
+      "update": "ListComponent: Updated data of the employee of id="
     }
   },
   "dropdown": {

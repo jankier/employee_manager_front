@@ -25,7 +25,8 @@
       "fetch": "EmployeesService: Pobrano pracowników",
       "select": "ListComponent: Wybrano pracownika o id=",
       "add": "ListComponent: Dodano pracownika o id=",
-      "delete": "ListComponent: Usunięto pracownika o id="
+      "delete": "ListComponent: Usunięto pracownika o id=",
+      "update": "ListComponent: Zmodyfikowano dane pracownika o id="
     }
   },
   "dropdown": {

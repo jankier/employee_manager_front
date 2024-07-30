@@ -4,7 +4,6 @@ import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UpperCasePipe } from '@angular/common';
 import { EmployeesService } from './services/employees.service';
-import { take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../services/message.service';
 
@@ -34,7 +33,7 @@ export class ListComponent implements OnInit {
   getEmployees(): void {
     this.employeesService
       .getEmployees()
-      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (data: Employee[]): void => {
           this.employees = data;
