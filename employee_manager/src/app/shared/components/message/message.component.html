@@ -1,0 +1,11 @@
+@if (getMessagesLength()) {
+  <div class="message">
+    <div class="message__elements">
+      <h2 class="message__elements-title">{{ 'message.title' | translate | uppercase }}</h2>
+      <button type="button" class="message__elements-button" (click)="clearMessages()">{{ 'button.clear' | translate }}</button>
+    </div>
+    @for (message of getMessages(); track message) {
+      <div class="message__content">{{ 'message.messages.' + message.split(' ')[0] | translate }}{{ message.split(' ')[1] }}</div>
+    }
+  </div>
+}

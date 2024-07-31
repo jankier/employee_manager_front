@@ -21,6 +21,7 @@ $border-radius-custom-bottom: 0 0 0.3rem 0.3rem;
     justify-content: center;
     transition: all $transition-time-default ease-in;
     position: relative;
+    cursor: pointer;
 
     &.opened {
       background-color: var(--accent);

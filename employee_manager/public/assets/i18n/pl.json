@@ -19,11 +19,22 @@
     "lot": "LOT Polskie Linie Lotnicze to nowoczesna linia lotnicza łącząca Nową Europę ze światem. Zapewnia prawie 9 milionom pasażerów rocznie najkrótsze i najwygodniejsze opcje podróży do ponad 100 destynacji na całym świecie przez Warszawę, konkurencyjny hub oferujący szybkie połączenia.",
     "pgnig": "Podstawową działalnością PGNiG jest wydobycie i sprzedaż gazu ziemnego i ropy naftowej. Zarówno w kraju, jak i za granicą zajmujemy się badaniami geofizycznymi i geologicznymi, poszukiwaniem i wydobyciem węglowodorów, a także przygotowywaniem produktów do sprzedaży."
   },
+  "message": {
+    "title": "Wiadomości",
+    "messages": {
+      "fetch": "EmployeesService: Pobrano pracowników",
+      "select": "ListComponent: Wybrano pracownika o id=",
+      "add": "ListComponent: Dodano pracownika o id=",
+      "delete": "ListComponent: Usunięto pracownika o id=",
+      "update": "ListComponent: Zmodyfikowano dane pracownika o id="
+    }
+  },
   "dropdown": {
     "option": "Wybierz"
   },
   "button": {
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "clear": "Wyczyść"
   },
   "input": {
     "placeholder": {

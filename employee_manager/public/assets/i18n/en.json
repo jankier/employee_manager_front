@@ -19,6 +19,16 @@
     "lot": "LOT Polish Airlines is a modern airline connecting New Europe with the world. It provides almost 9 million passengers a year with the shortest and most comfortable travel options to more than 100 destinations worldwide via Warsaw, a competitive hub offering fast connections.",
     "pgnig": "PGNiG's core business consists in the production and sale of natural gas and crude oil. Both domestically and abroad, we are engaged in geophysical and geological research, exploration for and production of hydrocarbons, as well as preparation of products for sale."
   },
+  "message": {
+    "title": "Messages",
+    "messages": {
+      "fetch": "EmployeesService: Fetched employees",
+      "select": "ListComponent: Selected employee of id=",
+      "add": "ListComponent: Added employee of id=",
+      "delete": "ListComponent: Deleted employee of id=",
+      "update": "ListComponent: Updated data of the employee of id="
+    }
+  },
   "dropdown": {
     "option": "Select"
   },
@@ -30,7 +40,8 @@
     }
   },
   "button": {
-    "save": "Save"
+    "save": "Save",
+    "clear": "Clear"
   },
   "error": {
     "name": {
