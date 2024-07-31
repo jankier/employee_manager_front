@@ -11,5 +11,17 @@ import { UpperCasePipe } from '@angular/common';
   styleUrl: './message.component.scss',
 })
 export class MessageComponent {
-  constructor(public messageService: MessageService) {}
+  constructor(private messageService: MessageService) {}
+
+  getMessagesLength(): number {
+    return this.messageService.messages.length;
+  }
+
+  getMessages(): string[] {
+    return this.messageService.messages;
+  }
+
+  clearMessages(): void {
+    this.messageService.clear();
+  }
 }
