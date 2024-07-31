@@ -1,7 +1,10 @@
 @import '../../../variables/variables';
 
 $width-custom: 1.2rem;
+$height-custom: 3.5rem;
+$padding-top-custom: 0.5rem;
 $m-custom: 4.6rem;
+$m-list-custom: 0 0 1rem 0;
 
 .list {
   display: flex;
@@ -37,20 +40,8 @@ $m-custom: 4.6rem;
   }
 
   &__search {
-    border: $border-style-default;
-    border-radius: $border-radius-small;
     font-size: $font-size-default;
-    outline: none;
-    font-family: Poppins, sans-serif;
-    background-color: var(--background);
-    border-color: var(--text);
-    padding: $padding-x-small;
-    width: $width-default;
-    transition: background-color $transition-time-default ease-in;
-
-    &:focus {
-      background-color: var(--secondary);
-    }
+    font-family: Poppins, sans-serif !important;
   }
 
   &__add {
@@ -58,26 +49,18 @@ $m-custom: 4.6rem;
     justify-content: center;
     align-items: center;
     border-radius: $border-radius-small;
-    outline: none;
     width: $width-small;
+    height: $height-custom;
     padding: $padding-x-small;
-    cursor: pointer;
-    border-style: none;
-    background-color: var(--primary);
-    transition: background-color $transition-time-default ease-in;
-
-    &:hover {
-      background-color: var(--secondary);
-    }
 
     &.selected {
-      background-color: var(--secondary);
+      background-color: var(--primary) !important;
     }
   }
 
   &__add-icon {
     width: $width-custom;
-    color: var(--text);
+    padding-top: $padding-top-custom;
   }
 
   &__list {
@@ -86,6 +69,7 @@ $m-custom: 4.6rem;
     list-style-type: none;
     padding: 0;
     gap: $gap-small;
+    margin: $m-list-custom;
   }
 
   &__list-element {
@@ -95,43 +79,13 @@ $m-custom: 4.6rem;
   }
 
   &__list-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: $font-size-default;
     border-radius: $border-radius-small;
-    outline: none;
     width: $width-default;
     padding: $padding-x-small;
-    cursor: pointer;
-    border-style: none;
-    background-color: var(--primary);
-    transition: background-color $transition-time-default ease-in;
-
-    &:hover {
-      background-color: var(--secondary);
-    }
 
     &.selected {
-      background-color: var(--secondary);
-    }
-  }
-
-  &__list-delete {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  &__delete-icon {
-    width: $width-custom;
-    height: auto;
-    color: var(--text);
-    transition: color $transition-time-default ease-in;
-
-    &:hover {
-      color: $disabled-color;
+      background-color: var(--primary) !important;
     }
   }
 }

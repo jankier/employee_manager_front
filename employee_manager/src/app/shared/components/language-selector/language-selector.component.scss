@@ -1,81 +1,14 @@
-@import '../../../../variables/variables';
-
-$width-custom: 1.2rem;
-$width-custom-medium: 3rem;
-$height-custom: 1.2rem;
-$height-custom-medium: 4rem;
-$top-custom: 4rem;
-$right-custom: 1rem;
-$border-radius-custom-top: 0.3rem 0.3rem 0 0;
-$border-radius-custom-bottom: 0 0 0.3rem 0.3rem;
-
 .language {
   &__icon {
-    display: flex;
+    color: var(--secondary);
     background-color: var(--background);
-    color: var(--text);
-    padding: $padding-small;
-    width: $width-custom;
-    height: auto;
-    border-radius: 50%;
-    justify-content: center;
-    transition: all $transition-time-default ease-in;
-    position: relative;
-    cursor: pointer;
-
-    &.opened {
-      background-color: var(--accent);
-      color: var(--background);
-    }
-
-    &-select {
-      height: $height-custom;
-    }
   }
 
-  &__dropdown {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    width: $width-custom-medium;
-    height: $height-custom-medium;
-    right: $right-custom;
-    top: $top-custom;
-    cursor: pointer;
-    border-radius: $border-radius-small;
-    box-shadow: $shadow-default;
+  &__lang {
+    color: var(--text);
 
-    &-lang {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-      width: 100%;
-      height: 100%;
-      background-color: var(--background);
-
-      &:first-of-type.unselected {
-        border-radius: $border-radius-custom-top;
-      }
-
-      &:first-of-type.selected {
-        border-radius: $border-radius-custom-top;
-      }
-
-      &:last-of-type.unselected {
-        border-radius: $border-radius-custom-bottom;
-      }
-
-      &:last-of-type.selected {
-        border-radius: $border-radius-custom-bottom;
-      }
-
-      &.selected {
-        background-color: var(--accent);
-        color: var(--background);
-      }
+    &.selected {
+      color: var(--secondary);
     }
   }
 }

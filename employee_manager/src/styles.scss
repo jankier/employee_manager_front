@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap');
 
+$scroller-width: 0.5rem;
+
 html,
 body,
 p,
@@ -24,11 +26,11 @@ app-root {
 app-root {
   display: flex;
   flex-direction: column;
-  --text: #101511;
-  --background: #f5f8f5;
-  --primary: #5da267;
-  --secondary: #a3d1a9;
-  --accent: #7dc788;
+  --text: #45484f;
+  --background: #fcfaff;
+  --primary: #d6e2ff;
+  --secondary: #005dba;
+  --accent: #e1e3ed;
 }
 
 app-employee,
@@ -39,17 +41,26 @@ app-home-page {
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: $scroller-width;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f8f5;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5da267;
+  background: var(--primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7dc788;
+  background: var(--secondary);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
