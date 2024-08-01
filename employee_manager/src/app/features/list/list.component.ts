@@ -79,6 +79,7 @@ export class ListComponent implements OnInit {
       projects: [],
       manager: ' ',
     };
+    this.getNames();
     this.messageService.add(`add ${newId}`);
   }
 

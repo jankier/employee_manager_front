@@ -1,6 +1,8 @@
-<select class="dropdown" #element (change)="onSelected(element.value)">
-  <option class="dropdown__default">{{ 'dropdown.option' | translate }}</option>
-  @for (element of listElements; track element) {
-    <option class="dropdown__option">{{ element }}</option>
-  }
-</select>
+<mat-form-field class="dropdown">
+  <mat-label>{{ 'dropdown.option' | translate }}{{ ' ' + elementType }}</mat-label>
+  <mat-select #element (selectionChange)="onSelected(element.value)" [disabled]="listElements?.length === 0">
+    @for (element of listElements; track element) {
+      <mat-option value="{{ element }}">{{ element }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

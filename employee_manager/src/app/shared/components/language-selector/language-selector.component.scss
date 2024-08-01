@@ -3,12 +3,4 @@
     color: var(--secondary);
     background-color: var(--background);
   }
-
-  &__lang {
-    color: var(--text);
-
-    &.selected {
-      color: var(--secondary);
-    }
-  }
 }

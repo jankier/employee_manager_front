@@ -1,17 +1,11 @@
 @import '../../../../variables/variables';
 
 $border-bottom-custom: 0.0625rem solid var(--text);
+$font-size-custom: 2rem;
 
 .message {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
   padding: $padding-large;
-  gap: $gap-small;
-  background-color: var(--background);
-  box-shadow: $shadow-default;
   border-radius: $border-radius-default;
-  font-size: $font-size-default;
 
   &__elements {
     display: flex;
@@ -21,22 +15,13 @@ $border-bottom-custom: 0.0625rem solid var(--text);
     align-items: center;
 
     &-title {
-      font-size: $font-size-medium;
+      font-size: $font-size-custom;
     }
 
     &-button {
-      cursor: pointer;
       font-size: $font-size-default;
       padding: $padding-x-small;
-      outline: none;
-      border: none;
       border-radius: $border-radius-small;
-      background-color: var(--primary);
-      transition: background-color $transition-time-default ease-in;
-
-      &:hover {
-        background-color: var(--secondary);
-      }
     }
   }
 
@@ -44,5 +29,6 @@ $border-bottom-custom: 0.0625rem solid var(--text);
     width: 100%;
     padding-bottom: $padding-small;
     border-bottom: $border-bottom-custom;
+    margin-bottom: $margin-small;
   }
 }

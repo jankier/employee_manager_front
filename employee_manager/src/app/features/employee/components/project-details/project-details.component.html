@@ -1,14 +1,14 @@
-<section class="project-page">
-  <div class="project-page__elements">
+<section class="project__details">
+  <mat-card class="project__details-card" appearance="outlined">
     @for (singleProject of projects; track singleProject) {
       @if (singleProject === project) {
-        <div class="project-page__title">
+        <mat-card-header class="project__details-header">
           <p>{{ project }}</p>
-        </div>
-        <div class="project-page__details">
+        </mat-card-header>
+        <mat-card-content class="project__details-content">
           <p>{{ 'project.' + (singleProject | lowercase) | translate }}</p>
-        </div>
+        </mat-card-content>
       }
     }
-  </div>
+  </mat-card>
 </section>

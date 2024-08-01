@@ -1,48 +1,27 @@
 @import '../../../../../variables/variables';
 
-$min-width-custom: 20rem;
-$max-width-custom: 24rem;
-
-.project-page {
+.project__details {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  margin-top: $margin-large;
+  margin-bottom: $margin-large;
 
-  &__elements {
-    display: flex;
-    flex-direction: column;
-    border-radius: $border-radius-default;
-    justify-content: center;
-    align-items: center;
+  &-card {
+    width: 40%;
     padding: $padding-large;
-    min-width: $min-width-custom;
-    max-width: $max-width-custom;
-    background-color: var(--background);
-    box-shadow: $shadow-default;
+    border-radius: $border-radius-default;
   }
 
-  &__title {
+  &-header {
     display: flex;
-    flex-direction: row;
-    gap: $gap-default;
-    font-weight: bold;
-    height: auto;
     padding-bottom: $padding-medium;
-    flex-grow: 1;
-    box-sizing: border-box;
-    font-size: $font-size-medium;
+    font-size: $font-size-large;
     justify-content: center;
   }
 
-  &__details {
-    display: flex;
-    flex-direction: column;
-    gap: $gap-small;
-    height: auto;
-    width: 100%;
-    flex-grow: 1;
-    box-sizing: border-box;
+  &-content {
     font-size: $font-size-default;
     text-align: justify;
   }

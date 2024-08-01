@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap');
-
+@import 'variables/material.variables';
 $scroller-width: 0.5rem;
 
 html,
@@ -19,7 +18,7 @@ app-root {
   height: 100%;
   font-weight: normal;
   color: var(--text);
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   background-color: var(--background);
 }
 
@@ -31,6 +30,7 @@ app-root {
   --primary: #d6e2ff;
   --secondary: #005dba;
   --accent: #e1e3ed;
+  --error: #ffa500ff;
 }
 
 app-employee,

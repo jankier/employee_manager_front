@@ -1,4 +1,6 @@
-<div class="project">
+<mat-chip-row class="project">
   <span [routerLink]="['project', project]" routerLinkActive="active">{{ project }}</span>
-  <button class="project__button" (click)="onSelected(project!)">x</button>
-</div>
+  <button matChipRemove (click)="onSelected(project!)">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</mat-chip-row>

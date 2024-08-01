@@ -1,77 +1,87 @@
 <section class="employee">
-  <div class="employee__content" [formGroup]="employeeForm">
-    <div class="employee__title">
-      <p>
+  <mat-card class="employee__content" [formGroup]="employeeForm" appearance="outlined">
+    <mat-card-header class="employee__header">
+      <mat-card-title class="employee__header-title">
         {{ nameControl.value | uppercase }}
         {{ surnameControl.value | uppercase }}
-      </p>
-    </div>
-    <div class="employee__details">
-      <div class="employee__row">
-        <span class="employee__label">{{ 'employee.id' | translate }}</span>
-        <span>{{ idControl.value }}</span>
-      </div>
-      <div class="employee__column">
-        <label class="employee__label">{{ 'employee.name' | translate }}</label>
-        <input class="employee__details-input" [formControl]="nameControl" placeholder="{{ 'input.placeholder.name' | translate }}" maxlength="20" />
+      </mat-card-title>
+      <mat-card-subtitle class="employee__header-subtitle">
+        {{ 'employee.id' | translate }}
+        {{ idControl.value }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="employee__details">
+      <mat-form-field class="employee__input">
+        <mat-label>{{ 'employee.name' | translate }}</mat-label>
+        <input matInput [formControl]="nameControl" placeholder="{{ 'input.placeholder.name' | translate }}" maxlength="18" />
         @if (nameControl.hasError('required') && !nameControl.untouched) {
-          <span class="employee__error-message">{{ 'error.name.required' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.name.required' | translate }}</mat-error>
         } @else if (nameControl.hasError('minlength')) {
-          <span class="employee__error-message">{{ 'error.name.minLength' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.name.minLength' | translate }}</mat-error>
         } @else if (nameControl.hasError('maxlength')) {
-          <span class="employee__error-message">{{ 'error.name.maxLength' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.name.maxLength' | translate }}</mat-error>
         }
-      </div>
-      <div class="employee__column">
-        <label class="employee__label">{{ 'employee.surname' | translate }}</label>
-        <input
-          class="employee__details-input"
-          [formControl]="surnameControl"
-          placeholder="{{ 'input.placeholder.surname' | translate }}"
-          maxlength="20" />
+      </mat-form-field>
+      <mat-form-field class="employee__input">
+        <mat-label>{{ 'employee.surname' | translate }}</mat-label>
+        <input matInput [formControl]="surnameControl" placeholder="{{ 'input.placeholder.surname' | translate }}" maxlength="18" />
         @if (surnameControl.hasError('required') && !surnameControl.untouched) {
-          <span class="employee__error-message">{{ 'error.surname.required' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.surname.required' | translate }}</mat-error>
         } @else if (surnameControl.hasError('minlength')) {
-          <span class="employee__error-message">{{ 'error.surname.minLength' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.surname.minLength' | translate }}</mat-error>
         } @else if (surnameControl.hasError('maxlength')) {
-          <span class="employee__error-message">{{ 'error.surname.maxLength' | translate }}</span>
+          <mat-error class="employee__error-message">{{ 'error.surname.maxLength' | translate }}</mat-error>
         }
+      </mat-form-field>
+      <mat-form-field class="employee__input">
+        <mat-label>{{ 'employee.employmentDate' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="employmentDateControl" />
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (employmentDateControl.hasError('required') && !employmentDateControl.untouched) {
+          <mat-error class="employee__error-message">{{ 'error.employmentDate.required' | translate }}</mat-error>
+        } @else if (employmentDateControl.hasError('pattern')) {
+          <mat-error class="employee__error-message">{{ 'error.employmentDate.pattern' | translate }}</mat-error>
+        }
+      </mat-form-field>
+      <div class="employee__column">
+        <app-dropdown [listElements]="skillList" [elementType]="'employee.skills' | translate" (selectedElement)="addSkill($event)"></app-dropdown>
+        <mat-chip-grid>
+          @for (skill of skillsControl.value; track skill) {
+            <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
+          }
+        </mat-chip-grid>
       </div>
       <div class="employee__column">
-        <label class="employee__label">{{ 'employee.employmentDate' | translate }}</label>
-        <input type="date" class="employee__details-input" [formControl]="employmentDateControl" />
-        @if (employmentDateControl.hasError('required') && !employmentDateControl.untouched) {
-          <span class="employee__error-message">{{ 'error.employmentDate.required' | translate }}</span>
-        } @else if (employmentDateControl.hasError('pattern')) {
-          <span class="employee__error-message">{{ 'error.employmentDate.pattern' | translate }}</span>
-        }
-      </div>
-      <div class="employee__row">
-        <span class="employee__label">{{ 'employee.skills' | translate }}</span>
-        <app-dropdown [listElements]="skillList" (selectedElement)="addSkill($event)"></app-dropdown>
-        @for (skill of skillsControl.value; track skill) {
-          <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
-        }
-      </div>
-      <div class="employee__row">
-        <span class="employee__label">{{ 'employee.projects' | translate }}</span>
-        <app-dropdown [listElements]="projectList" (selectedElement)="addProject($event)"></app-dropdown>
-        @for (project of projectsControl.value; track project) {
-          <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
-        }
+        <app-dropdown
+          [listElements]="projectList"
+          [elementType]="'employee.projects' | translate"
+          (selectedElement)="addProject($event)"></app-dropdown>
+        <mat-chip-grid>
+          @for (project of projectsControl.value; track project) {
+            <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
+          }
+        </mat-chip-grid>
       </div>
       @if (managerControl.value !== '') {
-        <div class="employee__column">
-          <label class="employee__label">{{ 'employee.manager' | translate }}</label>
-          <select class="employee__dropdown" [formControl]="managerControl" #manager (change)="onSelectedManager(manager.value)">
-            <option class="dropdown__option">{{ managerControl.value }}</option>
-            @for (manager of managersList; track manager) {
-              <option class="dropdown__option">{{ manager }}</option>
+        <mat-form-field class="employee__input">
+          <mat-label>{{ 'employee.manager' | translate }}</mat-label>
+          <mat-select [formControl]="managerControl" #manager (selectionChange)="onSelectedManager(manager.value)">
+            @if (managerControl.value !== ' ') {
+              <mat-option value="{{ managerControl.value }}">{{ managerControl.value }}</mat-option>
             }
-          </select>
-        </div>
+            @for (manager of managersList; track manager) {
+              <mat-option value="{{ manager }}">{{ manager }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       }
-    </div>
-    <button type="submit" class="employee__button" (click)="onSubmit()" [disabled]="employeeForm.invalid">{{ 'button.save' | translate }}</button>
-  </div>
+      <mat-card-actions class="employee__button">
+        <button mat-flat-button type="submit" class="employee__button-submit" (click)="onSubmit()" [disabled]="employeeForm.invalid">
+          {{ 'button.save' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
 </section>

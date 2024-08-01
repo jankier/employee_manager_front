@@ -1,4 +1,6 @@
-<div class="skill">
+<mat-chip-row class="skill">
   <span>{{ skill }}</span>
-  <button class="skill__button" (click)="onSelected(skill!)">x</button>
-</div>
+  <button matChipRemove (click)="onSelected(skill!)">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</mat-chip-row>

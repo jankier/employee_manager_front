@@ -3,12 +3,12 @@
     "employees": "Employees"
   },
   "employee": {
-    "id": "Id",
+    "id": "ID",
     "name": "Name",
     "surname": "Surname",
     "employmentDate": "Date of employment",
-    "skills": "Skills",
-    "projects": "Projects",
+    "skills": "skill",
+    "projects": "project",
     "manager": "Manager"
   },
   "project": {

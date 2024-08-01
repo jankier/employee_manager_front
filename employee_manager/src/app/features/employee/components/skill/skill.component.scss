@@ -1,27 +1,5 @@
-@import '../../../../../variables/variables';
+$height-custom: 3rem;
 
 .skill {
-  display: flex;
-  flex-direction: row;
-  gap: $gap-small;
-  border: $border-style-default;
-  border-radius: $border-radius-default;
-  padding: $padding-x-small;
-  user-select: none;
-
-  &__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: $border-style-default;
-    border-radius: 50%;
-    cursor: pointer;
-    outline: none;
-    background-color: var(--background);
-    transition: background-color $transition-time-default ease-in;
-
-    &:hover {
-      background-color: var(--accent);
-    }
-  }
+  height: $height-custom;
 }

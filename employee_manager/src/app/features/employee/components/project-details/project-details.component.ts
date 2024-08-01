@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Projects } from '../../../../../enums/projects.enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LowerCasePipe } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-project-page',
   standalone: true,
-  imports: [TranslateModule, LowerCasePipe],
+  imports: [TranslateModule, LowerCasePipe, MatCardModule],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
 })

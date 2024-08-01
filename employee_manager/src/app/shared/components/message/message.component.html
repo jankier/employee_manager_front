@@ -1,11 +1,19 @@
 @if (messageService.messages.length) {
-  <div class="message">
+  <mat-card class="message" appearance="outlined">
     <div class="message__elements">
-      <h2 class="message__elements-title">{{ 'message.title' | translate | uppercase }}</h2>
-      <button type="button" class="message__elements-button" (click)="messageService.clear()">{{ 'button.clear' | translate }}</button>
+      <mat-card-header>
+        <h2 class="message__elements-title">{{ 'message.title' | translate | uppercase }}</h2>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-flat-button type="button" class="message__elements-button" (click)="messageService.clear()">
+          {{ 'button.clear' | translate }}
+        </button>
+      </mat-card-actions>
     </div>
-    @for (message of messageService.messages; track message) {
-      <div class="message__content">{{ 'message.messages.' + message.split(' ')[0] | translate }}{{ message.split(' ')[1] }}</div>
-    }
-  </div>
+    <mat-card-content>
+      @for (message of messageService.messages; track message) {
+        <div class="message__content">{{ 'message.messages.' + message.split(' ')[0] | translate }}{{ message.split(' ')[1] }}</div>
+      }
+    </mat-card-content>
+  </mat-card>
 }

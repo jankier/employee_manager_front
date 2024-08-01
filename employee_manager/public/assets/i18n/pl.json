@@ -3,12 +3,12 @@
     "employees": "Pracownicy"
   },
   "employee": {
-    "id": "Id",
+    "id": "ID",
     "name": "Imię",
     "surname": "Nazwisko",
     "employmentDate": "Data zatrudnienia",
-    "skills": "Umiejętności",
-    "projects": "Projekty",
+    "skills": "umiejętność",
+    "projects": "projekt",
     "manager": "Menadżer"
   },
   "project": {
