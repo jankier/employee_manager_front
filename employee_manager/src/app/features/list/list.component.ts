@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   filteredEmployees: Employee[] = [];
   selectedEmployee?: Employee;
   managers: string[] = [];
-  destroyRef: DestroyRef = inject(DestroyRef);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private employeesService: EmployeesService,
@@ -41,10 +41,9 @@ export class ListComponent implements OnInit {
       .subscribe({
         next: (data: Employee[]): void => {
           this.employees = data;
-          console.log(data);
         },
         error: (err): void => {
-          console.log(err);
+          alert(err);
         },
         complete: (): void => {
           this.filteredEmployees = this.employees;

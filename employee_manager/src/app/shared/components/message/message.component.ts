@@ -13,5 +13,17 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './message.component.scss',
 })
 export class MessageComponent {
-  constructor(public messageService: MessageService) {}
+  constructor(private messageService: MessageService) {}
+
+  getMessagesLength(): number {
+    return this.messageService.messages.length;
+  }
+
+  getMessages(): string[] {
+    return this.messageService.messages;
+  }
+
+  clearMessages(): void {
+    this.messageService.clear();
+  }
 }
