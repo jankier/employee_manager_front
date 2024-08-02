@@ -11,3 +11,7 @@
     color: $text-color;
   }
 }
+
+.mat-bottom-sheet-container::-webkit-scrollbar {
+  display: none;
+}

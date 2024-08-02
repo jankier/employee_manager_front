@@ -12,7 +12,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 })
 export class DropdownComponent {
   @Input() listElements?: string[];
-  @Input() elementType = '';
+  @Input() elementType: string = '';
 
   @ViewChild('element') element?: MatSelect;
   @Output() selectedElement: EventEmitter<string> = new EventEmitter<string>();

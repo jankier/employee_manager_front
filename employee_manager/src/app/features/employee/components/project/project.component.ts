@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './project.component.scss',
 })
 export class ProjectComponent {
-  @Input({ required: true }) project!: string;
+  @Input() project: string = '';
 
   @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();
 

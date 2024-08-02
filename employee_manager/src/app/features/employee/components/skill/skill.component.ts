@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './skill.component.scss',
 })
 export class SkillComponent {
-  @Input() skill?: string = '';
+  @Input() skill: string = '';
 
   @Output() selectedSkill: EventEmitter<string> = new EventEmitter<string>();
 
