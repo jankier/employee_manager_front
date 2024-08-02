@@ -1,6 +1,6 @@
 @import '../../../variables/variables';
 
-$margin-bottom-title: 0.5rem;
+$margin-bottom-title-custom: 0.5rem;
 
 .employee {
   display: flex;
@@ -21,13 +21,13 @@ $margin-bottom-title: 0.5rem;
 
     &-title {
       font-size: $font-size-large;
-      margin-bottom: $margin-bottom-title;
+      margin-bottom: $margin-bottom-title-custom;
     }
 
     &-subtitle {
       display: flex;
       justify-content: center;
-      color: var(--text);
+      color: $text-color;
       font-size: $font-size-medium;
     }
   }
@@ -55,6 +55,6 @@ $margin-bottom-title: 0.5rem;
   }
 
   &__error-message {
-    color: var(--error);
+    color: $error-color;
   }
 }

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-dropdown',
@@ -14,9 +14,11 @@ export class DropdownComponent {
   @Input() listElements?: string[];
   @Input() elementType = '';
 
+  @ViewChild('element') element?: MatSelect;
   @Output() selectedElement: EventEmitter<string> = new EventEmitter<string>();
 
   onSelected(value: string): void {
+    this.element?.writeValue('');
     this.selectedElement.emit(value);
   }
 }

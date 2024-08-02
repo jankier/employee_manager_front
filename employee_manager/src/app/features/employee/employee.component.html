@@ -47,22 +47,22 @@
       </mat-form-field>
       <div class="employee__column">
         <app-dropdown [listElements]="skillList" [elementType]="'employee.skills' | translate" (selectedElement)="addSkill($event)"></app-dropdown>
-        <mat-chip-grid>
+        <mat-chip-set>
           @for (skill of skillsControl.value; track skill) {
             <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
           }
-        </mat-chip-grid>
+        </mat-chip-set>
       </div>
       <div class="employee__column">
         <app-dropdown
           [listElements]="projectList"
           [elementType]="'employee.projects' | translate"
           (selectedElement)="addProject($event)"></app-dropdown>
-        <mat-chip-grid>
+        <mat-chip-set>
           @for (project of projectsControl.value; track project) {
             <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
           }
-        </mat-chip-grid>
+        </mat-chip-set>
       </div>
       @if (managerControl.value !== '') {
         <mat-form-field class="employee__input">

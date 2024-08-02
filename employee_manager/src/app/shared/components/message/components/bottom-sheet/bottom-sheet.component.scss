@@ -1,0 +1,35 @@
+@import '../../../../../../variables/variables';
+
+$border-bottom-custom: 0.0625rem solid $text-color;
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-default;
+  padding: $padding-medium;
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title {
+      font-size: $font-size-medium;
+    }
+
+    &-button {
+      font-size: $font-size-default;
+      padding: $padding-x-small;
+      border-radius: $border-radius-small;
+    }
+  }
+
+  &__message {
+    &-content {
+      width: 100%;
+      padding-bottom: $padding-small;
+      border-bottom: $border-bottom-custom;
+      margin-bottom: $margin-small;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import '../variables/variables';
+
+.lang__selected {
+  .mat-mdc-menu-item-text {
+    color: $secondary-color;
+  }
+}
+
+.lang__unselected {
+  .mat-mdc-menu-item-text {
+    color: $text-color;
+  }
+}

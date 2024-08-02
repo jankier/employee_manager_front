@@ -9,7 +9,7 @@
         class="language__lang"
         type="button"
         (click)="switchLang(language)"
-        [ngClass]="checkCurrentLang(language) ? 'selected-lang' : 'unselected-lang'">
+        [ngClass]="checkCurrentLang(language) ? 'lang__selected' : 'lang__unselected'">
         {{ language | uppercase }}
       </button>
     }

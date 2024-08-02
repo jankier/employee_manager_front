@@ -1,0 +1,13 @@
+<mat-nav-list class="sheet">
+  <div class="sheet__actions">
+    <span class="sheet__actions-title">{{ 'message.details' | translate | uppercase }}</span>
+    <button mat-flat-button type="button" class="sheet__actions-button" (click)="clearMessages()">
+      {{ 'button.clear' | translate }}
+    </button>
+  </div>
+  <div class="sheet__message">
+    @for (message of getMessages(); track message) {
+      <div class="sheet__message-content">{{ 'message.messages.' + message.split(' ')[0] | translate }}{{ message.split(' ')[1] }}</div>
+    }
+  </div>
+</mat-nav-list>

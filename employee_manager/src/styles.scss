@@ -1,5 +1,6 @@
-@import 'variables/material.variables';
-$scroller-width: 0.5rem;
+@import 'variables/material-override';
+@import 'variables/variables';
+$scroller-width-custom: 0.5rem;
 
 html,
 body,
@@ -17,20 +18,14 @@ body,
 app-root {
   height: 100%;
   font-weight: normal;
-  color: var(--text);
+  color: $text-color;
   font-family: Roboto, sans-serif;
-  background-color: var(--background);
+  background-color: $background-color;
 }
 
 app-root {
   display: flex;
   flex-direction: column;
-  --text: #45484f;
-  --background: #fcfaff;
-  --primary: #d6e2ff;
-  --secondary: #005dba;
-  --accent: #e1e3ed;
-  --error: #ffa500ff;
 }
 
 app-employee,
@@ -41,19 +36,19 @@ app-home-page {
 }
 
 ::-webkit-scrollbar {
-  width: $scroller-width;
+  width: $scroller-width-custom;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: $background-color;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: $primary-color;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
+  background: $secondary-color;
 }
 
 html,
@@ -62,5 +57,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, sans-serif;
 }

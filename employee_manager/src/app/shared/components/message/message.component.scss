@@ -1,34 +1,20 @@
 @import '../../../../variables/variables';
 
-$border-bottom-custom: 0.0625rem solid var(--text);
-$font-size-custom: 2rem;
+.messages {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: $gap-large;
 
-.message {
-  padding: $padding-large;
-  border-radius: $border-radius-default;
-
-  &__elements {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-
-    &-title {
-      font-size: $font-size-custom;
-    }
-
-    &-button {
-      font-size: $font-size-default;
-      padding: $padding-x-small;
-      border-radius: $border-radius-small;
-    }
+  &__title {
+    font-size: $font-size-large;
   }
 
-  &__content {
-    width: 100%;
-    padding-bottom: $padding-small;
-    border-bottom: $border-bottom-custom;
-    margin-bottom: $margin-small;
+  &__button {
+    font-size: $font-size-default;
+    padding: $padding-x-small;
+    border-radius: $border-radius-small;
   }
 }
