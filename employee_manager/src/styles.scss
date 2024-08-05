@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@700&display=swap');
+@import 'variables/material-override';
+@import 'variables/variables';
+$scroller-width-custom: 0.5rem;
 
 html,
 body,
@@ -16,19 +18,14 @@ body,
 app-root {
   height: 100%;
   font-weight: normal;
-  color: var(--text);
-  font-family: Poppins, sans-serif;
-  background-color: var(--background);
+  color: $text-color;
+  font-family: Roboto, sans-serif;
+  background-color: $background-color;
 }
 
 app-root {
   display: flex;
   flex-direction: column;
-  --text: #101511;
-  --background: #f5f8f5;
-  --primary: #5da267;
-  --secondary: #a3d1a9;
-  --accent: #7dc788;
 }
 
 app-employee,
@@ -39,17 +36,26 @@ app-home-page {
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: $scroller-width-custom;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f8f5;
+  background: $background-color;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5da267;
+  background: $primary-color;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7dc788;
+  background: $secondary-color;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
 }

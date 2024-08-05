@@ -6,11 +6,15 @@ import { UpperCasePipe } from '@angular/common';
 import { EmployeesService } from './services/employees.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../services/message.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [EmployeeComponent, TranslateModule, UpperCasePipe],
+  imports: [EmployeeComponent, TranslateModule, UpperCasePipe, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
@@ -74,6 +78,7 @@ export class ListComponent implements OnInit {
       projects: [],
       manager: ' ',
     };
+    this.getNames();
     this.messageService.add(`add ${newId}`);
   }
 

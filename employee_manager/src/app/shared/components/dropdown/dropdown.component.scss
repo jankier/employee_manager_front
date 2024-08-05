@@ -1,19 +1,5 @@
 @import '../../../../variables/variables';
 
-$width-custom: 6rem;
-
 .dropdown {
-  border: $border-style-default;
-  font-size: $font-size-default;
-  border-radius: $border-radius-default;
-  padding: $padding-x-small;
-  outline: none;
-  background-color: var(--background);
-  width: $width-custom;
-  user-select: none;
-  cursor: pointer;
-
-  &__default {
-    color: $disabled-color;
-  }
+  margin-top: $margin-default;
 }

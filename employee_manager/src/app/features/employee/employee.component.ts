@@ -9,11 +9,49 @@ import { DropdownComponent } from '../../shared/components/dropdown/dropdown.com
 import { Skills } from '../../../enums/skills.enum';
 import { Projects } from '../../../enums/projects.enum';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+
+export const DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [UpperCasePipe, FormsModule, SkillComponent, ProjectComponent, ReactiveFormsModule, DropdownComponent, TranslateModule],
+  imports: [
+    UpperCasePipe,
+    FormsModule,
+    SkillComponent,
+    ProjectComponent,
+    ReactiveFormsModule,
+    DropdownComponent,
+    TranslateModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+  ],
+  providers: [provideMomentDateAdapter(DATE_FORMATS)],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
@@ -39,6 +77,7 @@ export class EmployeeComponent implements OnInit {
     if (this.allManagers !== undefined) {
       this.checkManagersList();
     }
+    this.employeeForm.markAsUntouched();
   }
 
   @Output() updatedEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
@@ -48,7 +87,7 @@ export class EmployeeComponent implements OnInit {
       id: [''],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       surname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      employmentDate: ['', [Validators.required, Validators.pattern('^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$')]], // Checks if date is of DD-MM-YYYY format.
+      employmentDate: ['', [Validators.required]],
       skills: [['']],
       projects: [['']],
       manager: [''],

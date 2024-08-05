@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-skill',
   standalone: true,
-  imports: [],
+  imports: [MatChipsModule, MatIconModule],
   templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss',
 })
 export class SkillComponent {
-  @Input() skill?: string = '';
+  @Input() skill: string = '';
 
   @Output() selectedSkill: EventEmitter<string> = new EventEmitter<string>();
 

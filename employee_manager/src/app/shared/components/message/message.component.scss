@@ -1,48 +1,20 @@
 @import '../../../../variables/variables';
 
-$border-bottom-custom: 0.0625rem solid var(--text);
-
-.message {
+.messages {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: $padding-large;
-  gap: $gap-small;
-  background-color: var(--background);
-  box-shadow: $shadow-default;
-  border-radius: $border-radius-default;
-  font-size: $font-size-default;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: $gap-large;
 
-  &__elements {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-
-    &-title {
-      font-size: $font-size-medium;
-    }
-
-    &-button {
-      cursor: pointer;
-      font-size: $font-size-default;
-      padding: $padding-x-small;
-      outline: none;
-      border: none;
-      border-radius: $border-radius-small;
-      background-color: var(--primary);
-      transition: background-color $transition-time-default ease-in;
-
-      &:hover {
-        background-color: var(--secondary);
-      }
-    }
+  &__title {
+    font-size: $font-size-large;
   }
 
-  &__content {
-    width: 100%;
-    padding-bottom: $padding-small;
-    border-bottom: $border-bottom-custom;
+  &__button {
+    font-size: $font-size-default;
+    padding: $padding-x-small;
+    border-radius: $border-radius-small;
   }
 }
