@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Employee } from '../../../models/employee.model';
 import { UpperCasePipe } from '@angular/common';
@@ -18,6 +18,10 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { EmployeesService } from '../../services/employees.service';
+import { Location } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 export const DATE_FORMATS = {
   parse: {
@@ -50,6 +54,8 @@ export const DATE_FORMATS = {
     MatSelectModule,
     MatButtonModule,
     MatChipsModule,
+    RouterLink,
+    MatIconModule,
   ],
   providers: [provideMomentDateAdapter(DATE_FORMATS)],
   templateUrl: './employee.component.html',
@@ -61,17 +67,21 @@ export class EmployeeComponent implements OnInit {
   private allProjects: string[] = Object.values(Projects);
   projectList: string[] = this.allProjects;
 
-  @Input({ required: true }) allManagers!: string[];
-  managersList: string[] = this.allManagers;
+  allManagers: string[] = [];
+  managersList: string[] = [];
 
   ngOnInit(): void {
+    this.getEmployee();
     this.checkManagersList();
   }
 
-  employeeForm: FormGroup;
-
-  @Input() set employee(value: Employee) {
-    this.employeeForm.patchValue({ ...value, skills: [...value.skills], projects: [...value.projects] });
+  getEmployee(): void {
+    const id: number = Number(this.route.snapshot.paramMap.get('id'));
+    this.employeesService
+      .getEmployee(id)
+      .subscribe((employee: Employee) =>
+        this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] })
+      );
     this.checkSkillsList();
     this.checkProjectsList();
     if (this.allManagers !== undefined) {
@@ -80,9 +90,14 @@ export class EmployeeComponent implements OnInit {
     this.employeeForm.markAsUntouched();
   }
 
-  @Output() updatedEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
+  employeeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private employeesService: EmployeesService,
+    private location: Location
+  ) {
     this.employeeForm = this.fb.nonNullable.group({
       id: [''],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
@@ -92,10 +107,13 @@ export class EmployeeComponent implements OnInit {
       projects: [['']],
       manager: [''],
     });
+
+    this.allManagers = this.employeesService.managers;
+    this.managersList = this.allManagers;
   }
 
   onSubmit(): void {
-    this.updatedEmployee.emit(this.employeeForm.getRawValue() as Employee);
+    this.employeesService.updatedEmployee = this.employeeForm.getRawValue() as Employee;
     this.employeeForm.markAsUntouched();
   }
 
@@ -152,6 +170,10 @@ export class EmployeeComponent implements OnInit {
   onSelectedManager(manager: string): void {
     this.managerControl.setValue(manager);
     this.checkManagersList();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   private checkSkillsList(): void {

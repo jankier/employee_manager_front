@@ -1,19 +1,14 @@
 @import '../../../variables/variables';
 
-$width-add-icon-custom: 1.2rem;
-$height-add-button-custom: 3.5rem;
-$padding-top-add-icon-custom: 0.5rem;
-$margin-search-custom: 4.6rem;
 $margin-list-custom: 0 0 1rem 0;
 
-.list {
+.dashboard {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
   margin-top: $margin-large;
-  margin-bottom: $margin-default;
 
   &__content {
     display: flex;
@@ -32,35 +27,9 @@ $margin-list-custom: 0 0 1rem 0;
     justify-content: center;
   }
 
-  &__search-add {
-    display: flex;
-    flex-direction: row;
-    gap: $gap-small;
-    margin-left: $margin-search-custom;
-  }
-
-  &__search {
-    font-size: $font-size-default;
-  }
-
-  &__add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: $border-radius-small;
-    width: $width-small;
-    height: $height-add-button-custom;
-    padding: $padding-x-small;
-  }
-
-  &__add-icon {
-    width: $width-add-icon-custom;
-    padding-top: $padding-top-add-icon-custom;
-  }
-
   &__list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     list-style-type: none;
     padding: 0;
     gap: $gap-small;

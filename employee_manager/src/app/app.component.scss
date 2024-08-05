@@ -1,8 +1,5 @@
 @import '../variables/variables';
 
-$height-custom: 3rem;
-$font-size-custom: 2rem;
-$padding-custom: 1rem;
 $margin-bottom-custom: 1rem;
 
 .app-wrapper {
@@ -11,37 +8,6 @@ $margin-bottom-custom: 1rem;
   flex-grow: 1;
   background-color: $background-color;
   overflow: hidden;
-
-  &__header {
-    display: flex;
-    padding: $padding-custom $padding-custom;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $primary-color;
-
-    .header__logo {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      cursor: pointer;
-      gap: $gap-small;
-
-      &-text {
-        font-size: $font-size-custom;
-        font-family: Roboto, sans-serif;
-        font-weight: bold;
-
-        &-black {
-          color: $secondary-color;
-        }
-      }
-
-      &-icon {
-        height: $height-custom;
-        width: auto;
-      }
-    }
-  }
 
   &__wrapper {
     display: flex;
@@ -58,13 +24,5 @@ $margin-bottom-custom: 1rem;
       justify-content: center;
       margin-bottom: $margin-bottom-custom;
     }
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: $padding-small;
-    background-color: $primary-color;
   }
 }

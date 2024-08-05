@@ -1,4 +1,8 @@
 {
+  "navbar": {
+    "dashboard": "Dashboard",
+    "employees": "Employees"
+  },
   "list": {
     "employees": "Employees"
   },
@@ -23,7 +27,8 @@
     "title": "Messages",
     "details": "Details",
     "messages": {
-      "fetch": "EmployeesService: Fetched employees",
+      "fetch": "EmployeesService: Fetched all employees",
+      "random": "EmployeesService: Fetched random employees",
       "select": "ListComponent: Selected employee of id=",
       "add": "ListComponent: Added employee of id=",
       "delete": "ListComponent: Deleted employee of id=",
@@ -43,7 +48,8 @@
   "button": {
     "save": "Save",
     "show": "Show",
-    "clear": "Clear"
+    "clear": "Clear",
+    "back": "Back"
   },
   "error": {
     "name": {

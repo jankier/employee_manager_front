@@ -1,4 +1,8 @@
 <section class="employee">
+  <button mat-raised-button class="employee__button-back" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span>{{ 'button.back' | translate }}</span>
+  </button>
   <mat-card class="employee__content" [formGroup]="employeeForm" appearance="outlined">
     <mat-card-header class="employee__header">
       <mat-card-title class="employee__header-title">
@@ -78,7 +82,13 @@
         </mat-form-field>
       }
       <mat-card-actions class="employee__button">
-        <button mat-flat-button type="submit" class="employee__button-submit" (click)="onSubmit()" [disabled]="employeeForm.invalid">
+        <button
+          mat-flat-button
+          type="submit"
+          class="employee__button-submit"
+          (click)="onSubmit()"
+          [disabled]="employeeForm.invalid"
+          routerLink="/employees">
           {{ 'button.save' | translate }}
         </button>
       </mat-card-actions>

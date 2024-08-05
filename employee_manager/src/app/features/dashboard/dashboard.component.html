@@ -1,0 +1,21 @@
+<section class="dashboard">
+  <div class="dashboard__content">
+    <div class="dashboard__title">
+      <p>{{ 'navbar.dashboard' | translate | uppercase }}</p>
+    </div>
+    <ul class="dashboard__list">
+      @for (employee of employees; track employee) {
+        <li class="dashboard__list-element">
+          <button
+            mat-raised-button
+            class="dashboard__list-button"
+            type="button"
+            (click)="onSelect(employee)"
+            routerLink="/employee/{{ employee.id }}">
+            <span>{{ employee.name }} {{ employee.surname }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

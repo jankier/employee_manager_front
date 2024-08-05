@@ -4,10 +4,24 @@ $margin-bottom-title-custom: 0.5rem;
 
 .employee {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
+  justify-content: center;
+  margin-top: $margin-large;
   margin-bottom: $margin-large;
+  position: relative;
+
+  &__button-back {
+    position: absolute;
+    left: 10rem;
+    top: 5rem;
+    height: 3.5rem;
+    font-size: $font-size-default;
+    border-radius: $border-radius-small;
+    width: $width-default;
+    padding: $padding-x-small;
+  }
 
   &__content {
     border-radius: $border-radius-default;

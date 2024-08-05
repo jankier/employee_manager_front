@@ -1,4 +1,8 @@
 {
+  "navbar": {
+    "dashboard": "Panel główny",
+    "employees": "Pracownicy"
+  },
   "list": {
     "employees": "Pracownicy"
   },
@@ -23,7 +27,8 @@
     "title": "Wiadomości",
     "details": "Szczegóły",
     "messages": {
-      "fetch": "EmployeesService: Pobrano pracowników",
+      "fetch": "EmployeesService: Pobrano wszystkich pracowników",
+      "random": "EmployeesService: Pobrano losowych pracowników",
       "select": "ListComponent: Wybrano pracownika o id=",
       "add": "ListComponent: Dodano pracownika o id=",
       "delete": "ListComponent: Usunięto pracownika o id=",
@@ -36,7 +41,8 @@
   "button": {
     "save": "Zapisz",
     "show": "Pokaż",
-    "clear": "Wyczyść"
+    "clear": "Wyczyść",
+    "back": "Cofnij"
   },
   "input": {
     "placeholder": {

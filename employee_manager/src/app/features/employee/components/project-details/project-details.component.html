@@ -1,4 +1,8 @@
 <section class="project__details">
+  <button mat-raised-button class="project__details-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span>{{ 'button.back' | translate }}</span>
+  </button>
   <mat-card class="project__details-card" appearance="outlined">
     @for (singleProject of projects; track singleProject) {
       @if (singleProject === project) {

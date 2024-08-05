@@ -1,0 +1,54 @@
+@import '../../../../../variables/variables';
+
+$height-custom: 3rem;
+$font-size-custom: 2rem;
+$padding-custom: 1rem;
+
+.header {
+  display: flex;
+  padding: $padding-custom $padding-custom;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    gap: $gap-small;
+
+    &-text {
+      font-size: $font-size-custom;
+      font-family: Roboto, sans-serif;
+      font-weight: bold;
+
+      &-black {
+        color: $secondary-color;
+      }
+    }
+
+    &-icon {
+      height: $height-custom;
+      width: auto;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: $gap-large;
+
+    &-option {
+      cursor: pointer;
+      text-decoration: none;
+      color: $text-color;
+
+      &.active {
+        color: $secondary-color;
+      }
+    }
+  }
+}

@@ -3,11 +3,13 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from './shared/components/language-selector/language-selector.component';
 import { MessageComponent } from './shared/components/message/message.component';
+import { HeaderComponent } from './shared/components/layout/header/header.component';
+import { FooterComponent } from './shared/components/layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LanguageSelectorComponent, MessageComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LanguageSelectorComponent, MessageComponent, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

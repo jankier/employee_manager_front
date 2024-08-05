@@ -1,0 +1,32 @@
+@import '../../../variables/variables';
+
+$font-size-title-custom: 5rem;
+$font-size-icon-custom: 3rem;
+
+.notfound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+
+  &__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $font-size-title-custom;
+    gap: $gap-default;
+    margin-bottom: $margin-large;
+
+    &-icon {
+      height: auto;
+      width: auto;
+      font-size: $font-size-icon-custom;
+    }
+  }
+
+  &__info {
+    font-size: $font-size-default;
+  }
+}
