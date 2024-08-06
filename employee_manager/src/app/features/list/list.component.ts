@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,11 +11,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { Paths } from '../../../enums/paths.enum';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EmployeeComponent, TranslateModule, UpperCasePipe, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -25,6 +25,7 @@ export class ListComponent implements OnInit {
   filteredEmployees: Employee[] = [];
   selectedEmployee?: Employee;
   managers: string[] = [];
+  protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(

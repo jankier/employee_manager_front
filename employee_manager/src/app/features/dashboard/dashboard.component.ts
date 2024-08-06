@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { UpperCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Paths } from '../../../enums/paths.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
 export class DashboardComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployee?: Employee;
+  protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(

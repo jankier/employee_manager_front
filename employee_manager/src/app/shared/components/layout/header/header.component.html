@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="header__logo" routerLink="">
+  <div class="header__logo" routerLink="/{{ Paths.DASHBOARD }}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="header__logo-icon">
       <path
         fill-rule="evenodd"
@@ -14,8 +14,8 @@
     </div>
   </div>
   <div class="header__menu">
-    <a class="header__menu-option" routerLink="/dashboard" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
-    <a class="header__menu-option" routerLink="/employees" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
+    <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
+    <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
     <app-language-selector [languages]="translate.store.langs" [currentLang]="translate.store.currentLang"></app-language-selector>
   </div>
 </header>

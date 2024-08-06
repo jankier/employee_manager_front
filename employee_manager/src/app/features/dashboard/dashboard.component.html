@@ -11,7 +11,7 @@
             class="dashboard__list-button"
             type="button"
             (click)="onSelect(employee)"
-            routerLink="/employee/{{ employee.id }}">
+            routerLink="/{{ Paths.EMPLOYEE }}/{{ employee.id }}">
             <span>{{ employee.name }} {{ employee.surname }}</span>
           </button>
         </li>

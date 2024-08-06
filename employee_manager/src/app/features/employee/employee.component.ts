@@ -23,7 +23,7 @@ import { EmployeesService } from '../../services/employees.service';
 import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
-export const DATE_FORMATS = {
+export const dateFormat = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
@@ -57,7 +57,7 @@ export const DATE_FORMATS = {
     RouterLink,
     MatIconModule,
   ],
-  providers: [provideMomentDateAdapter(DATE_FORMATS)],
+  providers: [provideMomentDateAdapter(dateFormat)],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
