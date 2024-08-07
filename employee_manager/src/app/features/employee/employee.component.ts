@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Employee } from '../../../models/employee.model';
 import { UpperCasePipe } from '@angular/common';
@@ -22,6 +22,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EmployeesService } from '../../services/employees.service';
 import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MessageService } from '../../services/message.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { Paths } from '../../../enums/paths.enum';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 export const dateFormat = {
   parse: {
@@ -56,6 +61,7 @@ export const dateFormat = {
     MatChipsModule,
     RouterLink,
     MatIconModule,
+    MatProgressSpinner,
   ],
   providers: [provideMomentDateAdapter(dateFormat)],
   templateUrl: './employee.component.html',
@@ -66,22 +72,73 @@ export class EmployeeComponent implements OnInit {
   skillList: string[] = this.allSkills;
   private allProjects: string[] = Object.values(Projects);
   projectList: string[] = this.allProjects;
-
+  isAddMode: boolean = false;
+  isLoading: boolean = true;
+  isMissing: boolean = false;
+  wrongId: string | null = '';
   allManagers: string[] = [];
   managersList: string[] = [];
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
+    this.getManagers();
     this.getEmployee();
     this.checkManagersList();
   }
 
-  getEmployee(): void {
-    const id: number = Number(this.route.snapshot.paramMap.get('id'));
+  getManagers(): void {
     this.employeesService
-      .getEmployee(id)
-      .subscribe((employee: Employee) =>
-        this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] })
-      );
+      .getEmployees()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        map((employees: Employee[]) => employees.map((employee: Employee): string => employee.name + ' ' + employee.surname))
+      )
+      .subscribe({
+        next: (data: string[]): void => {
+          this.allManagers = data;
+        },
+        error: (err): void => {
+          alert(err);
+        },
+        complete: (): void => {
+          this.managersList = this.allManagers;
+        },
+      });
+  }
+
+  getEmployee(): void {
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !id;
+    if (this.isAddMode) {
+      this.employeeForm.setValue({
+        id: this.employeesService.newEmployeeId.value,
+        name: '',
+        surname: '',
+        employmentDate: '',
+        skills: [],
+        projects: [],
+        manager: ' ',
+      });
+      this.isLoading = false;
+    } else {
+      this.employeesService
+        .getEmployee(id)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (employee: Employee): void => {
+            this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] });
+            this.isLoading = false;
+          },
+          error: (): void => {
+            this.isMissing = true;
+            this.isLoading = false;
+            this.wrongId = id;
+          },
+          complete: (): void => {
+            this.messageService.add(`select ${this.employeeForm.value.id}`);
+          },
+        });
+    }
     this.checkSkillsList();
     this.checkProjectsList();
     if (this.allManagers !== undefined) {
@@ -95,6 +152,7 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private messageService: MessageService,
     private employeesService: EmployeesService,
     private location: Location
   ) {
@@ -107,13 +165,24 @@ export class EmployeeComponent implements OnInit {
       projects: [['']],
       manager: [''],
     });
-
-    this.allManagers = this.employeesService.managers;
-    this.managersList = this.allManagers;
   }
 
   onSubmit(): void {
-    this.employeesService.updatedEmployee = this.employeeForm.getRawValue() as Employee;
+    if (this.isAddMode) {
+      this.employeesService.addEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`add ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    } else {
+      this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`update ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    }
     this.employeeForm.markAsUntouched();
   }
 
@@ -189,4 +258,6 @@ export class EmployeeComponent implements OnInit {
     const currentEmployee: string = this.employeeForm.controls['name'].value + ' ' + this.employeeForm.controls?.['surname'].value;
     this.managersList.splice(this.managersList.indexOf(currentEmployee), 1);
   }
+
+  protected readonly Paths = Paths;
 }

@@ -7,6 +7,7 @@ export const routes: Routes = [
   { path: Paths.DASHBOARD, component: DashboardComponent },
   { path: Paths.EMPLOYEES, loadComponent: () => import('./features/list/list.component').then((c) => c.ListComponent) },
   { path: Paths.EMPLOYEE + '/:id', loadComponent: () => import('./features/employee/employee.component').then((c) => c.EmployeeComponent) },
+  { path: Paths.CREATE, loadComponent: () => import('./features/employee/employee.component').then((c) => c.EmployeeComponent) },
   {
     path: Paths.PROJECT + '/:project',
     loadComponent: () => import('./features/employee/components/project-details/project-details.component').then((c) => c.ProjectDetailsComponent),

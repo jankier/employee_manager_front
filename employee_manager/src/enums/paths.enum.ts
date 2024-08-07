@@ -3,4 +3,5 @@ export enum Paths {
   EMPLOYEES = 'employees',
   EMPLOYEE = 'employee',
   PROJECT = 'project',
+  CREATE = 'create',
 }

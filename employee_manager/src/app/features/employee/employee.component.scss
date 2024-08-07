@@ -1,6 +1,8 @@
 @import '../../../variables/variables';
 
 $margin-bottom-title-custom: 0.5rem;
+$width-no-data-custom: 28rem;
+$height-no-data-custom: 19rem;
 
 .employee {
   display: flex;
@@ -11,6 +13,14 @@ $margin-bottom-title-custom: 0.5rem;
   margin-top: $margin-large;
   margin-bottom: $margin-large;
   position: relative;
+
+  &__no-data {
+    width: $width-no-data-custom;
+    height: $height-no-data-custom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__button-back {
     position: absolute;
