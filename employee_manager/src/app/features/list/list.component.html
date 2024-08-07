@@ -4,7 +4,9 @@
       <p>{{ 'list.employees' | translate | uppercase }}</p>
     </div>
     @if (isLoading) {
-      <mat-spinner></mat-spinner>
+      <div class="list__loader">
+        <mat-spinner></mat-spinner>
+      </div>
     } @else {
       <div class="list__search-add">
         <mat-form-field class="list__search">

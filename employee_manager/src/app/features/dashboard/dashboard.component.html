@@ -4,7 +4,9 @@
       <p>{{ 'navbar.dashboard' | translate | uppercase }}</p>
     </div>
     @if (isLoading) {
-      <mat-spinner></mat-spinner>
+      <div class="dashboard__loader">
+        <mat-spinner></mat-spinner>
+      </div>
     } @else {
       <ul class="dashboard__list">
         @for (employee of employees; track employee) {

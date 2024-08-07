@@ -10,6 +10,13 @@ $margin-list-custom: 0 0 1rem 0;
   justify-content: center;
   margin-top: $margin-large;
 
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -21,7 +28,6 @@ $margin-list-custom: 0 0 1rem 0;
     flex-direction: row;
     height: auto;
     padding-bottom: $padding-small;
-    flex-grow: 1;
     box-sizing: border-box;
     font-size: $font-size-large;
     justify-content: center;
