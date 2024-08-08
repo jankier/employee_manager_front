@@ -39,6 +39,9 @@
   "not-found": {
     "info": "Żądany adres URL {{variable}} nie istnieje na tym serwerze."
   },
+  "dialog-box": {
+    "delete": "Czy na pewno chcesz usunąć {{name}} {{surname}} z listy pracowinków?"
+  },
   "dropdown": {
     "option": "Wybierz"
   },
@@ -46,7 +49,9 @@
     "save": "Zapisz",
     "show": "Pokaż",
     "clear": "Wyczyść",
-    "back": "Cofnij"
+    "back": "Cofnij",
+    "delete": "Usuń",
+    "cancel": "Anuluj"
   },
   "input": {
     "placeholder": {

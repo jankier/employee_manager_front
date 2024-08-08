@@ -16,27 +16,35 @@ export class EmployeesService {
 
   newEmployeeId: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  setNewEmployeeId(id: string) {
+  setNewEmployeeId(id: string): void {
     this.newEmployeeId.next(id);
   }
 
+  getSkills(): Observable<string[]> {
+    return this.http.get<string[]>(environment.skillsUrl);
+  }
+
+  getProjects(): Observable<string[]> {
+    return this.http.get<string[]>(environment.projectsUrl);
+  }
+
   getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(environment.apiUrl);
+    return this.http.get<Employee[]>(environment.employeesUrl);
   }
 
   getEmployee(id: string | null): Observable<Employee> {
-    return this.http.get<Employee>(`${environment.apiUrl}/${id}`);
+    return this.http.get<Employee>(`${environment.employeesUrl}/${id}`);
   }
 
   updateEmployee(employee: Employee): Observable<any> {
-    return this.http.put(environment.apiUrl, employee, this.httpOptions);
+    return this.http.put(environment.employeesUrl, employee, this.httpOptions);
   }
 
   addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(environment.apiUrl, employee, this.httpOptions);
+    return this.http.post<Employee>(environment.employeesUrl, employee, this.httpOptions);
   }
 
   deleteEmployee(id: string): Observable<Employee> {
-    return this.http.delete<Employee>(`${environment.apiUrl}/${id}`, this.httpOptions);
+    return this.http.delete<Employee>(`${environment.employeesUrl}/${id}`, this.httpOptions);
   }
 }

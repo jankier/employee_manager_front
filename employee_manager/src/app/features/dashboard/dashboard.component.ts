@@ -9,6 +9,7 @@ import { UpperCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 export class DashboardComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployee?: Employee;
-  isLoading: boolean = true;
+  isLoadingEmployees: boolean = true;
   protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -36,13 +37,15 @@ export class DashboardComponent implements OnInit {
   getEmployees(): void {
     this.employeesService
       .getEmployees()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployees = false))
+      )
       .subscribe({
         next: (data: Employee[]): void => {
           const elementsNum: number = 5;
           const shuffled: Employee[] = data.sort(() => 0.5 - Math.random());
           this.employees = shuffled.slice(0, elementsNum);
-          this.isLoading = false;
         },
         error: (err): void => {
           alert(err);

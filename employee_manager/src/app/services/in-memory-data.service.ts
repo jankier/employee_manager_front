@@ -8,7 +8,7 @@ import { Employee } from '../../models/employee.model';
   providedIn: 'root',
 })
 export class InMemoryDataService implements InMemoryDbService {
-  createDb(): { employees: Employee[] } {
+  createDb(): { employees: Employee[]; skills: string[]; projects: string[] } {
     return {
       employees: [
         {
@@ -102,6 +102,26 @@ export class InMemoryDataService implements InMemoryDbService {
           manager: 'Derek Blackwood',
         },
       ],
+      skills: [
+        'TypeScript',
+        'Java',
+        'Figma',
+        'Angular',
+        'React.js',
+        'Node.js',
+        'Docker',
+        'Spring boot',
+        'HTML',
+        'CSS',
+        'PHP',
+        'Laravel',
+        'Symfony',
+        'MySQL',
+        'AWS',
+        'REST',
+        'Bootstrap',
+      ],
+      projects: ['PZU', 'Orlen', 'Aliorbank', 'Santander bank', 'LOT', 'PGNiG'],
     };
   }
 }

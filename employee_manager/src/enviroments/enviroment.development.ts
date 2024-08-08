@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'api/employees',
+  employeesUrl: 'api/employees',
+  skillsUrl: 'api/skills',
+  projectsUrl: 'api/projects',
 };

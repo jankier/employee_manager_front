@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,6 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -34,8 +37,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 export class ListComponent implements OnInit {
   employees: Employee[] = [];
   filteredEmployees: Employee[] = [];
-  isLoading: boolean = true;
+  isLoadingEmployees: boolean = true;
   protected readonly Paths = Paths;
+  readonly dialog: MatDialog = inject(MatDialog);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -50,12 +54,14 @@ export class ListComponent implements OnInit {
   getEmployees(): void {
     this.employeesService
       .getEmployees()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployees = false))
+      )
       .subscribe({
         next: (data: Employee[]): void => {
           data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
           this.employees = data;
-          this.isLoading = false;
         },
         error: (err): void => {
           alert(err);
@@ -81,6 +87,23 @@ export class ListComponent implements OnInit {
     this.employeesService.deleteEmployee(employee.id).subscribe({
       complete: (): void => {
         this.messageService.add(`delete ${employee.id}`);
+      },
+    });
+  }
+
+  openDialog(employee: Employee): void {
+    const dialogRef: MatDialogRef<DialogDeleteComponent> = this.dialog.open(DialogDeleteComponent, {
+      data: employee,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result): void => {
+        if (result) {
+          this.deleteEmployee(employee);
+        }
+      },
+      error: (err): void => {
+        alert(err);
       },
     });
   }

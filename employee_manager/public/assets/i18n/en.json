@@ -39,6 +39,9 @@
   "not-found": {
     "info": "The requested URL {{variable}} was not found on this server."
   },
+  "dialog-box": {
+    "delete": "Are you sure you want to delete {{name}} {{surname}} from employees list?"
+  },
   "dropdown": {
     "option": "Select"
   },
@@ -53,7 +56,9 @@
     "save": "Save",
     "show": "Show",
     "clear": "Clear",
-    "back": "Back"
+    "back": "Back",
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "error": {
     "name": {

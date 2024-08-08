@@ -4,13 +4,13 @@
     <span>{{ 'button.back' | translate }}</span>
   </button>
   <mat-card class="employee__content" [formGroup]="employeeForm" appearance="outlined">
-    @if (isLoading) {
+    @if (isLoadingEmployee || isLoadingEmployeeData) {
       <mat-card-content class="employee__no-data">
         <mat-spinner></mat-spinner>
       </mat-card-content>
     } @else {
-      @if (isMissing) {
-        <mat-card-content class="employee__no-data">{{ 'employee.missing' | translate: { id: wrongId } }}</mat-card-content>
+      @if (isEmployeeMissing) {
+        <mat-card-content class="employee__no-data">{{ 'employee.missing' | translate: { id: idNotFound } }}</mat-card-content>
       } @else {
         <mat-card-header class="employee__header">
           <mat-card-title class="employee__header-title">
