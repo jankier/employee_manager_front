@@ -1,36 +1,35 @@
 @import '../../../variables/variables';
 
 $margin-bottom-title-custom: 0.5rem;
-$width-no-data-custom: 28rem;
 $height-no-data-custom: 19rem;
+$height-back-button-custom: 3.5rem;
+$top-back-button-custom: -1rem;
+$width-content-small-device-custom: 20rem;
+
+@mixin respond-small {
+  @media (max-width: 32.5rem) {
+    @content;
+  }
+}
 
 .employee {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin-top: $margin-large;
   margin-bottom: $margin-large;
-  position: relative;
 
   &__no-data {
-    width: $width-no-data-custom;
+    width: $width-x-large;
     height: $height-no-data-custom;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  &__button-back {
-    position: absolute;
-    left: 10rem;
-    top: 5rem;
-    height: 3.5rem;
-    font-size: $font-size-default;
-    border-radius: $border-radius-small;
-    width: $width-default;
-    padding: $padding-x-small;
+    @include respond-small {
+      width: $width-content-small-device-custom;
+    }
   }
 
   &__content {
@@ -38,6 +37,20 @@ $height-no-data-custom: 19rem;
     padding: $padding-large;
     width: $width-x-large;
     align-items: center;
+
+    @include respond-small {
+      width: $width-content-small-device-custom;
+    }
+  }
+
+  &__button-back {
+    right: 30%;
+    top: $top-back-button-custom;
+    height: $height-back-button-custom;
+    font-size: $font-size-default;
+    border-radius: $border-radius-small;
+    width: $width-default;
+    padding: $padding-x-small;
   }
 
   &__header {
@@ -46,6 +59,7 @@ $height-no-data-custom: 19rem;
     &-title {
       font-size: $font-size-large;
       margin-bottom: $margin-bottom-title-custom;
+      text-align: center;
     }
 
     &-subtitle {

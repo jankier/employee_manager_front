@@ -2,9 +2,14 @@
 
 $margin-list-custom: 0 0 1rem 0;
 
+@mixin respond-small {
+  @media (max-width: 53.75rem) {
+    @content;
+  }
+}
+
 .dashboard {
   display: flex;
-  flex-direction: row;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -40,6 +45,10 @@ $margin-list-custom: 0 0 1rem 0;
     padding: 0;
     gap: $gap-small;
     margin: $margin-list-custom;
+
+    @include respond-small {
+      flex-direction: column;
+    }
   }
 
   &__list-element {

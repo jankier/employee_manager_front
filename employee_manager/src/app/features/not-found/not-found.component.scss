@@ -3,6 +3,12 @@
 $font-size-title-custom: 5rem;
 $font-size-icon-custom: 3rem;
 
+@mixin respond-small {
+  @media (max-width: 32.5rem) {
+    @content;
+  }
+}
+
 .notfound {
   display: flex;
   flex-direction: column;
@@ -10,6 +16,7 @@ $font-size-icon-custom: 3rem;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
+  flex-grow: 1;
 
   &__title {
     display: flex;
@@ -28,5 +35,10 @@ $font-size-icon-custom: 3rem;
 
   &__info {
     font-size: $font-size-default;
+
+    @include respond-small {
+      width: 80%;
+      text-align: center;
+    }
   }
 }
