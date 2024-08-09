@@ -1,28 +1,45 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UpperCasePipe } from '@angular/common';
-import { EmployeesService } from './services/employees.service';
+import { EmployeesService } from '../../services/employees.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../services/message.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { Paths } from '../../../enums/paths.enum';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [EmployeeComponent, TranslateModule, UpperCasePipe, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule],
+  imports: [
+    EmployeeComponent,
+    TranslateModule,
+    UpperCasePipe,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    MatProgressSpinner,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit {
   employees: Employee[] = [];
   filteredEmployees: Employee[] = [];
-  selectedEmployee?: Employee;
-  managers: string[] = [];
+  isLoadingEmployees: boolean = true;
+  protected readonly Paths = Paths;
+  readonly dialog: MatDialog = inject(MatDialog);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -37,9 +54,13 @@ export class ListComponent implements OnInit {
   getEmployees(): void {
     this.employeesService
       .getEmployees()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployees = false))
+      )
       .subscribe({
         next: (data: Employee[]): void => {
+          data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
           this.employees = data;
         },
         error: (err): void => {
@@ -47,39 +68,13 @@ export class ListComponent implements OnInit {
         },
         complete: (): void => {
           this.filteredEmployees = this.employees;
+          this.messageService.add('fetch');
         },
       });
   }
 
-  onSelect(employee: Employee): void {
-    this.selectedEmployee = employee;
-    this.messageService.add(`select ${this.selectedEmployee.id}`);
-    this.getNames();
-  }
-
-  onUpdateEmployee(updatedEmployee: Employee): void {
-    const itemIndex: number = this.employees.findIndex((employee: Employee): boolean => employee.id == updatedEmployee.id);
-    if (itemIndex < 0) {
-      this.employees.push(updatedEmployee);
-    }
-    this.employees[itemIndex] = updatedEmployee;
-    this.messageService.add(`update ${updatedEmployee.id}`);
-    this.getNames();
-  }
-
   onAdd(): void {
-    const newId: string = this.calculateNewId();
-    this.selectedEmployee = {
-      id: newId,
-      name: '',
-      surname: '',
-      employmentDate: '',
-      skills: [],
-      projects: [],
-      manager: ' ',
-    };
-    this.getNames();
-    this.messageService.add(`add ${newId}`);
+    this.employeesService.setNewEmployeeId(this.calculateNewId());
   }
 
   calculateNewId(): string {
@@ -87,18 +82,30 @@ export class ListComponent implements OnInit {
   }
 
   deleteEmployee(employee: Employee): void {
-    const itemIndex: number = this.employees.indexOf(employee);
-    this.employees.splice(itemIndex, 1);
-    this.messageService.add(`delete ${employee.id}`);
-    this.getNames();
+    const employeeId: number = this.employees.indexOf(employee);
+    this.employees.splice(employeeId, 1);
+    this.employeesService.deleteEmployee(employee.id).subscribe({
+      complete: (): void => {
+        this.messageService.add(`delete ${employee.id}`);
+      },
+    });
   }
 
-  getNames(): string[] {
-    this.managers = [];
-    this.employees.forEach((employee: Employee): void => {
-      this.managers.push(employee.name + ' ' + employee.surname);
+  openDialog(employee: Employee): void {
+    const dialogRef: MatDialogRef<DialogDeleteComponent> = this.dialog.open(DialogDeleteComponent, {
+      data: employee,
     });
-    return this.managers;
+
+    dialogRef.afterClosed().subscribe({
+      next: (result): void => {
+        if (result) {
+          this.deleteEmployee(employee);
+        }
+      },
+      error: (err): void => {
+        alert(err);
+      },
+    });
   }
 
   filterEmployees(value: string): void {

@@ -1,0 +1,9 @@
+@import '../../../../../variables/variables';
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $padding-small;
+  background-color: $primary-color;
+}

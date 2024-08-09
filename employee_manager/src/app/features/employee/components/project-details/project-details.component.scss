@@ -1,17 +1,37 @@
 @import '../../../../../variables/variables';
+@import '../../../../../variables/mixins';
+
+$height-back-button-custom: 3.5rem;
+$top-back-button-custom: -1rem;
+$width-content-small-device-custom: 20rem;
 
 .project__details {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
   flex-grow: 1;
   margin-top: $margin-large;
   margin-bottom: $margin-large;
 
+  &-button {
+    right: 30%;
+    top: $top-back-button-custom;
+    height: $height-back-button-custom;
+    font-size: $font-size-default;
+    border-radius: $border-radius-small;
+    width: $width-default;
+    padding: $padding-x-small;
+  }
+
   &-card {
-    width: 40%;
+    width: $width-x-large;
     padding: $padding-large;
     border-radius: $border-radius-default;
+
+    @include MS {
+      width: $width-content-small-device-custom;
+    }
   }
 
   &-header {

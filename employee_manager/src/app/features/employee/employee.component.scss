@@ -1,19 +1,51 @@
 @import '../../../variables/variables';
+@import '../../../variables/mixins';
 
 $margin-bottom-title-custom: 0.5rem;
+$height-no-data-custom: 19rem;
+$height-back-button-custom: 3.5rem;
+$top-back-button-custom: -1rem;
+$width-content-small-device-custom: 20rem;
 
 .employee {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
+  justify-content: start;
+  margin-top: $margin-large;
   margin-bottom: $margin-large;
+
+  &__no-data {
+    width: $width-x-large;
+    height: $height-no-data-custom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include MS {
+      width: $width-content-small-device-custom;
+    }
+  }
 
   &__content {
     border-radius: $border-radius-default;
     padding: $padding-large;
     width: $width-x-large;
     align-items: center;
+
+    @include MS {
+      width: $width-content-small-device-custom;
+    }
+  }
+
+  &__button-back {
+    right: 30%;
+    top: $top-back-button-custom;
+    height: $height-back-button-custom;
+    font-size: $font-size-default;
+    border-radius: $border-radius-small;
+    width: $width-default;
+    padding: $padding-x-small;
   }
 
   &__header {
@@ -22,6 +54,7 @@ $margin-bottom-title-custom: 0.5rem;
     &-title {
       font-size: $font-size-large;
       margin-bottom: $margin-bottom-title-custom;
+      text-align: center;
     }
 
     &-subtitle {

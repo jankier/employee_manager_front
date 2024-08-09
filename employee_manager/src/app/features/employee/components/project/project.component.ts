@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { Paths } from '../../../../../enums/paths.enum';
 
 @Component({
   selector: 'app-project',
@@ -11,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './project.component.scss',
 })
 export class ProjectComponent {
+  protected readonly Paths = Paths;
   @Input() project: string = '';
 
   @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();

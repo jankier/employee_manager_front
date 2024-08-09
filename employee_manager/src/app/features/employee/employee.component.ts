@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Employee } from '../../../models/employee.model';
 import { UpperCasePipe } from '@angular/common';
@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { SkillComponent } from './components/skill/skill.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
-import { Skills } from '../../../enums/skills.enum';
-import { Projects } from '../../../enums/projects.enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,8 +16,17 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { EmployeesService } from '../../services/employees.service';
+import { Location } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MessageService } from '../../services/message.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize, forkJoin, Observable } from 'rxjs';
+import { Paths } from '../../../enums/paths.enum';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-export const DATE_FORMATS = {
+export const dateFormat = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
@@ -50,39 +57,110 @@ export const DATE_FORMATS = {
     MatSelectModule,
     MatButtonModule,
     MatChipsModule,
+    RouterLink,
+    MatIconModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [provideMomentDateAdapter(DATE_FORMATS)],
+  providers: [provideMomentDateAdapter(dateFormat)],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent implements OnInit {
-  private allSkills: string[] = Object.values(Skills);
-  skillList: string[] = this.allSkills;
-  private allProjects: string[] = Object.values(Projects);
-  projectList: string[] = this.allProjects;
+  private allSkills: string[] = [];
+  skillList: string[] = [];
+  private allProjects: string[] = [];
+  projectList: string[] = [];
+  isAddMode: boolean = false;
+  isLoadingEmployee: boolean = true;
+  isLoadingEmployeeData: boolean = true;
+  isEmployeeMissing: boolean = false;
+  idNotFound: string | null = '';
+  allManagers: string[] = [];
+  managersList: string[] = [];
 
-  @Input({ required: true }) allManagers!: string[];
-  managersList: string[] = this.allManagers;
+  protected readonly Paths = Paths;
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.checkManagersList();
+    this.getEmployeesData();
+    this.getEmployee();
   }
 
-  employeeForm: FormGroup;
+  getEmployeesData(): void {
+    const getManagersData: Observable<Employee[]> = this.employeesService.getEmployees();
+    const getSkillsData: Observable<string[]> = this.employeesService.getSkills();
+    const getProjectsData: Observable<string[]> = this.employeesService.getProjects();
+    forkJoin([getManagersData, getSkillsData, getProjectsData])
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployeeData = false))
+      )
+      .subscribe({
+        next: ([managers, skills, projects]): void => {
+          this.allManagers = managers.map((manager: Employee): string => manager.name + ' ' + manager.surname);
+          this.allSkills = skills;
+          this.allProjects = projects;
+        },
+        error: (err): void => {
+          alert(err);
+        },
+        complete: (): void => {
+          this.managersList = this.allManagers;
+          this.skillList = this.allSkills;
+          this.projectList = this.allProjects;
+        },
+      });
+  }
 
-  @Input() set employee(value: Employee) {
-    this.employeeForm.patchValue({ ...value, skills: [...value.skills], projects: [...value.projects] });
-    this.checkSkillsList();
-    this.checkProjectsList();
-    if (this.allManagers !== undefined) {
-      this.checkManagersList();
+  getEmployee(): void {
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !id;
+    if (this.isAddMode) {
+      this.employeeForm.setValue({
+        id: this.employeesService.newEmployeeId.value,
+        name: '',
+        surname: '',
+        employmentDate: '',
+        skills: [],
+        projects: [],
+        manager: ' ',
+      });
+      this.isLoadingEmployee = false;
+    } else {
+      this.employeesService
+        .getEmployee(id)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          finalize((): boolean => (this.isLoadingEmployee = false))
+        )
+        .subscribe({
+          next: (employee: Employee): void => {
+            this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] });
+            this.checkManagersList();
+            this.checkSkillsList();
+            this.checkProjectsList();
+          },
+          error: (): void => {
+            this.isEmployeeMissing = true;
+            this.idNotFound = id;
+          },
+          complete: (): void => {
+            this.messageService.add(`select ${this.employeeForm.value.id}`);
+          },
+        });
     }
     this.employeeForm.markAsUntouched();
   }
 
-  @Output() updatedEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
+  employeeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private employeesService: EmployeesService,
+    private location: Location
+  ) {
     this.employeeForm = this.fb.nonNullable.group({
       id: [''],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
@@ -95,7 +173,21 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.updatedEmployee.emit(this.employeeForm.getRawValue() as Employee);
+    if (this.isAddMode) {
+      this.employeesService.addEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`add ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    } else {
+      this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`update ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    }
     this.employeeForm.markAsUntouched();
   }
 
@@ -152,6 +244,10 @@ export class EmployeeComponent implements OnInit {
   onSelectedManager(manager: string): void {
     this.managerControl.setValue(manager);
     this.checkManagersList();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   private checkSkillsList(): void {

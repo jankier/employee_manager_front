@@ -30,7 +30,9 @@ app-root {
 
 app-employee,
 app-project-page,
-app-home-page {
+app-home-page,
+app-dashboard,
+app-not-found {
   display: flex;
   flex-grow: 1;
 }
