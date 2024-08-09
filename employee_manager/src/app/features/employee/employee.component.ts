@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Employee } from '../../../models/employee.model';
 import { UpperCasePipe } from '@angular/common';
@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { SkillComponent } from './components/skill/skill.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
-import { Skills } from '../../../enums/skills.enum';
-import { Projects } from '../../../enums/projects.enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +20,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EmployeesService } from '../../services/employees.service';
 import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MessageService } from '../../services/message.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize, forkJoin, Observable } from 'rxjs';
+import { Paths } from '../../../enums/paths.enum';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const dateFormat = {
   parse: {
@@ -56,36 +59,95 @@ export const dateFormat = {
     MatChipsModule,
     RouterLink,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   providers: [provideMomentDateAdapter(dateFormat)],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent implements OnInit {
-  private allSkills: string[] = Object.values(Skills);
-  skillList: string[] = this.allSkills;
-  private allProjects: string[] = Object.values(Projects);
-  projectList: string[] = this.allProjects;
-
+  private allSkills: string[] = [];
+  skillList: string[] = [];
+  private allProjects: string[] = [];
+  projectList: string[] = [];
+  isAddMode: boolean = false;
+  isLoadingEmployee: boolean = true;
+  isLoadingEmployeeData: boolean = true;
+  isEmployeeMissing: boolean = false;
+  idNotFound: string | null = '';
   allManagers: string[] = [];
   managersList: string[] = [];
 
+  protected readonly Paths = Paths;
+  private destroyRef: DestroyRef = inject(DestroyRef);
+
   ngOnInit(): void {
+    this.getEmployeesData();
     this.getEmployee();
-    this.checkManagersList();
+  }
+
+  getEmployeesData(): void {
+    const getManagersData: Observable<Employee[]> = this.employeesService.getEmployees();
+    const getSkillsData: Observable<string[]> = this.employeesService.getSkills();
+    const getProjectsData: Observable<string[]> = this.employeesService.getProjects();
+    forkJoin([getManagersData, getSkillsData, getProjectsData])
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployeeData = false))
+      )
+      .subscribe({
+        next: ([managers, skills, projects]): void => {
+          this.allManagers = managers.map((manager: Employee): string => manager.name + ' ' + manager.surname);
+          this.allSkills = skills;
+          this.allProjects = projects;
+        },
+        error: (err): void => {
+          alert(err);
+        },
+        complete: (): void => {
+          this.managersList = this.allManagers;
+          this.skillList = this.allSkills;
+          this.projectList = this.allProjects;
+        },
+      });
   }
 
   getEmployee(): void {
-    const id: number = Number(this.route.snapshot.paramMap.get('id'));
-    this.employeesService
-      .getEmployee(id)
-      .subscribe((employee: Employee) =>
-        this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] })
-      );
-    this.checkSkillsList();
-    this.checkProjectsList();
-    if (this.allManagers !== undefined) {
-      this.checkManagersList();
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !id;
+    if (this.isAddMode) {
+      this.employeeForm.setValue({
+        id: this.employeesService.newEmployeeId.value,
+        name: '',
+        surname: '',
+        employmentDate: '',
+        skills: [],
+        projects: [],
+        manager: ' ',
+      });
+      this.isLoadingEmployee = false;
+    } else {
+      this.employeesService
+        .getEmployee(id)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          finalize((): boolean => (this.isLoadingEmployee = false))
+        )
+        .subscribe({
+          next: (employee: Employee): void => {
+            this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] });
+            this.checkManagersList();
+            this.checkSkillsList();
+            this.checkProjectsList();
+          },
+          error: (): void => {
+            this.isEmployeeMissing = true;
+            this.idNotFound = id;
+          },
+          complete: (): void => {
+            this.messageService.add(`select ${this.employeeForm.value.id}`);
+          },
+        });
     }
     this.employeeForm.markAsUntouched();
   }
@@ -95,6 +157,7 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private messageService: MessageService,
     private employeesService: EmployeesService,
     private location: Location
   ) {
@@ -107,13 +170,24 @@ export class EmployeeComponent implements OnInit {
       projects: [['']],
       manager: [''],
     });
-
-    this.allManagers = this.employeesService.managers;
-    this.managersList = this.allManagers;
   }
 
   onSubmit(): void {
-    this.employeesService.updatedEmployee = this.employeeForm.getRawValue() as Employee;
+    if (this.isAddMode) {
+      this.employeesService.addEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`add ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    } else {
+      this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        complete: (): void => {
+          this.messageService.add(`update ${this.employeeForm.value.id}`);
+          this.goBack();
+        },
+      });
+    }
     this.employeeForm.markAsUntouched();
   }
 

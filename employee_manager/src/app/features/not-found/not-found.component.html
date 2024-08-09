@@ -3,5 +3,5 @@
     <span>404</span>
     <mat-icon class="notfound__title-icon">build</mat-icon>
   </div>
-  <span class="notfound__info">The requested URL {{ currentURL }} was not found on this server.</span>
+  <span class="notfound__info">{{ 'not-found.info' | translate: { variable: currentURL } }}</span>
 </section>

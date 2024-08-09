@@ -3,11 +3,14 @@ import { LanguageSelectorComponent } from '../../language-selector/language-sele
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Paths } from '../../../../../enums/paths.enum';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LanguageSelectorComponent, RouterLink, RouterLinkActive, TranslateModule],
+  imports: [LanguageSelectorComponent, RouterLink, RouterLinkActive, TranslateModule, MatIcon, MatIconButton, MatMenu, MatMenuItem, MatMenuTrigger],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

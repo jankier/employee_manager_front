@@ -1,0 +1,7 @@
+<mat-dialog-content class="mat-typography">
+  <p>{{ 'dialog-box.delete' | translate: { name: data.name, surname: data.surname } }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true">{{ 'button.delete' | translate }}</button>
+  <button mat-button mat-dialog-close>{{ 'button.cancel' | translate }}</button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,20 +12,34 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Paths } from '../../../enums/paths.enum';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [EmployeeComponent, TranslateModule, UpperCasePipe, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, RouterLink],
+  imports: [
+    EmployeeComponent,
+    TranslateModule,
+    UpperCasePipe,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    MatProgressSpinner,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit {
-  employeesList: Employee[] = [];
+  employees: Employee[] = [];
   filteredEmployees: Employee[] = [];
-  selectedEmployee?: Employee;
-  managers: string[] = [];
+  isLoadingEmployees: boolean = true;
   protected readonly Paths = Paths;
+  readonly dialog: MatDialog = inject(MatDialog);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -34,79 +48,72 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getEmployeesList();
-    this.updateEmployee(this.employeesService.updatedEmployee);
+    this.getEmployees();
   }
 
-  getEmployeesList(): void {
+  getEmployees(): void {
     this.employeesService
       .getEmployees()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize((): boolean => (this.isLoadingEmployees = false))
+      )
       .subscribe({
         next: (data: Employee[]): void => {
           data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
-          this.employeesList = data;
+          this.employees = data;
         },
         error: (err): void => {
           alert(err);
         },
         complete: (): void => {
-          this.filteredEmployees = this.employeesList;
+          this.filteredEmployees = this.employees;
           this.messageService.add('fetch');
         },
       });
   }
 
-  onSelect(employee: Employee): void {
-    this.selectedEmployee = employee;
-    this.messageService.add(`select ${this.selectedEmployee.id}`);
-    this.getNames();
-  }
-
-  updateEmployee(updatedEmployee: Employee): void {
-    if (updatedEmployee.id) {
-      const itemIndex: number = this.employeesList.findIndex((employee: Employee): boolean => employee.id == updatedEmployee.id);
-      if (itemIndex < 0) {
-        this.employeesList.push(updatedEmployee);
-      }
-      this.employeesList[itemIndex] = updatedEmployee;
-      this.messageService.add(`update ${updatedEmployee.id}`);
-      this.getNames();
-    }
-  }
-
   onAdd(): void {
-    this.calculateNewId();
-    this.getNames();
-    this.messageService.add(`add ${this.calculateNewId()}`);
+    this.employeesService.setNewEmployeeId(this.calculateNewId());
   }
 
   calculateNewId(): string {
-    return (Number(this.employeesList[this.employeesList.length - 1].id) + 1).toString();
+    return (Number(this.employees[this.employees.length - 1].id) + 1).toString();
   }
 
   deleteEmployee(employee: Employee): void {
-    const itemIndex: number = this.employeesList.indexOf(employee);
-    this.employeesList.splice(itemIndex, 1);
-    this.messageService.add(`delete ${employee.id}`);
-    this.getNames();
+    const employeeId: number = this.employees.indexOf(employee);
+    this.employees.splice(employeeId, 1);
+    this.employeesService.deleteEmployee(employee.id).subscribe({
+      complete: (): void => {
+        this.messageService.add(`delete ${employee.id}`);
+      },
+    });
   }
 
-  getNames(): string[] {
-    this.managers = [];
-    this.employeesList.forEach((employee: Employee): void => {
-      this.managers.push(employee.name + ' ' + employee.surname);
+  openDialog(employee: Employee): void {
+    const dialogRef: MatDialogRef<DialogDeleteComponent> = this.dialog.open(DialogDeleteComponent, {
+      data: employee,
     });
-    this.employeesService.managers = this.managers;
-    return this.managers;
+
+    dialogRef.afterClosed().subscribe({
+      next: (result): void => {
+        if (result) {
+          this.deleteEmployee(employee);
+        }
+      },
+      error: (err): void => {
+        alert(err);
+      },
+    });
   }
 
   filterEmployees(value: string): void {
     if (!value) {
-      this.filteredEmployees = this.employeesList;
+      this.filteredEmployees = this.employees;
       return;
     }
-    this.filteredEmployees = this.employeesList.filter(
+    this.filteredEmployees = this.employees.filter(
       (employee: Employee) =>
         employee?.name.toLowerCase().includes(value.toLowerCase()) || employee?.surname.toLowerCase().includes(value.toLowerCase())
     );

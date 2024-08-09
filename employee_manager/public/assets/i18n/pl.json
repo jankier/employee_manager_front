@@ -13,7 +13,8 @@
     "employmentDate": "Data zatrudnienia",
     "skills": "umiejętność",
     "projects": "projekt",
-    "manager": "Menadżer"
+    "manager": "Menadżer",
+    "missing": "Pracownik o id={{id}} nie istnieje."
   },
   "project": {
     "pzu": "Grupa PZU jest jedną z największych instytucji finansowych w Polsce i Europie Środkowo-Wschodniej. Grupą kieruje Powszechny Zakład Ubezpieczeń S.A. (PZU) – spółka notowana na Giełdzie Papierów Wartościowych w Warszawie.",
@@ -32,8 +33,14 @@
       "select": "ListComponent: Wybrano pracownika o id=",
       "add": "ListComponent: Dodano pracownika o id=",
       "delete": "ListComponent: Usunięto pracownika o id=",
-      "update": "ListComponent: Zmodyfikowano dane pracownika o id="
+      "update": "EmployeeComponent: Zmodyfikowano dane pracownika o id="
     }
+  },
+  "not-found": {
+    "info": "Żądany adres URL {{variable}} nie istnieje na tym serwerze."
+  },
+  "dialog-box": {
+    "delete": "Czy na pewno chcesz usunąć {{name}} {{surname}} z listy pracowinków?"
   },
   "dropdown": {
     "option": "Wybierz"
@@ -42,7 +49,9 @@
     "save": "Zapisz",
     "show": "Pokaż",
     "clear": "Wyczyść",
-    "back": "Cofnij"
+    "back": "Cofnij",
+    "delete": "Usuń",
+    "cancel": "Anuluj"
   },
   "input": {
     "placeholder": {

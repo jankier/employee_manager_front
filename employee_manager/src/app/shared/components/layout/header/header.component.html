@@ -14,8 +14,23 @@
     </div>
   </div>
   <div class="header__menu">
-    <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
-    <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
+    <div class="header__menu-hamburger">
+      <button mat-icon-button class="header__menu-icon" type="button" [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">
+          {{ 'navbar.dashboard' | translate }}
+        </button>
+        <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">
+          {{ 'navbar.employees' | translate }}
+        </button>
+      </mat-menu>
+    </div>
+    <div class="header__menu-links">
+      <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
+      <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
+    </div>
     <app-language-selector [languages]="translate.store.langs" [currentLang]="translate.store.currentLang"></app-language-selector>
   </div>
 </header>

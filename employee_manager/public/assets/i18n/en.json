@@ -13,7 +13,8 @@
     "employmentDate": "Date of employment",
     "skills": "skill",
     "projects": "project",
-    "manager": "Manager"
+    "manager": "Manager",
+    "missing": "There is no employee of id={{id}}."
   },
   "project": {
     "pzu": "PZU Group is one of the largest financial institutions in Poland and in Central and Eastern Europe. The Group is led by Powszechny Zakład Ubezpieczeń S.A. (PZU) – a company quoted on the Warsaw Stock Exchange.",
@@ -32,8 +33,14 @@
       "select": "ListComponent: Selected employee of id=",
       "add": "ListComponent: Added employee of id=",
       "delete": "ListComponent: Deleted employee of id=",
-      "update": "ListComponent: Updated data of the employee of id="
+      "update": "EmployeeComponent: Updated data of the employee of id="
     }
+  },
+  "not-found": {
+    "info": "The requested URL {{variable}} was not found on this server."
+  },
+  "dialog-box": {
+    "delete": "Are you sure you want to delete {{name}} {{surname}} from employees list?"
   },
   "dropdown": {
     "option": "Select"
@@ -49,7 +56,9 @@
     "save": "Save",
     "show": "Show",
     "clear": "Clear",
-    "back": "Back"
+    "back": "Back",
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "error": {
     "name": {

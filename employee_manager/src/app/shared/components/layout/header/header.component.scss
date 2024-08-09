@@ -1,4 +1,5 @@
 @import '../../../../../variables/variables';
+@import '../../../../../variables/mixins';
 
 $height-custom: 3rem;
 $font-size-custom: 2rem;
@@ -6,7 +7,7 @@ $padding-custom: 1rem;
 
 .header {
   display: flex;
-  padding: $padding-custom $padding-custom;
+  padding: $padding-custom;
   justify-content: space-between;
   align-items: center;
   background-color: $primary-color;
@@ -39,7 +40,31 @@ $padding-custom: 1rem;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: $gap-large;
+    gap: $gap-default;
+
+    &-icon {
+      color: $secondary-color;
+      background-color: $background-color;
+    }
+
+    &-hamburger {
+      display: none;
+      @include MS {
+        display: flex;
+      }
+    }
+
+    &-links {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: $font-size-default;
+      gap: $gap-medium;
+      @include MS {
+        display: none;
+      }
+    }
 
     &-option {
       cursor: pointer;

@@ -3,17 +3,23 @@
 $width-add-icon-custom: 1.2rem;
 $height-add-button-custom: 3.5rem;
 $padding-top-add-icon-custom: 0.5rem;
-$margin-search-custom: 4.6rem;
 $margin-list-custom: 0 0 1rem 0;
 
 .list {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  align-items: center;
   justify-content: center;
+  align-items: start;
   margin-top: $margin-large;
   margin-bottom: $margin-default;
+
+  &__loader {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__content {
     display: flex;
@@ -26,7 +32,6 @@ $margin-list-custom: 0 0 1rem 0;
     flex-direction: row;
     height: auto;
     padding-bottom: $padding-small;
-    flex-grow: 1;
     box-sizing: border-box;
     font-size: $font-size-large;
     justify-content: center;
@@ -36,7 +41,6 @@ $margin-list-custom: 0 0 1rem 0;
     display: flex;
     flex-direction: row;
     gap: $gap-small;
-    margin-left: $margin-search-custom;
   }
 
   &__search {
