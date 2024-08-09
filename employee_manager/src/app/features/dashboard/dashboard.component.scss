@@ -1,12 +1,7 @@
 @import '../../../variables/variables';
+@import '../../../variables/mixins';
 
 $margin-list-custom: 0 0 1rem 0;
-
-@mixin respond-small {
-  @media (max-width: 53.75rem) {
-    @content;
-  }
-}
 
 .dashboard {
   display: flex;
@@ -46,7 +41,7 @@ $margin-list-custom: 0 0 1rem 0;
     gap: $gap-small;
     margin: $margin-list-custom;
 
-    @include respond-small {
+    @include TS {
       flex-direction: column;
     }
   }

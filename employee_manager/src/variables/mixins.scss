@@ -1,0 +1,12 @@
+@import './variables';
+
+@mixin MS {
+  @media (max-width: $break-point-mobile) {
+    @content;
+  }
+}
+@mixin TS {
+  @media (max-width: $break-point-tablet) {
+    @content;
+  }
+}

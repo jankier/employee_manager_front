@@ -1,14 +1,9 @@
 @import '../../../../../variables/variables';
+@import '../../../../../variables/mixins';
 
 $height-back-button-custom: 3.5rem;
 $top-back-button-custom: -1rem;
 $width-content-small-device-custom: 20rem;
-
-@mixin respond-small {
-  @media (max-width: 32.5rem) {
-    @content;
-  }
-}
 
 .project__details {
   display: flex;
@@ -34,7 +29,7 @@ $width-content-small-device-custom: 20rem;
     padding: $padding-large;
     border-radius: $border-radius-default;
 
-    @include respond-small {
+    @include MS {
       width: $width-content-small-device-custom;
     }
   }

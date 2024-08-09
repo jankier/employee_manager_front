@@ -1,4 +1,5 @@
 @import '../../../../../variables/variables';
+@import '../../../../../variables/mixins';
 
 $height-custom: 3rem;
 $font-size-custom: 2rem;
@@ -46,6 +47,13 @@ $padding-custom: 1rem;
       background-color: $background-color;
     }
 
+    &-hamburger {
+      display: none;
+      @include MS {
+        display: flex;
+      }
+    }
+
     &-links {
       display: flex;
       flex-direction: row;
@@ -53,6 +61,9 @@ $padding-custom: 1rem;
       align-items: center;
       font-size: $font-size-default;
       gap: $gap-medium;
+      @include MS {
+        display: none;
+      }
     }
 
     &-option {

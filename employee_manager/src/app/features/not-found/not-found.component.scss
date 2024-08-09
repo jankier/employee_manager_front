@@ -1,13 +1,8 @@
 @import '../../../variables/variables';
+@import '../../../variables/mixins';
 
 $font-size-title-custom: 5rem;
 $font-size-icon-custom: 3rem;
-
-@mixin respond-small {
-  @media (max-width: 32.5rem) {
-    @content;
-  }
-}
 
 .notfound {
   display: flex;
@@ -36,7 +31,7 @@ $font-size-icon-custom: 3rem;
   &__info {
     font-size: $font-size-default;
 
-    @include respond-small {
+    @include MS {
       width: 80%;
       text-align: center;
     }
