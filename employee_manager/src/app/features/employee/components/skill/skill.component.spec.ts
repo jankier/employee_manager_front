@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SkillComponent } from './skill.component';
 
-describe('SkillsComponent', () => {
+describe('SkillsComponent', (): void => {
   let component: SkillComponent;
   let fixture: ComponentFixture<SkillComponent>;
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     await TestBed.configureTestingModule({
       imports: [SkillComponent],
     }).compileComponents();
@@ -16,7 +15,7 @@ describe('SkillsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (): void => {
     expect(component).toBeTruthy();
   });
 });
