@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';

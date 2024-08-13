@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-
 import { EmployeesService } from './employees.service';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('EmployeesService', () => {
+describe('EmployeesService', (): void => {
   let service: EmployeesService;
 
-  beforeEach(() => {
+  beforeEach((): void => {
+    TestBed.configureTestingModule({ providers: [provideHttpClient()] });
     TestBed.configureTestingModule({});
     service = TestBed.inject(EmployeesService);
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(service).toBeTruthy();
   });
 });
