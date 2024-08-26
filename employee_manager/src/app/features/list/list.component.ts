@@ -16,6 +16,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { finalize } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '../../shared/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-home-page',
@@ -44,7 +46,8 @@ export class ListComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -62,9 +65,12 @@ export class ListComponent implements OnInit {
         next: (data: Employee[]): void => {
           data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
           this.employees = data;
+          if (!data.length) {
+            this.openSnackBar('list-empty', 'snackbar');
+          }
         },
-        error: (err): void => {
-          alert(err);
+        error: (): void => {
+          this.openSnackBar('list-fetch', 'snackbar');
         },
         complete: (): void => {
           this.filteredEmployees = this.employees;
@@ -73,20 +79,14 @@ export class ListComponent implements OnInit {
       });
   }
 
-  onAdd(): void {
-    this.employeesService.setNewEmployeeId(this.calculateNewId());
-  }
-
-  calculateNewId(): string {
-    return (Number(this.employees[this.employees.length - 1].id) + 1).toString();
-  }
-
   deleteEmployee(employee: Employee): void {
-    const employeeId: number = this.employees.indexOf(employee);
-    this.employees.splice(employeeId, 1);
     this.employeesService.deleteEmployee(employee.id).subscribe({
+      error: (): void => {
+        this.openSnackBar('delete-manager', 'snackbar');
+      },
       complete: (): void => {
         this.messageService.add(`delete ${employee.id}`);
+        this.getEmployees();
       },
     });
   }
@@ -102,8 +102,8 @@ export class ListComponent implements OnInit {
           this.deleteEmployee(employee);
         }
       },
-      error: (err): void => {
-        alert(err);
+      error: (): void => {
+        this.openSnackBar('error-occurred', 'snackbar');
       },
     });
   }
@@ -117,5 +117,14 @@ export class ListComponent implements OnInit {
       (employee: Employee) =>
         employee?.name.toLowerCase().includes(value.toLowerCase()) || employee?.surname.toLowerCase().includes(value.toLowerCase())
     );
+  }
+
+  openSnackBar(message: string, panelClass: string): void {
+    const duration = 5000;
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      data: message,
+      panelClass: panelClass,
+      duration: duration,
+    });
   }
 }

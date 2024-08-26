@@ -17,10 +17,6 @@
             {{ nameControl.value | uppercase }}
             {{ surnameControl.value | uppercase }}
           </mat-card-title>
-          <mat-card-subtitle class="employee__header-subtitle">
-            {{ 'employee.id' | translate }}
-            {{ idControl.value }}
-          </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="employee__details">
           <mat-form-field class="employee__input">
@@ -63,7 +59,7 @@
               [elementType]="'employee.skills' | translate"
               (selectedElement)="addSkill($event)"></app-dropdown>
             <mat-chip-set>
-              @for (skill of skillsControl.value; track skill) {
+              @for (skill of skillsControl.value; track skill.id) {
                 <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
               }
             </mat-chip-set>
@@ -74,24 +70,20 @@
               [elementType]="'employee.projects' | translate"
               (selectedElement)="addProject($event)"></app-dropdown>
             <mat-chip-set>
-              @for (project of projectsControl.value; track project) {
+              @for (project of projectsControl.value; track project.id) {
                 <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
               }
             </mat-chip-set>
           </div>
-          @if (managerControl.value !== '') {
-            <mat-form-field class="employee__input">
-              <mat-label>{{ 'employee.manager' | translate }}</mat-label>
-              <mat-select [formControl]="managerControl" #manager (selectionChange)="onSelectedManager(manager.value)">
-                @if (managerControl.value !== ' ') {
-                  <mat-option value="{{ managerControl.value }}">{{ managerControl.value }}</mat-option>
-                }
-                @for (manager of managersList; track manager) {
-                  <mat-option value="{{ manager }}">{{ manager }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          }
+          <mat-form-field class="employee__input">
+            <mat-label>{{ 'employee.manager' | translate }}</mat-label>
+            <mat-select [formControl]="managerControl" #manager (selectionChange)="onSelectedManager(manager.value)" [compareWith]="compareObjects">
+              <mat-option>{{ 'dropdown.none' | translate }}</mat-option>
+              @for (manager of allManagers; track manager.id) {
+                <mat-option [value]="manager">{{ manager.name + ' ' + manager.surname }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
           <mat-card-actions class="employee__button">
             <button mat-flat-button type="submit" class="employee__button-submit" (click)="onSubmit()" [disabled]="employeeForm.invalid">
               {{ 'button.save' | translate }}

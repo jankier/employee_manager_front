@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { SkillProject } from '../../../../models/skill-project.model';
 
 @Component({
   selector: 'app-dropdown',
@@ -11,13 +12,13 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
   styleUrl: './dropdown.component.scss',
 })
 export class DropdownComponent {
-  @Input() listElements?: string[];
+  @Input() listElements?: SkillProject[];
   @Input() elementType: string = '';
 
   @ViewChild('element') element?: MatSelect;
-  @Output() selectedElement: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selectedElement: EventEmitter<SkillProject> = new EventEmitter<SkillProject>();
 
-  onSelected(value: string): void {
+  onSelected(value: SkillProject): void {
     this.element?.writeValue('');
     this.selectedElement.emit(value);
   }

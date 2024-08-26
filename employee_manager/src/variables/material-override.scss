@@ -15,3 +15,11 @@
 .mat-bottom-sheet-container::-webkit-scrollbar {
   display: none;
 }
+
+.mat-mdc-snack-bar-container {
+  &.snackbar {
+    --mdc-snackbar-container-color: #005dba;
+    --mat-mdc-snack-bar-button-color: #fcfaff;
+    --mdc-snackbar-supporting-text-color: #fcfaff;
+  }
+}

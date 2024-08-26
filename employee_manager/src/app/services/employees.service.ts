@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../../models/employee.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
+import { SkillProject } from '../../models/skill-project.model';
+import { Project } from '../../models/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,18 +16,20 @@ export class EmployeesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  newEmployeeId: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  setNewEmployeeId(id: string): void {
-    this.newEmployeeId.next(id);
+  getSkills(): Observable<SkillProject[]> {
+    return this.http.get<SkillProject[]>(environment.skillsUrl);
   }
 
-  getSkills(): Observable<string[]> {
-    return this.http.get<string[]>(environment.skillsUrl);
+  getProjects(): Observable<SkillProject[]> {
+    return this.http.get<SkillProject[]>(environment.projectsUrl);
   }
 
-  getProjects(): Observable<string[]> {
-    return this.http.get<string[]>(environment.projectsUrl);
+  getProject(id: string | null): Observable<Project> {
+    return this.http.get<Project>(`${environment.projectsUrl}/${id}`);
+  }
+
+  getManagers(id: string | null): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${environment.managersUrl}/${id}`);
   }
 
   getEmployees(): Observable<Employee[]> {

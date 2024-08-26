@@ -25,6 +25,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize, forkJoin, Observable } from 'rxjs';
 import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SkillProject } from '../../../models/skill-project.model';
+import { Manager } from '../../../models/manager.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '../../shared/components/snack-bar/snack-bar.component';
 
 export const dateFormat = {
   parse: {
@@ -66,30 +70,35 @@ export const dateFormat = {
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent implements OnInit {
-  private allSkills: string[] = [];
-  skillList: string[] = [];
-  private allProjects: string[] = [];
-  projectList: string[] = [];
+  private allSkills: SkillProject[] = [];
+  skillList: SkillProject[] = [];
+  private allProjects: SkillProject[] = [];
+  projectList: SkillProject[] = [];
   isAddMode: boolean = false;
   isLoadingEmployee: boolean = true;
   isLoadingEmployeeData: boolean = true;
   isEmployeeMissing: boolean = false;
   idNotFound: string | null = '';
-  allManagers: string[] = [];
-  managersList: string[] = [];
+  allManagers: Manager[] = [];
+  id: string | null = null;
 
   protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !this.id;
     this.getEmployeesData();
     this.getEmployee();
   }
 
   getEmployeesData(): void {
-    const getManagersData: Observable<Employee[]> = this.employeesService.getEmployees();
-    const getSkillsData: Observable<string[]> = this.employeesService.getSkills();
-    const getProjectsData: Observable<string[]> = this.employeesService.getProjects();
+    let getManagersData: Observable<Employee[]> = this.employeesService.getEmployees();
+    if (!this.isAddMode) {
+      getManagersData = this.employeesService.getManagers(this.id);
+    }
+    const getSkillsData: Observable<SkillProject[]> = this.employeesService.getSkills();
+    const getProjectsData: Observable<SkillProject[]> = this.employeesService.getProjects();
     forkJoin([getManagersData, getSkillsData, getProjectsData])
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -97,38 +106,38 @@ export class EmployeeComponent implements OnInit {
       )
       .subscribe({
         next: ([managers, skills, projects]): void => {
-          this.allManagers = managers.map((manager: Employee): string => manager.name + ' ' + manager.surname);
+          this.allManagers = managers.map((manager: Employee) => ({
+            id: manager.id,
+            name: manager.name,
+            surname: manager.surname,
+            manager: manager.manager,
+          }));
           this.allSkills = skills;
           this.allProjects = projects;
+          this.checkSkillsList();
+          this.checkProjectsList();
         },
-        error: (err): void => {
-          alert(err);
-        },
-        complete: (): void => {
-          this.managersList = this.allManagers;
-          this.skillList = this.allSkills;
-          this.projectList = this.allProjects;
+        error: (): void => {
+          this.openSnackBar('employee-data-fetch', 'snackbar');
         },
       });
   }
 
   getEmployee(): void {
-    const id: string | null = this.route.snapshot.paramMap.get('id');
-    this.isAddMode = !id;
     if (this.isAddMode) {
       this.employeeForm.setValue({
-        id: this.employeesService.newEmployeeId.value,
+        id: null,
         name: '',
         surname: '',
         employmentDate: '',
         skills: [],
         projects: [],
-        manager: ' ',
+        manager: null,
       });
       this.isLoadingEmployee = false;
     } else {
       this.employeesService
-        .getEmployee(id)
+        .getEmployee(this.id)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           finalize((): boolean => (this.isLoadingEmployee = false))
@@ -136,13 +145,13 @@ export class EmployeeComponent implements OnInit {
         .subscribe({
           next: (employee: Employee): void => {
             this.employeeForm.patchValue({ ...employee, skills: [...employee.skills], projects: [...employee.projects] });
-            this.checkManagersList();
             this.checkSkillsList();
             this.checkProjectsList();
           },
           error: (): void => {
             this.isEmployeeMissing = true;
-            this.idNotFound = id;
+            this.idNotFound = this.id;
+            this.openSnackBar('employee-missing', 'snackbar');
           },
           complete: (): void => {
             this.messageService.add(`select ${this.employeeForm.value.id}`);
@@ -154,12 +163,20 @@ export class EmployeeComponent implements OnInit {
 
   employeeForm: FormGroup;
 
+  compareObjects(obj1: Manager, obj2: Manager) {
+    if (obj1 === null || obj2 === null) {
+      return false;
+    }
+    return obj1.name == obj2.name && obj1.id == obj2.id;
+  }
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private employeesService: EmployeesService,
-    private location: Location
+    private location: Location,
+    private snackBar: MatSnackBar
   ) {
     this.employeeForm = this.fb.nonNullable.group({
       id: [''],
@@ -175,13 +192,19 @@ export class EmployeeComponent implements OnInit {
   onSubmit(): void {
     if (this.isAddMode) {
       this.employeesService.addEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        error: (): void => {
+          this.openSnackBar('employee-add', 'snackbar');
+        },
         complete: (): void => {
-          this.messageService.add(`add ${this.employeeForm.value.id}`);
+          this.messageService.add('add');
           this.goBack();
         },
       });
     } else {
       this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+        error: (): void => {
+          this.openSnackBar('employee-update', 'snackbar');
+        },
         complete: (): void => {
           this.messageService.add(`update ${this.employeeForm.value.id}`);
           this.goBack();
@@ -189,10 +212,6 @@ export class EmployeeComponent implements OnInit {
       });
     }
     this.employeeForm.markAsUntouched();
-  }
-
-  get idControl(): FormControl {
-    return this.employeeForm.controls['id'] as FormControl;
   }
 
   get nameControl(): FormControl {
@@ -219,48 +238,54 @@ export class EmployeeComponent implements OnInit {
     return this.employeeForm.controls['manager'] as FormControl;
   }
 
-  addSkill(selectedSkill: string): void {
+  addSkill(selectedSkill: SkillProject): void {
     this.skillsControl.value?.push(selectedSkill);
     this.checkSkillsList();
   }
 
-  deleteSkill(selectedSkill: string): void {
-    const itemIndex: number = this.skillsControl.value!.findIndex((skill: string): boolean => skill === selectedSkill);
+  deleteSkill(selectedSkill: SkillProject): void {
+    const itemIndex: number = this.skillsControl.value!.findIndex((obj: SkillProject) => obj === selectedSkill);
     this.skillsControl.value?.splice(itemIndex, 1);
     this.checkSkillsList();
   }
 
-  addProject(selectedProject: string): void {
+  addProject(selectedProject: SkillProject): void {
     this.projectsControl.value?.push(selectedProject);
     this.checkProjectsList();
   }
 
-  deleteProject(selectedProject: string): void {
-    const itemIndex: number = this.projectsControl.value!.findIndex((skill: string): boolean => skill === selectedProject);
+  deleteProject(selectedProject: SkillProject): void {
+    const itemIndex: number = this.projectsControl.value!.findIndex((obj: SkillProject) => obj === selectedProject);
     this.projectsControl.value?.splice(itemIndex, 1);
     this.checkProjectsList();
   }
 
-  onSelectedManager(manager: string): void {
-    this.managerControl.setValue(manager);
-    this.checkManagersList();
+  onSelectedManager(selectedManager: Manager): void {
+    this.managerControl.setValue(selectedManager);
   }
 
   goBack(): void {
     this.location.back();
   }
 
+  openSnackBar(message: string, panelClass: string): void {
+    const duration = 5000;
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      data: message,
+      panelClass: panelClass,
+      duration: duration,
+    });
+  }
+
   private checkSkillsList(): void {
-    this.skillList = this.allSkills.filter((skill: string) => !this.employeeForm.controls['skills'].value?.includes(skill));
+    this.skillList = this.allSkills.filter(
+      (skill: SkillProject) => !this.employeeForm.controls['skills'].value.find((obj: { id: number }) => obj.id === skill.id)
+    );
   }
 
   private checkProjectsList(): void {
-    this.projectList = this.allProjects.filter((skill: string) => !this.employeeForm.controls['projects'].value?.includes(skill));
-  }
-
-  private checkManagersList(): void {
-    this.managersList = this.allManagers.filter((manager: string) => !this.employeeForm.controls['manager'].value!.includes(manager));
-    const currentEmployee: string = this.employeeForm.controls['name'].value + ' ' + this.employeeForm.controls?.['surname'].value;
-    this.managersList.splice(this.managersList.indexOf(currentEmployee), 1);
+    this.projectList = this.allProjects.filter(
+      (project: SkillProject) => !this.employeeForm.controls['projects'].value?.find((obj: { id: number }) => obj.id === project.id)
+    );
   }
 }

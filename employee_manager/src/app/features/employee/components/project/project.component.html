@@ -1,5 +1,5 @@
 <mat-chip-row class="project">
-  <span routerLink="/{{ Paths.PROJECT }}/{{ project }}" routerLinkActive="active">{{ project }}</span>
+  <span routerLink="/{{ Paths.PROJECT }}/{{ project?.id }}" routerLinkActive="active">{{ project?.name }}</span>
   <button matChipRemove (click)="onSelected(project!)">
     <mat-icon>cancel</mat-icon>
   </button>

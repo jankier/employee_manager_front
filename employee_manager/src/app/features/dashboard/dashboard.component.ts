@@ -10,6 +10,8 @@ import { RouterLink } from '@angular/router';
 import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { SnackBarComponent } from '../../shared/components/snack-bar/snack-bar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +29,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +49,12 @@ export class DashboardComponent implements OnInit {
           const elementsNum: number = 5;
           const shuffled: Employee[] = data.sort(() => 0.5 - Math.random());
           this.employees = shuffled.slice(0, elementsNum);
+          if (!data.length) {
+            this.openSnackBar('list-empty', 'snackbar');
+          }
         },
-        error: (err): void => {
-          alert(err);
+        error: (): void => {
+          this.openSnackBar('list-fetch', 'snackbar');
         },
         complete: (): void => {
           this.messageService.add('random');
@@ -59,5 +65,14 @@ export class DashboardComponent implements OnInit {
   onSelect(employee: Employee): void {
     this.selectedEmployee = employee;
     this.messageService.add(`select ${this.selectedEmployee.id}`);
+  }
+
+  openSnackBar(message: string, panelClass: string): void {
+    const duration = 5000;
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      data: message,
+      panelClass: panelClass,
+      duration: duration,
+    });
   }
 }

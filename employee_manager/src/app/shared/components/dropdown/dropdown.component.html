@@ -1,8 +1,8 @@
 <mat-form-field class="dropdown">
   <mat-label>{{ 'dropdown.option' | translate }}{{ ' ' + elementType }}</mat-label>
   <mat-select #element (selectionChange)="onSelected(element.value)" [disabled]="listElements?.length === 0">
-    @for (element of listElements; track element) {
-      <mat-option value="{{ element }}">{{ element }}</mat-option>
+    @for (element of listElements; track element.id) {
+      <mat-option [value]="element">{{ element.name }}</mat-option>
     }
   </mat-select>
 </mat-form-field>

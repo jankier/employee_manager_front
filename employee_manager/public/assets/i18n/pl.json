@@ -7,7 +7,6 @@
     "employees": "Pracownicy"
   },
   "employee": {
-    "id": "ID",
     "name": "Imię",
     "surname": "Nazwisko",
     "employmentDate": "Data zatrudnienia",
@@ -22,7 +21,8 @@
     "aliorbank": "Alior Bank SA jest bankiem uniwersalnym, który oferuje szereg usług finansowych zarówno klientom indywidualnym, jak i biznesowym. Główne działania banku polegają na łączeniu tradycyjnych zasad bankowych z innowacyjnymi rozwiązaniami, przyczyniając się tym samym do rozwoju polskiego sektora bankowego.",
     "santander bank": "Banco Santander jest wiodącym bankiem komercyjnym, założonym w 1857 r. i mającym siedzibę w Hiszpanii. Ma znaczącą obecność na 10 głównych rynkach w regionach Europy, Ameryki Północnej i Ameryki Południowej i jest jednym z największych banków na świecie pod względem kapitalizacji rynkowej.",
     "lot": "LOT Polskie Linie Lotnicze to nowoczesna linia lotnicza łącząca Nową Europę ze światem. Zapewnia prawie 9 milionom pasażerów rocznie najkrótsze i najwygodniejsze opcje podróży do ponad 100 destynacji na całym świecie przez Warszawę, konkurencyjny hub oferujący szybkie połączenia.",
-    "pgnig": "Podstawową działalnością PGNiG jest wydobycie i sprzedaż gazu ziemnego i ropy naftowej. Zarówno w kraju, jak i za granicą zajmujemy się badaniami geofizycznymi i geologicznymi, poszukiwaniem i wydobyciem węglowodorów, a także przygotowywaniem produktów do sprzedaży."
+    "pgnig": "Podstawową działalnością PGNiG jest wydobycie i sprzedaż gazu ziemnego i ropy naftowej. Zarówno w kraju, jak i za granicą zajmujemy się badaniami geofizycznymi i geologicznymi, poszukiwaniem i wydobyciem węglowodorów, a także przygotowywaniem produktów do sprzedaży.",
+    "missing": "Projekt o id={{id}} nie istnieje."
   },
   "message": {
     "title": "Wiadomości",
@@ -31,7 +31,8 @@
       "fetch": "EmployeesService: Pobrano wszystkich pracowników",
       "random": "EmployeesService: Pobrano losowych pracowników",
       "select": "ListComponent: Wybrano pracownika o id=",
-      "add": "ListComponent: Dodano pracownika o id=",
+      "select-project": "ProjectComponent: Wybrano projekt o id=",
+      "add": "ListComponent: Dodano pracownika",
       "delete": "ListComponent: Usunięto pracownika o id=",
       "update": "EmployeeComponent: Zmodyfikowano dane pracownika o id="
     }
@@ -43,7 +44,19 @@
     "delete": "Czy na pewno chcesz usunąć {{name}} {{surname}} z listy pracowinków?"
   },
   "dropdown": {
-    "option": "Wybierz"
+    "option": "Wybierz",
+    "none": "Brak"
+  },
+  "snackbar": {
+    "project-missing": "Projekt nie istnieje.",
+    "list-empty": "Lista pracowników jest pusta.",
+    "list-fetch": "Pobranie listy pracowników nie powiodło się.",
+    "delete-manager": "Nie można usunąć pracownika, ponieważ jest też menadżerem.",
+    "employee-data-fetch": "Pobranie danych pracownika nie powiodło się.",
+    "employee-missing": "Pracownik nie istnieje.",
+    "employee-update": "Aktualizacja pracownika nie powiodła się.",
+    "employee-add": "Dodanie nowego pracownika nie powiodło się.",
+    "something-went-wrong": "Przepraszamy, wystąpił błąd."
   },
   "button": {
     "save": "Zapisz",
@@ -51,7 +64,8 @@
     "clear": "Wyczyść",
     "back": "Cofnij",
     "delete": "Usuń",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "close": "Zamknij"
   },
   "input": {
     "placeholder": {
