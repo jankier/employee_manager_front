@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { SkillProject } from '../../../../../models/skill-project.model';
 
 @Component({
   selector: 'app-skill',
@@ -10,11 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './skill.component.scss',
 })
 export class SkillComponent {
-  @Input() skill: string = '';
+  @Input() skill: SkillProject | undefined;
 
-  @Output() selectedSkill: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selectedSkill: EventEmitter<SkillProject> = new EventEmitter<SkillProject>();
 
-  onSelected(value: string): void {
+  onSelected(value: SkillProject): void {
     this.selectedSkill.emit(value);
   }
 }

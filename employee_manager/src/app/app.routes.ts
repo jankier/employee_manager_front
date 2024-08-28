@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: Paths.EMPLOYEE + '/:id', loadComponent: () => import('./features/employee/employee.component').then((c) => c.EmployeeComponent) },
   { path: Paths.CREATE, loadComponent: () => import('./features/employee/employee.component').then((c) => c.EmployeeComponent) },
   {
-    path: Paths.PROJECT + '/:project',
+    path: Paths.PROJECT + '/:id',
     loadComponent: () => import('./features/employee/components/project-details/project-details.component').then((c) => c.ProjectDetailsComponent),
   },
   { path: '**', loadComponent: () => import('./features/not-found/not-found.component').then((c) => c.NotFoundComponent) },

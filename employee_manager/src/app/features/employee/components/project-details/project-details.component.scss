@@ -4,6 +4,7 @@
 $height-back-button-custom: 3.5rem;
 $top-back-button-custom: -1rem;
 $width-content-small-device-custom: 20rem;
+$height-no-data-custom: 19rem;
 
 .project__details {
   display: flex;
@@ -13,6 +14,14 @@ $width-content-small-device-custom: 20rem;
   flex-grow: 1;
   margin-top: $margin-large;
   margin-bottom: $margin-large;
+
+  &__no-data {
+    height: $height-no-data-custom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
   &-button {
     right: 30%;

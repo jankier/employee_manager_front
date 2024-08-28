@@ -16,6 +16,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { finalize } from 'rxjs';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-home-page',
@@ -44,7 +45,8 @@ export class ListComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private snackBarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -60,11 +62,13 @@ export class ListComponent implements OnInit {
       )
       .subscribe({
         next: (data: Employee[]): void => {
-          data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
           this.employees = data;
+          if (!data.length) {
+            this.snackBarService.openSnackBar('list-empty', 'snackbar');
+          }
         },
-        error: (err): void => {
-          alert(err);
+        error: (): void => {
+          this.snackBarService.openSnackBar('list-fetch', 'snackbar');
         },
         complete: (): void => {
           this.filteredEmployees = this.employees;
@@ -73,20 +77,14 @@ export class ListComponent implements OnInit {
       });
   }
 
-  onAdd(): void {
-    this.employeesService.setNewEmployeeId(this.calculateNewId());
-  }
-
-  calculateNewId(): string {
-    return (Number(this.employees[this.employees.length - 1].id) + 1).toString();
-  }
-
   deleteEmployee(employee: Employee): void {
-    const employeeId: number = this.employees.indexOf(employee);
-    this.employees.splice(employeeId, 1);
     this.employeesService.deleteEmployee(employee.id).subscribe({
+      error: (): void => {
+        this.snackBarService.openSnackBar('delete-manager', 'snackbar');
+      },
       complete: (): void => {
         this.messageService.add(`delete ${employee.id}`);
+        this.getEmployees();
       },
     });
   }
@@ -102,8 +100,8 @@ export class ListComponent implements OnInit {
           this.deleteEmployee(employee);
         }
       },
-      error: (err): void => {
-        alert(err);
+      error: (): void => {
+        this.snackBarService.openSnackBar('error-occurred', 'snackbar');
       },
     });
   }

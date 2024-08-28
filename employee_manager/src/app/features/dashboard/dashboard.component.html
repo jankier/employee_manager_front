@@ -9,7 +9,7 @@
       </div>
     } @else {
       <ul class="dashboard__list">
-        @for (employee of employees; track employee) {
+        @for (employee of employees; track employee.id) {
           <li class="dashboard__list-element">
             <button
               mat-raised-button

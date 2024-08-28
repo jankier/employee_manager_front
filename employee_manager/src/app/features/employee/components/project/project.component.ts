@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { Paths } from '../../../../../enums/paths.enum';
+import { SkillProject } from '../../../../../models/skill-project.model';
 
 @Component({
   selector: 'app-project',
@@ -13,11 +14,11 @@ import { Paths } from '../../../../../enums/paths.enum';
 })
 export class ProjectComponent {
   protected readonly Paths = Paths;
-  @Input() project: string = '';
+  @Input() project: SkillProject | undefined;
 
-  @Output() selectedProject: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selectedProject: EventEmitter<SkillProject> = new EventEmitter<SkillProject>();
 
-  onSelected(value: string): void {
+  onSelected(value: SkillProject): void {
     this.selectedProject.emit(value);
   }
 }

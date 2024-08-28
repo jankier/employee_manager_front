@@ -4,13 +4,19 @@
     <span>{{ 'button.back' | translate }}</span>
   </button>
   <mat-card class="project__details-card" appearance="outlined">
-    @for (singleProject of projects; track singleProject) {
-      @if (singleProject === project) {
+    @if (isLoadingProject) {
+      <mat-card-content class="project__details__no-data">
+        <mat-spinner></mat-spinner>
+      </mat-card-content>
+    } @else {
+      @if (isProjectMissing) {
+        <mat-card-content class="project__details__no-data">{{ 'project.missing' | translate: { id: idNotFound } }}</mat-card-content>
+      } @else {
         <mat-card-header class="project__details-header">
-          <p>{{ project }}</p>
+          <p>{{ project?.name }}</p>
         </mat-card-header>
         <mat-card-content class="project__details-content">
-          <p>{{ 'project.' + (singleProject | lowercase) | translate }}</p>
+          <p>{{ 'project.' + (project?.name | lowercase) | translate }}</p>
         </mat-card-content>
       }
     }

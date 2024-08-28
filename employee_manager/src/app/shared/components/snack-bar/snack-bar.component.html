@@ -1,0 +1,6 @@
+<div class="snack-bar">
+  <span matSnackBarLabel>{{ 'snackbar.' + data | translate }}</span>
+  <span matSnackBarActions>
+    <button mat-button matSnackBarAction (click)="snackBarRef.dismiss()">{{ 'button.close' | translate }}</button>
+  </span>
+</div>
