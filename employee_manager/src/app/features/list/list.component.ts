@@ -16,8 +16,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { finalize } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackBarComponent } from '../../shared/components/snack-bar/snack-bar.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-home-page',
@@ -47,7 +46,7 @@ export class ListComponent implements OnInit {
   constructor(
     private employeesService: EmployeesService,
     private messageService: MessageService,
-    private snackBar: MatSnackBar
+    private snackBarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -63,14 +62,13 @@ export class ListComponent implements OnInit {
       )
       .subscribe({
         next: (data: Employee[]): void => {
-          data.sort((a: Employee, b: Employee) => Number(a.id) - Number(b.id));
           this.employees = data;
           if (!data.length) {
-            this.openSnackBar('list-empty', 'snackbar');
+            this.snackBarService.openSnackBar('list-empty', 'snackbar');
           }
         },
         error: (): void => {
-          this.openSnackBar('list-fetch', 'snackbar');
+          this.snackBarService.openSnackBar('list-fetch', 'snackbar');
         },
         complete: (): void => {
           this.filteredEmployees = this.employees;
@@ -82,7 +80,7 @@ export class ListComponent implements OnInit {
   deleteEmployee(employee: Employee): void {
     this.employeesService.deleteEmployee(employee.id).subscribe({
       error: (): void => {
-        this.openSnackBar('delete-manager', 'snackbar');
+        this.snackBarService.openSnackBar('delete-manager', 'snackbar');
       },
       complete: (): void => {
         this.messageService.add(`delete ${employee.id}`);
@@ -103,7 +101,7 @@ export class ListComponent implements OnInit {
         }
       },
       error: (): void => {
-        this.openSnackBar('error-occurred', 'snackbar');
+        this.snackBarService.openSnackBar('error-occurred', 'snackbar');
       },
     });
   }
@@ -117,14 +115,5 @@ export class ListComponent implements OnInit {
       (employee: Employee) =>
         employee?.name.toLowerCase().includes(value.toLowerCase()) || employee?.surname.toLowerCase().includes(value.toLowerCase())
     );
-  }
-
-  openSnackBar(message: string, panelClass: string): void {
-    const duration = 5000;
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      data: message,
-      panelClass: panelClass,
-      duration: duration,
-    });
   }
 }

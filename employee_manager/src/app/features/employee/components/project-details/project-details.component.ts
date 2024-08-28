@@ -12,8 +12,7 @@ import { finalize } from 'rxjs';
 import { Project } from '../../../../../models/project.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MessageService } from '../../../../services/message.service';
-import { SnackBarComponent } from '../../../../shared/components/snack-bar/snack-bar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../../../services/snackbar.service';
 
 @Component({
   selector: 'app-project-page',
@@ -49,7 +48,7 @@ export class ProjectDetailsComponent implements OnInit {
         error: (): void => {
           this.isProjectMissing = true;
           this.idNotFound = id;
-          this.openSnackBar('project-missing', 'snackbar');
+          this.snackBarService.openSnackBar('project-missing', 'snackbar');
         },
         complete: (): void => {
           this.messageService.add(`select-project ${id}`);
@@ -62,19 +61,10 @@ export class ProjectDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private employeeService: EmployeesService,
     private messageService: MessageService,
-    private snackBar: MatSnackBar
+    private snackBarService: SnackbarService
   ) {}
 
   goBack(): void {
     this.location.back();
-  }
-
-  openSnackBar(message: string, panelClass: string): void {
-    const duration = 5000;
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      data: message,
-      panelClass: panelClass,
-      duration: duration,
-    });
   }
 }

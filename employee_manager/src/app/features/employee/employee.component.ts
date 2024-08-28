@@ -27,8 +27,7 @@ import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SkillProject } from '../../../models/skill-project.model';
 import { Manager } from '../../../models/manager.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackBarComponent } from '../../shared/components/snack-bar/snack-bar.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 export const dateFormat = {
   parse: {
@@ -118,7 +117,7 @@ export class EmployeeComponent implements OnInit {
           this.checkProjectsList();
         },
         error: (): void => {
-          this.openSnackBar('employee-data-fetch', 'snackbar');
+          this.snackBarService.openSnackBar('employee-data-fetch', 'snackbar');
         },
       });
   }
@@ -151,7 +150,7 @@ export class EmployeeComponent implements OnInit {
           error: (): void => {
             this.isEmployeeMissing = true;
             this.idNotFound = this.id;
-            this.openSnackBar('employee-missing', 'snackbar');
+            this.snackBarService.openSnackBar('employee-missing', 'snackbar');
           },
           complete: (): void => {
             this.messageService.add(`select ${this.employeeForm.value.id}`);
@@ -176,7 +175,7 @@ export class EmployeeComponent implements OnInit {
     private messageService: MessageService,
     private employeesService: EmployeesService,
     private location: Location,
-    private snackBar: MatSnackBar
+    private snackBarService: SnackbarService
   ) {
     this.employeeForm = this.fb.nonNullable.group({
       id: [''],
@@ -193,7 +192,7 @@ export class EmployeeComponent implements OnInit {
     if (this.isAddMode) {
       this.employeesService.addEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
         error: (): void => {
-          this.openSnackBar('employee-add', 'snackbar');
+          this.snackBarService.openSnackBar('employee-add', 'snackbar');
         },
         complete: (): void => {
           this.messageService.add('add');
@@ -203,7 +202,7 @@ export class EmployeeComponent implements OnInit {
     } else {
       this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
         error: (): void => {
-          this.openSnackBar('employee-update', 'snackbar');
+          this.snackBarService.openSnackBar('employee-update', 'snackbar');
         },
         complete: (): void => {
           this.messageService.add(`update ${this.employeeForm.value.id}`);
@@ -266,15 +265,6 @@ export class EmployeeComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
-  }
-
-  openSnackBar(message: string, panelClass: string): void {
-    const duration = 5000;
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      data: message,
-      panelClass: panelClass,
-      duration: duration,
-    });
   }
 
   private checkSkillsList(): void {
