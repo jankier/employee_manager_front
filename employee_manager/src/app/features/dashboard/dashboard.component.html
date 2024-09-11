@@ -11,14 +11,17 @@
       <ul class="dashboard__list">
         @for (employee of employees; track employee.id) {
           <li class="dashboard__list-element">
-            <button
-              mat-raised-button
-              class="dashboard__list-button"
-              type="button"
-              (click)="onSelect(employee)"
-              routerLink="/{{ Paths.EMPLOYEE }}/{{ employee.id }}">
-              <span>{{ employee.name }} {{ employee.surname }}</span>
-            </button>
+            <div [matTooltip]="(userIsPresent ? 'tooltip.access-employee' : '') | translate" matTooltipPosition="below" [matTooltipShowDelay]="1000">
+              <button
+                mat-raised-button
+                class="dashboard__list-button"
+                type="button"
+                (click)="onSelect(employee)"
+                routerLink="/{{ Paths.EMPLOYEE }}/{{ employee.id }}"
+                [disabled]="userIsPresent">
+                <span>{{ employee.name }} {{ employee.surname }}</span>
+              </button>
+            </div>
           </li>
         }
       </ul>

@@ -1,7 +1,11 @@
 {
   "navbar": {
     "dashboard": "Panel główny",
-    "employees": "Pracownicy"
+    "employees": "Pracownicy",
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "password": "Zmień hasło",
+    "user": "Użytkownik"
   },
   "list": {
     "employees": "Pracownicy"
@@ -14,6 +18,16 @@
     "projects": "projekt",
     "manager": "Menadżer",
     "missing": "Pracownik o id={{id}} nie istnieje."
+  },
+  "login": {
+    "title": "Zaloguj się",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło"
+  },
+  "change-password": {
+    "title": "Zmień hasło",
+    "current-password": "Obecne hasło",
+    "new-password": "Nowe hasło"
   },
   "project": {
     "pzu": "Grupa PZU jest jedną z największych instytucji finansowych w Polsce i Europie Środkowo-Wschodniej. Grupą kieruje Powszechny Zakład Ubezpieczeń S.A. (PZU) – spółka notowana na Giełdzie Papierów Wartościowych w Warszawie.",
@@ -34,7 +48,10 @@
       "select-project": "ProjectComponent: Wybrano projekt o id=",
       "add": "ListComponent: Dodano pracownika",
       "delete": "ListComponent: Usunięto pracownika o id=",
-      "update": "EmployeeComponent: Zmodyfikowano dane pracownika o id="
+      "update": "EmployeeComponent: Zmodyfikowano dane pracownika o id=",
+      "login": "LoginComponent: Logowanie użytkownika: ",
+      "logout": "LoginComponent: Wylogowanie użytkownika: ",
+      "changed-password": "ChangePasswordComponent: Zmiana hasła dla użytkownika: "
     }
   },
   "not-found": {
@@ -56,7 +73,15 @@
     "employee-missing": "Pracownik nie istnieje.",
     "employee-update": "Aktualizacja pracownika nie powiodła się.",
     "employee-add": "Dodanie nowego pracownika nie powiodło się.",
-    "something-went-wrong": "Przepraszamy, wystąpił błąd."
+    "something-went-wrong": "Przepraszamy, wystąpił błąd.",
+    "unauthenticated": "Brak uwierzytelnienia: Nie można uzyskać dostępu do tej ścieżki",
+    "invalid-login": "Nieprawidłowa nazwa użytkownika lub hasło",
+    "incorrect-password": "Obecne hasło jest nieprawidłowe"
+  },
+  "tooltip": {
+    "access-employee": "Nie posiadasz uprawnień do wglądu w dane pracownika.",
+    "delete-employee": "Nie posiadasz uprawnień do usunięcia pracownika.",
+    "add-employee": "Nie posiadasz uprawnień do dodania nowego pracownika."
   },
   "button": {
     "save": "Zapisz",
@@ -65,13 +90,21 @@
     "back": "Cofnij",
     "delete": "Usuń",
     "cancel": "Anuluj",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "proceed": "Kontynuuj"
   },
   "input": {
+    "hint": {
+      "password": "Nowe hasło powinno zawierać conajmniej 1 cyfrę, wielką i małą literę."
+    },
     "placeholder": {
       "search": "Wyszukaj",
       "name": "Imię",
-      "surname": "Nazwisko"
+      "surname": "Nazwisko",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło",
+      "current-password": "Obecne hasło",
+      "new-password": "Nowe hasło"
     }
   },
   "error": {
@@ -88,6 +121,18 @@
     "employmentDate": {
       "required": "Data jest wymagana!",
       "pattern": "Niepoprawny format daty!"
+    },
+    "currentPassword": {
+      "required": "Obecne hasło jest wymagane!"
+    },
+    "newPassword": {
+      "required": "Nowe hasło jest wymagane!",
+      "minLength": "Hasło zbyt krótkie!",
+      "maxLength": "Hasło zbyt długie!",
+      "noUpperCase": "Nowe hasło powinno zawierać conajmniej 1 wielką literę!",
+      "noLowerCase": "Nowe hasło powinno zawierać conajmniej 1 małą literę!",
+      "noDigit": "Nowe hasło powinno zawierać conajmniej 1 cyfrę!",
+      "hasWhiteSpace": "Nowe hasło nie powinno zawierać odstępów!"
     }
   }
 }

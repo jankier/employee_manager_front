@@ -35,6 +35,17 @@ $padding-custom: 1rem;
     }
   }
 
+  &__user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $gap-small;
+
+    &-username {
+      color: $secondary-color;
+    }
+  }
+
   &__menu {
     display: flex;
     flex-direction: row;
@@ -45,6 +56,11 @@ $padding-custom: 1rem;
     &-icon {
       color: $secondary-color;
       background-color: $background-color;
+    }
+
+    &-option[disabled] {
+      opacity: 1;
+      color: $secondary-color;
     }
 
     &-hamburger {

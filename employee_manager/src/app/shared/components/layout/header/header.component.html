@@ -19,6 +19,26 @@
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item class="header__menu-option" type="button" [matMenuTriggerFor]="menuUser">
+          {{ 'navbar.user' | translate }}
+        </button>
+        <mat-menu #menuUser="matMenu">
+          @if (userIsPresent) {
+            <button mat-menu-item disabled="true" class="header__menu-option">
+              {{ user?.username }}
+            </button>
+            <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.CHANGE_PASSWORD }}" routerLinkActive="active">
+              {{ 'navbar.password' | translate }}
+            </button>
+            <button mat-menu-item class="header__menu-option" type="button" (click)="logoutUser()">
+              {{ 'navbar.logout' | translate }}
+            </button>
+          } @else {
+            <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.LOGIN }}" routerLinkActive="active">
+              {{ 'navbar.login' | translate }}
+            </button>
+          }
+        </mat-menu>
         <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">
           {{ 'navbar.dashboard' | translate }}
         </button>
@@ -27,10 +47,28 @@
         </button>
       </mat-menu>
     </div>
-    <div class="header__menu-links">
-      <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
-      <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
-    </div>
+    @if (userIsPresent) {
+      <div class="header__menu-links">
+        <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
+        <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>
+        <div class="header__user">
+          <span class="header__user-username">
+            {{ user?.username }}
+          </span>
+          <button mat-icon-button class="header__menu-icon" type="button" [matMenuTriggerFor]="userMenu">
+            <mat-icon>person</mat-icon>
+          </button>
+        </div>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          @if (userIsPresent) {
+            <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.CHANGE_PASSWORD }}" routerLinkActive="active">
+              {{ 'navbar.password' | translate }}
+            </button>
+            <button mat-menu-item class="header__menu-option" (click)="logoutUser()">{{ 'navbar.logout' | translate }}</button>
+          }
+        </mat-menu>
+      </div>
+    }
     <app-language-selector [languages]="translate.store.langs" [currentLang]="translate.store.currentLang"></app-language-selector>
   </div>
 </header>
