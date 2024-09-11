@@ -14,16 +14,16 @@
     </div>
   </div>
   <div class="header__menu">
-    <div class="header__menu-hamburger">
-      <button mat-icon-button class="header__menu-icon" type="button" [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item class="header__menu-option" type="button" [matMenuTriggerFor]="menuUser">
-          {{ 'navbar.user' | translate }}
+    @if (userIsPresent) {
+      <div class="header__menu-hamburger">
+        <button mat-icon-button class="header__menu-icon" type="button" [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
         </button>
-        <mat-menu #menuUser="matMenu">
-          @if (userIsPresent) {
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item class="header__menu-option" type="button" [matMenuTriggerFor]="menuUser">
+            {{ 'navbar.user' | translate }}
+          </button>
+          <mat-menu #menuUser="matMenu">
             <button mat-menu-item disabled="true" class="header__menu-option">
               {{ user?.username }}
             </button>
@@ -33,20 +33,16 @@
             <button mat-menu-item class="header__menu-option" type="button" (click)="logoutUser()">
               {{ 'navbar.logout' | translate }}
             </button>
-          } @else {
-            <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.LOGIN }}" routerLinkActive="active">
-              {{ 'navbar.login' | translate }}
-            </button>
-          }
+          </mat-menu>
+          <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">
+            {{ 'navbar.dashboard' | translate }}
+          </button>
+          <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">
+            {{ 'navbar.employees' | translate }}
+          </button>
         </mat-menu>
-        <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">
-          {{ 'navbar.dashboard' | translate }}
-        </button>
-        <button mat-menu-item class="header__menu-option" type="button" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">
-          {{ 'navbar.employees' | translate }}
-        </button>
-      </mat-menu>
-    </div>
+      </div>
+    }
     @if (userIsPresent) {
       <div class="header__menu-links">
         <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
@@ -60,12 +56,10 @@
           </button>
         </div>
         <mat-menu #userMenu="matMenu" xPosition="before">
-          @if (userIsPresent) {
-            <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.CHANGE_PASSWORD }}" routerLinkActive="active">
-              {{ 'navbar.password' | translate }}
-            </button>
-            <button mat-menu-item class="header__menu-option" (click)="logoutUser()">{{ 'navbar.logout' | translate }}</button>
-          }
+          <button mat-menu-item class="header__menu-option" routerLink="/{{ Paths.CHANGE_PASSWORD }}" routerLinkActive="active">
+            {{ 'navbar.password' | translate }}
+          </button>
+          <button mat-menu-item class="header__menu-option" (click)="logoutUser()">{{ 'navbar.logout' | translate }}</button>
         </mat-menu>
       </div>
     }

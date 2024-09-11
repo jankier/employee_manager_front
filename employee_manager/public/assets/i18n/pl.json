@@ -74,9 +74,9 @@
     "employee-update": "Aktualizacja pracownika nie powiodła się.",
     "employee-add": "Dodanie nowego pracownika nie powiodło się.",
     "something-went-wrong": "Przepraszamy, wystąpił błąd.",
-    "unauthenticated": "Brak uwierzytelnienia: Nie można uzyskać dostępu do tej ścieżki",
-    "invalid-login": "Nieprawidłowa nazwa użytkownika lub hasło",
-    "incorrect-password": "Obecne hasło jest nieprawidłowe"
+    "unauthenticated": "Brak uwierzytelnienia: Nie można uzyskać dostępu do tej ścieżki.",
+    "invalid-login": "Nieprawidłowa nazwa użytkownika lub hasło.",
+    "incorrect-password": "Obecne lub nowe hasło jest nieprawidłowe."
   },
   "tooltip": {
     "access-employee": "Nie posiadasz uprawnień do wglądu w dane pracownika.",

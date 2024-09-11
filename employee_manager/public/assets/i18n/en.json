@@ -74,9 +74,9 @@
     "employee-update": "Failed to update employee.",
     "employee-add": "Failed to add new employee.",
     "error-occurred": "Sorry, an error occurred.",
-    "unauthenticated": "Unauthenticated: Cannot gain access to this route",
-    "invalid-login": "Invalid username or password",
-    "incorrect-password": "Current password is incorrect"
+    "unauthenticated": "Unauthenticated: Cannot gain access to this route.",
+    "invalid-login": "Invalid username or password.",
+    "incorrect-password": "Current or new password is incorrect."
   },
   "tooltip": {
     "access-employee": "You don't have permission to access employee details.",
