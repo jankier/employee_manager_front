@@ -28,5 +28,12 @@ $secondary-color: #005dba;
 $accent-color: #e1e3ed;
 $error-color: #ffa500ff;
 $disabled-color: #75758a;
+$shadow-primary: #00000033;
+$shadow-secondary: #00000023;
+$shadow-tertiary: #0000001e;
 $break-point-mobile: 48rem;
 $break-point-tablet: 64rem;
+$box-shadow-button-disabled:
+  0 0.125rem 0.063rem -0.063rem $shadow-primary,
+  0 0.063rem 0.063rem 0 $shadow-secondary,
+  0 0.063rem 0.188rem 0 $shadow-tertiary;

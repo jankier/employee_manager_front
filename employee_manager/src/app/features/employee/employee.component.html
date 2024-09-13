@@ -3,94 +3,96 @@
     <mat-icon>arrow_back</mat-icon>
     <span>{{ 'button.back' | translate }}</span>
   </button>
-  <mat-card class="employee__content" [formGroup]="employeeForm" appearance="outlined">
-    @if (isLoadingEmployee || isLoadingEmployeeData) {
-      <mat-card-content class="employee__no-data">
-        <mat-spinner></mat-spinner>
-      </mat-card-content>
-    } @else {
-      @if (isEmployeeMissing) {
-        <mat-card-content class="employee__no-data">{{ 'employee.missing' | translate: { id: idNotFound } }}</mat-card-content>
-      } @else {
-        <mat-card-header class="employee__header">
-          <mat-card-title class="employee__header-title">
-            {{ nameControl.value | uppercase }}
-            {{ surnameControl.value | uppercase }}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="employee__details">
-          <mat-form-field class="employee__input">
-            <mat-label>{{ 'employee.name' | translate }}</mat-label>
-            <input matInput [formControl]="nameControl" placeholder="{{ 'input.placeholder.name' | translate }}" maxlength="18" />
-            @if (nameControl.hasError('required') && !nameControl.untouched) {
-              <mat-error class="employee__error-message">{{ 'error.name.required' | translate }}</mat-error>
-            } @else if (nameControl.hasError('minlength')) {
-              <mat-error class="employee__error-message">{{ 'error.name.minLength' | translate }}</mat-error>
-            } @else if (nameControl.hasError('maxlength')) {
-              <mat-error class="employee__error-message">{{ 'error.name.maxLength' | translate }}</mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field class="employee__input">
-            <mat-label>{{ 'employee.surname' | translate }}</mat-label>
-            <input matInput [formControl]="surnameControl" placeholder="{{ 'input.placeholder.surname' | translate }}" maxlength="18" />
-            @if (surnameControl.hasError('required') && !surnameControl.untouched) {
-              <mat-error class="employee__error-message">{{ 'error.surname.required' | translate }}</mat-error>
-            } @else if (surnameControl.hasError('minlength')) {
-              <mat-error class="employee__error-message">{{ 'error.surname.minLength' | translate }}</mat-error>
-            } @else if (surnameControl.hasError('maxlength')) {
-              <mat-error class="employee__error-message">{{ 'error.surname.maxLength' | translate }}</mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field class="employee__input">
-            <mat-label>{{ 'employee.employmentDate' | translate }}</mat-label>
-            <input matInput [matDatepicker]="picker" [formControl]="employmentDateControl" />
-            <mat-hint>DD/MM/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            @if (employmentDateControl.hasError('required') && !employmentDateControl.untouched) {
-              <mat-error class="employee__error-message">{{ 'error.employmentDate.required' | translate }}</mat-error>
-            } @else if (employmentDateControl.hasError('pattern')) {
-              <mat-error class="employee__error-message">{{ 'error.employmentDate.pattern' | translate }}</mat-error>
-            }
-          </mat-form-field>
-          <div class="employee__column">
-            <app-dropdown
-              [listElements]="skillList"
-              [elementType]="'employee.skills' | translate"
-              (selectedElement)="addSkill($event)"></app-dropdown>
-            <mat-chip-set>
-              @for (skill of skillsControl.value; track skill.id) {
-                <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
-              }
-            </mat-chip-set>
-          </div>
-          <div class="employee__column">
-            <app-dropdown
-              [listElements]="projectList"
-              [elementType]="'employee.projects' | translate"
-              (selectedElement)="addProject($event)"></app-dropdown>
-            <mat-chip-set>
-              @for (project of projectsControl.value; track project.id) {
-                <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
-              }
-            </mat-chip-set>
-          </div>
-          <mat-form-field class="employee__input">
-            <mat-label>{{ 'employee.manager' | translate }}</mat-label>
-            <mat-select [formControl]="managerControl" #manager (selectionChange)="onSelectedManager(manager.value)" [compareWith]="compareObjects">
-              <mat-option>{{ 'dropdown.none' | translate }}</mat-option>
-              @for (manager of allManagers; track manager.id) {
-                <mat-option [value]="manager">{{ manager.name + ' ' + manager.surname }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-          <mat-card-actions class="employee__button">
-            <button mat-flat-button type="submit" class="employee__button-submit" (click)="onSubmit()" [disabled]="employeeForm.invalid">
-              {{ 'button.save' | translate }}
-            </button>
-          </mat-card-actions>
+  <div class="employee__wrapper">
+    <mat-card class="employee__content" [formGroup]="employeeForm" appearance="outlined">
+      @if (isLoadingEmployee || isLoadingEmployeeData) {
+        <mat-card-content class="employee__no-data">
+          <mat-spinner></mat-spinner>
         </mat-card-content>
+      } @else {
+        @if (isEmployeeMissing) {
+          <mat-card-content class="employee__no-data">{{ 'employee.missing' | translate: { id: idNotFound } }}</mat-card-content>
+        } @else {
+          <mat-card-header class="employee__header">
+            <mat-card-title class="employee__header-title">
+              {{ nameControl.value | uppercase }}
+              {{ surnameControl.value | uppercase }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="employee__details">
+            <mat-form-field class="employee__input">
+              <mat-label>{{ 'employee.name' | translate }}</mat-label>
+              <input matInput [formControl]="nameControl" placeholder="{{ 'input.placeholder.name' | translate }}" maxlength="18" />
+              @if (nameControl.hasError('required') && !nameControl.untouched) {
+                <mat-error class="employee__error-message">{{ 'error.name.required' | translate }}</mat-error>
+              } @else if (nameControl.hasError('minlength')) {
+                <mat-error class="employee__error-message">{{ 'error.name.minLength' | translate }}</mat-error>
+              } @else if (nameControl.hasError('maxlength')) {
+                <mat-error class="employee__error-message">{{ 'error.name.maxLength' | translate }}</mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field class="employee__input">
+              <mat-label>{{ 'employee.surname' | translate }}</mat-label>
+              <input matInput [formControl]="surnameControl" placeholder="{{ 'input.placeholder.surname' | translate }}" maxlength="18" />
+              @if (surnameControl.hasError('required') && !surnameControl.untouched) {
+                <mat-error class="employee__error-message">{{ 'error.surname.required' | translate }}</mat-error>
+              } @else if (surnameControl.hasError('minlength')) {
+                <mat-error class="employee__error-message">{{ 'error.surname.minLength' | translate }}</mat-error>
+              } @else if (surnameControl.hasError('maxlength')) {
+                <mat-error class="employee__error-message">{{ 'error.surname.maxLength' | translate }}</mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field class="employee__input">
+              <mat-label>{{ 'employee.employmentDate' | translate }}</mat-label>
+              <input matInput [matDatepicker]="picker" [formControl]="employmentDateControl" />
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              @if (employmentDateControl.hasError('required') && !employmentDateControl.untouched) {
+                <mat-error class="employee__error-message">{{ 'error.employmentDate.required' | translate }}</mat-error>
+              } @else if (employmentDateControl.hasError('pattern')) {
+                <mat-error class="employee__error-message">{{ 'error.employmentDate.pattern' | translate }}</mat-error>
+              }
+            </mat-form-field>
+            <div class="employee__column">
+              <app-dropdown
+                [listElements]="skillList"
+                [elementType]="'employee.skills' | translate"
+                (selectedElement)="addSkill($event)"></app-dropdown>
+              <mat-chip-set>
+                @for (skill of skillsControl.value; track skill.id) {
+                  <app-skill [skill]="skill" (selectedSkill)="deleteSkill($event)"></app-skill>
+                }
+              </mat-chip-set>
+            </div>
+            <div class="employee__column">
+              <app-dropdown
+                [listElements]="projectList"
+                [elementType]="'employee.projects' | translate"
+                (selectedElement)="addProject($event)"></app-dropdown>
+              <mat-chip-set>
+                @for (project of projectsControl.value; track project.id) {
+                  <app-project [project]="project" (selectedProject)="deleteProject($event)"></app-project>
+                }
+              </mat-chip-set>
+            </div>
+            <mat-form-field class="employee__input">
+              <mat-label>{{ 'employee.manager' | translate }}</mat-label>
+              <mat-select [formControl]="managerControl" #manager (selectionChange)="onSelectedManager(manager.value)" [compareWith]="compareObjects">
+                <mat-option>{{ 'dropdown.none' | translate }}</mat-option>
+                @for (manager of allManagers; track manager.id) {
+                  <mat-option [value]="manager">{{ manager.name + ' ' + manager.surname }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-card-actions class="employee__button">
+              <button mat-flat-button type="submit" class="employee__button-submit" (click)="onSubmit()" [disabled]="employeeForm.invalid">
+                {{ 'button.save' | translate }}
+              </button>
+            </mat-card-actions>
+          </mat-card-content>
+        }
       }
-    }
-  </mat-card>
+    </mat-card>
+  </div>
 </section>

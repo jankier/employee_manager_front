@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeComponent } from '../employee/employee.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 import { EmployeesService } from '../../services/employees.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../services/message.service';
@@ -17,6 +17,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { finalize } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar.service';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../../models/user.model';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Roles } from '../../../enums/roles.enum';
 
 @Component({
   selector: 'app-home-page',
@@ -31,6 +35,8 @@ import { SnackbarService } from '../../services/snackbar.service';
     MatIconModule,
     RouterLink,
     MatProgressSpinner,
+    NgClass,
+    MatTooltip,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -42,12 +48,20 @@ export class ListComponent implements OnInit {
   protected readonly Paths = Paths;
   readonly dialog: MatDialog = inject(MatDialog);
   private destroyRef: DestroyRef = inject(DestroyRef);
+  user: User | null = null;
+  isUserPresent: boolean = false;
 
   constructor(
     private employeesService: EmployeesService,
     private messageService: MessageService,
-    private snackBarService: SnackbarService
-  ) {}
+    private snackBarService: SnackbarService,
+    private authService: AuthService
+  ) {
+    this.authService.user.subscribe((user) => {
+      this.user = user;
+      this.isUserPresent = user?.role === Roles.USER;
+    });
+  }
 
   ngOnInit(): void {
     this.getEmployees();

@@ -84,5 +84,11 @@ $margin-list-custom: 0 0 1rem 0;
     border-radius: $border-radius-small;
     width: $width-default;
     padding: $padding-x-small;
+
+    &[disabled] {
+      background-color: $background-color;
+      color: $secondary-color;
+      box-shadow: $box-shadow-button-disabled;
+    }
   }
 }

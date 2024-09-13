@@ -200,7 +200,7 @@ export class EmployeeComponent implements OnInit {
         },
       });
     } else {
-      this.employeesService.updateEmployee(this.employeeForm.getRawValue() as Employee).subscribe({
+      this.employeesService.updateEmployee(this.id, this.employeeForm.getRawValue() as Employee).subscribe({
         error: (): void => {
           this.snackBarService.openSnackBar('employee-update', 'snackbar');
         },

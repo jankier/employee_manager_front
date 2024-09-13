@@ -6,6 +6,9 @@ import { Paths } from '../../../../../enums/paths.enum';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { AuthService } from '../../../../services/auth.service';
+import { MessageService } from '../../../../services/message.service';
+import { User } from '../../../../../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -16,5 +19,22 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 })
 export class HeaderComponent {
   protected readonly Paths = Paths;
-  constructor(public translate: TranslateService) {}
+  user: User | null = null;
+  isUserPresent: boolean = false;
+
+  constructor(
+    public translate: TranslateService,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {
+    this.authService.user.subscribe((user) => {
+      this.user = user;
+      this.isUserPresent = user !== null;
+    });
+  }
+
+  logoutUser() {
+    this.messageService.add(`logout ${this.user?.username}`);
+    this.authService.logout();
+  }
 }

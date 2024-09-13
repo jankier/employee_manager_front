@@ -1,0 +1,33 @@
+<section class="login">
+  <form [formGroup]="loginForm">
+    <mat-card class="login__content" appearance="outlined">
+      <mat-card-header class="login__header">
+        <mat-card-title class="login__header-title">
+          {{ 'login.title' | translate }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="login__details">
+        <mat-form-field class="login__input">
+          <mat-label>{{ 'login.username' | translate }}</mat-label>
+          <input matInput [formControl]="usernameControl" placeholder="{{ 'input.placeholder.username' | translate }}" />
+        </mat-form-field>
+        <mat-form-field class="login__input">
+          <mat-label>{{ 'login.password' | translate }}</mat-label>
+          <input
+            matInput
+            [formControl]="passwordControl"
+            type="password"
+            autocomplete="on"
+            placeholder="{{ 'input.placeholder.password' | translate }}"
+            [type]="hide ? 'password' : 'text'" />
+          <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </mat-form-field>
+        <mat-card-actions class="login__button">
+          <button mat-flat-button type="submit" class="login__button-submit" (click)="onLogin()">
+            {{ 'button.login' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</section>

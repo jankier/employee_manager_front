@@ -11,11 +11,14 @@ import { Paths } from '../../../enums/paths.enum';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar.service';
+import { AuthService } from '../../services/auth.service';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Roles } from '../../../enums/roles.enum';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatButtonModule, TranslateModule, UpperCasePipe, RouterLink, MatProgressSpinner],
+  imports: [MatButtonModule, TranslateModule, UpperCasePipe, RouterLink, MatProgressSpinner, MatTooltip],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -23,14 +26,20 @@ export class DashboardComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployee?: Employee;
   isLoadingEmployees: boolean = true;
+  isUserPresent: boolean = false;
   protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private employeesService: EmployeesService,
     private messageService: MessageService,
-    private snackBarService: SnackbarService
-  ) {}
+    private snackBarService: SnackbarService,
+    private authService: AuthService
+  ) {
+    this.authService.user.subscribe((user) => {
+      this.isUserPresent = user?.role === Roles.USER;
+    });
+  }
 
   ngOnInit(): void {
     this.getEmployees();

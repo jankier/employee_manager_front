@@ -1,7 +1,11 @@
 {
   "navbar": {
     "dashboard": "Dashboard",
-    "employees": "Employees"
+    "employees": "Employees",
+    "login": "Sign in",
+    "logout": "Sing out",
+    "password": "Change password",
+    "user": "User"
   },
   "list": {
     "employees": "Employees"
@@ -14,6 +18,16 @@
     "projects": "project",
     "manager": "Manager",
     "missing": "There is no employee with id={{id}}."
+  },
+  "login": {
+    "title": "Sign in",
+    "username": "Username",
+    "password": "Password"
+  },
+  "change-password": {
+    "title": "Change password",
+    "current-password": "Current password",
+    "new-password": "New password"
   },
   "project": {
     "pzu": "PZU Group is one of the largest financial institutions in Poland and in Central and Eastern Europe. The Group is led by Powszechny Zakład Ubezpieczeń S.A. (PZU) – a company quoted on the Warsaw Stock Exchange.",
@@ -34,7 +48,10 @@
       "select-project": "ProjectComponent: Selected project of id=",
       "add": "ListComponent: Added employee",
       "delete": "ListComponent: Deleted employee of id=",
-      "update": "EmployeeComponent: Updated data of the employee of id="
+      "update": "EmployeeComponent: Updated data of the employee of id=",
+      "login": "LoginComponent: Login of user: ",
+      "logout": "LoginComponent: Logout of user: ",
+      "changed-password": "ChangePasswordComponent: Password changed for user: "
     }
   },
   "not-found": {
@@ -56,14 +73,14 @@
     "employee-missing": "Employee not found.",
     "employee-update": "Failed to update employee.",
     "employee-add": "Failed to add new employee.",
-    "error-occurred": "Sorry, an error occurred."
+    "error-occurred": "Sorry, an error occurred.",
+    "unauthenticated": "Unauthenticated: Cannot gain access to this route.",
+    "invalid-login": "Invalid username or password.",
+    "incorrect-password": "Current or new password is incorrect."
   },
-  "input": {
-    "placeholder": {
-      "search": "Search",
-      "name": "Name",
-      "surname": "Surname"
-    }
+  "tooltip": {
+    "access-employee": "You don't have permission to access employee details.",
+    "delete-employee": "You don't have permission to delete employee."
   },
   "button": {
     "save": "Save",
@@ -72,7 +89,23 @@
     "back": "Back",
     "delete": "Delete",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "login": "Sign in",
+    "proceed": "Proceed"
+  },
+  "input": {
+    "hint": {
+      "password": "New password should contain at least 1 digit, uppercase and lowercase character."
+    },
+    "placeholder": {
+      "search": "Search",
+      "name": "Name",
+      "surname": "Surname",
+      "username": "Username",
+      "password": "Password",
+      "current-password": "Current password",
+      "new-password": "New password"
+    }
   },
   "error": {
     "name": {
@@ -88,6 +121,18 @@
     "employmentDate": {
       "required": "Date is required!",
       "pattern": "Incorrect date format!"
+    },
+    "currentPassword": {
+      "required": "Current password is required!"
+    },
+    "newPassword": {
+      "required": "New password is required!",
+      "minLength": "Password too short!",
+      "maxLength": "Password too long!",
+      "noUpperCase": "New password should contain at least 1 uppercase character!",
+      "noLowerCase": "New password should contain at least 1 lowercase character!",
+      "noDigit": "New password should contain at least 1 digit!",
+      "hasWhiteSpace": "New password should not contain whitespace!"
     }
   }
 }
