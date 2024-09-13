@@ -12,36 +12,38 @@
         <mat-form-field class="list__search">
           <input matInput type="text" placeholder="{{ 'input.placeholder.search' | translate }}" #filter (input)="filterEmployees(filter.value)" />
         </mat-form-field>
-        <div [matTooltip]="(userIsPresent ? 'tooltip.add-employee' : '') | translate" matTooltipPosition="above" [matTooltipShowDelay]="1000">
-          <button mat-raised-button class="list__add" type="button" routerLink="/{{ Paths.CREATE }}" [disabled]="userIsPresent">
+        @if (!isUserPresent) {
+          <button mat-raised-button class="list__add" type="button" routerLink="/{{ Paths.CREATE }}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="list__add-icon">
               <path
                 d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
             </svg>
           </button>
-        </div>
+        }
       </div>
       <ul class="list__list">
         @for (employee of filteredEmployees; track employee) {
           <li class="list__list-element">
-            <div [matTooltip]="(userIsPresent ? 'tooltip.access-employee' : '') | translate" matTooltipPosition="left" [matTooltipShowDelay]="1000">
+            <div [matTooltip]="(isUserPresent ? 'tooltip.access-employee' : '') | translate" matTooltipPosition="right" [matTooltipShowDelay]="1000">
               <button
                 mat-raised-button
                 class="list__list-button"
                 type="button"
                 routerLink="/{{ Paths.EMPLOYEE }}/{{ employee.id }}"
-                [disabled]="userIsPresent">
+                [disabled]="isUserPresent">
                 <span>{{ employee.name }} {{ employee.surname }}</span>
               </button>
             </div>
-            <div
-              [matTooltip]="(userIsPresent || user?.id === employee.id ? 'tooltip.delete-employee' : '') | translate"
-              matTooltipPosition="right"
-              [matTooltipShowDelay]="1000">
-              <button mat-icon-button type="button" (click)="openDialog(employee)" [disabled]="userIsPresent || user?.id === employee.id">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+            @if (!isUserPresent) {
+              <div
+                [matTooltip]="(user?.id === employee.id ? 'tooltip.delete-employee' : '') | translate"
+                matTooltipPosition="right"
+                [matTooltipShowDelay]="1000">
+                <button mat-icon-button type="button" (click)="openDialog(employee)" [disabled]="user?.id === employee.id">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            }
           </li>
         }
       </ul>

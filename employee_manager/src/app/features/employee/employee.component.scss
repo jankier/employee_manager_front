@@ -28,6 +28,13 @@ $width-content-small-device-custom: 20rem;
     }
   }
 
+  &__wrapper {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__content {
     border-radius: $border-radius-default;
     padding: $padding-large;

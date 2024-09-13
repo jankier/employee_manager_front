@@ -13,6 +13,7 @@ import { finalize } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar.service';
 import { AuthService } from '../../services/auth.service';
 import { MatTooltip } from '@angular/material/tooltip';
+import { Roles } from '../../../enums/roles.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   employees: Employee[] = [];
   selectedEmployee?: Employee;
   isLoadingEmployees: boolean = true;
-  userIsPresent: boolean = false;
+  isUserPresent: boolean = false;
   protected readonly Paths = Paths;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService
   ) {
     this.authService.user.subscribe((user) => {
-      this.userIsPresent = user?.role === 'USER';
+      this.isUserPresent = user?.role === Roles.USER;
     });
   }
 

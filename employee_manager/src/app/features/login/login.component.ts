@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SnackbarService } from '../../services/snackbar.service';
 import { Paths } from '../../../enums/paths.enum';
 import { MessageService } from '../../services/message.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { MessageService } from '../../services/message.service';
 export class LoginComponent {
   loginForm: FormGroup;
   hide: boolean = true;
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +51,7 @@ export class LoginComponent {
   onLogin() {
     this.loginUserService
       .login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
-      .pipe(first())
+      .pipe(first(), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || `/${Paths.DASHBOARD}`;

@@ -20,7 +20,7 @@ import { User } from '../../../../../models/user.model';
 export class HeaderComponent {
   protected readonly Paths = Paths;
   user: User | null = null;
-  userIsPresent: boolean = false;
+  isUserPresent: boolean = false;
 
   constructor(
     public translate: TranslateService,
@@ -29,7 +29,7 @@ export class HeaderComponent {
   ) {
     this.authService.user.subscribe((user) => {
       this.user = user;
-      this.userIsPresent = user !== null;
+      this.isUserPresent = user !== null;
     });
   }
 

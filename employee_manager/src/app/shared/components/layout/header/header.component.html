@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="header__menu">
-    @if (userIsPresent) {
+    @if (isUserPresent) {
       <div class="header__menu-hamburger">
         <button mat-icon-button class="header__menu-icon" type="button" [matMenuTriggerFor]="menu">
           <mat-icon>menu</mat-icon>
@@ -43,7 +43,7 @@
         </mat-menu>
       </div>
     }
-    @if (userIsPresent) {
+    @if (isUserPresent) {
       <div class="header__menu-links">
         <a class="header__menu-option" routerLink="/{{ Paths.DASHBOARD }}" routerLinkActive="active">{{ 'navbar.dashboard' | translate }}</a>
         <a class="header__menu-option" routerLink="/{{ Paths.EMPLOYEES }}" routerLinkActive="active">{{ 'navbar.employees' | translate }}</a>

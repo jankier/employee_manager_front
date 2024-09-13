@@ -80,8 +80,7 @@
   },
   "tooltip": {
     "access-employee": "You don't have permission to access employee details.",
-    "delete-employee": "You don't have permission to delete employee.",
-    "add-employee": "You don't have permission to add new employee."
+    "delete-employee": "You don't have permission to delete employee."
   },
   "button": {
     "save": "Save",

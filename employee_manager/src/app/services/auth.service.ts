@@ -12,7 +12,7 @@ import { MessageService } from './message.service';
 })
 export class AuthService {
   private userSubject: BehaviorSubject<User | null>;
-  public user: Observable<User | null>;
+  user: Observable<User | null>;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,15 +23,15 @@ export class AuthService {
     private router: Router,
     private messageService: MessageService
   ) {
-    this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+    this.userSubject = new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
   }
 
-  public get userValue() {
+  get userValue() {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<User | null> {
     return this.http.post<User>(environment.loginUrl, { username, password }, this.httpOptions).pipe(
       map((user) => {
         user.authData = btoa(username + ':' + password);

@@ -55,12 +55,6 @@ $margin-list-custom: 0 0 1rem 0;
     width: $width-small;
     height: $height-add-button-custom;
     padding: $padding-x-small;
-
-    &[disabled] {
-      background-color: $background-color;
-      color: $secondary-color;
-      box-shadow: $box-shadow-button-disabled;
-    }
   }
 
   &__add-icon {

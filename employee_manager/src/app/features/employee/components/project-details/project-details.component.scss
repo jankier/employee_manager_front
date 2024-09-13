@@ -33,6 +33,13 @@ $height-no-data-custom: 19rem;
     padding: $padding-x-small;
   }
 
+  &-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
   &-card {
     width: $width-x-large;
     padding: $padding-large;

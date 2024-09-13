@@ -80,8 +80,7 @@
   },
   "tooltip": {
     "access-employee": "Nie posiadasz uprawnień do wglądu w dane pracownika.",
-    "delete-employee": "Nie posiadasz uprawnień do usunięcia pracownika.",
-    "add-employee": "Nie posiadasz uprawnień do dodania nowego pracownika."
+    "delete-employee": "Nie posiadasz uprawnień do usunięcia pracownika."
   },
   "button": {
     "save": "Zapisz",

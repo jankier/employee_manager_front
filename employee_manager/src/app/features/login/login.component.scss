@@ -9,9 +9,7 @@ $width-content-small-device-custom: 20rem;
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  justify-content: start;
-  margin-top: $margin-large;
-  margin-bottom: $margin-large;
+  justify-content: center;
 
   &__content {
     border-radius: $border-radius-default;

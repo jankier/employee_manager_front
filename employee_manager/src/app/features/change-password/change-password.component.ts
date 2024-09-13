@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { MessageService } from '../../services/message.service';
 import { User } from '../../../models/user.model';
 import { validatePassword } from '../../shared/validators/password.validator';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-change-password',
@@ -25,6 +26,7 @@ export class ChangePasswordComponent {
   hideCurrent: boolean = true;
   hideNew: boolean = true;
   user: User | null = null;
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +56,7 @@ export class ChangePasswordComponent {
   onPasswordChange() {
     this.employeesService
       .updatePassword(this.user?.id, this.passwordForm.controls['currentPassword'].value, this.passwordForm.controls['newPassword'].value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.messageService.add(`logout ${this.user?.username}`);
